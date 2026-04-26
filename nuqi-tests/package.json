@@ -1,0 +1,40 @@
+{
+  "name": "nuqi-wealth-e2e",
+  "version": "1.0.0",
+  "description": "Playwright TypeScript E2E test suite — Nuqi Wealth Global UAT",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:e2e": "playwright test --grep @e2e",
+    "test:mobile": "playwright test --grep @mobile --project=android-chrome --project=ios-safari",
+    "test:auth": "playwright test --grep @auth",
+    "test:kyc": "playwright test --grep @kyc",
+    "test:buy": "playwright test --grep @buy",
+    "test:sell": "playwright test --grep @sell",
+    "test:power": "playwright test --grep @power",
+    "test:chromium": "playwright test --project=chromium-desktop",
+    "test:firefox": "playwright test --project=firefox-desktop",
+    "test:webkit": "playwright test --project=webkit-desktop",
+    "test:ci": "playwright test --grep @smoke",
+    "test:nightly": "playwright test --grep @regression",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:setup": "playwright test tests/setup",
+    "report": "playwright show-report",
+    "generate:data": "tsx scripts/generate-data.ts",
+    "generate:data:seed": "tsx scripts/generate-data.ts --seed=42"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.19.39",
+    "tsx": "^4.19.3",
+    "typescript": "^5.4.0",
+    "xlsx": "^0.18.5"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

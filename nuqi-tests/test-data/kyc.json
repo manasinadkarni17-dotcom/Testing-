@@ -1,0 +1,46 @@
+{
+  "datasets": [
+    {
+      "id": "default",
+      "firstName": "John",
+      "lastName": "Testington",
+      "dob": "1990-01-15",
+      "nationality": "United Arab Emirates",
+      "idType": "passport",
+      "idNumber": "A12345678",
+      "phone": "+971501234567",
+      "address": "123 Test Street, DIFC",
+      "city": "Dubai",
+      "country": "United Arab Emirates",
+      "postalCode": "00000"
+    },
+    {
+      "id": "alternate",
+      "firstName": "Sara",
+      "lastName": "Khalid",
+      "dob": "1985-06-20",
+      "nationality": "Saudi Arabia",
+      "idType": "national_id",
+      "idNumber": "1098765432",
+      "phone": "+966501234567",
+      "address": "456 King Fahd Road",
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "postalCode": "11111"
+    },
+    {
+      "id": "resume",
+      "firstName": "Ahmed",
+      "lastName": "Al-Farsi",
+      "dob": "1992-03-10",
+      "nationality": "United Arab Emirates",
+      "idType": "driving_licence",
+      "idNumber": "DL987654321",
+      "phone": "+971509876543",
+      "address": "789 Jumeirah Beach Road",
+      "city": "Dubai",
+      "country": "United Arab Emirates",
+      "postalCode": "00001"
+    }
+  ]
+}

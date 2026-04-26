@@ -1,0 +1,53 @@
+{
+  "buyOrders": [
+    {
+      "id": "standard",
+      "instrument": "S&P 500 ETF",
+      "amount": 500,
+      "currency": "USD",
+      "paymentMethod": "card"
+    },
+    {
+      "id": "minimum",
+      "instrument": "S&P 500 ETF",
+      "amount": 100,
+      "currency": "USD"
+    },
+    {
+      "id": "alternatePayment",
+      "instrument": "S&P 500 ETF",
+      "amount": 500,
+      "currency": "USD",
+      "paymentMethod": "bank_transfer"
+    },
+    {
+      "id": "largeBuy",
+      "instrument": "Global Diversified ETF",
+      "amount": 5000,
+      "currency": "USD",
+      "paymentMethod": "card"
+    }
+  ],
+  "sellOrders": [
+    {
+      "id": "partial",
+      "instrument": "S&P 500 ETF",
+      "percentage": 50
+    },
+    {
+      "id": "fullExit",
+      "instrument": "S&P 500 ETF",
+      "percentage": 100
+    },
+    {
+      "id": "smallPartial",
+      "instrument": "S&P 500 ETF",
+      "percentage": 25
+    },
+    {
+      "id": "byUnits",
+      "instrument": "S&P 500 ETF",
+      "units": 10
+    }
+  ]
+}

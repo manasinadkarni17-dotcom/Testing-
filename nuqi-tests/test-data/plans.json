@@ -1,0 +1,32 @@
+{
+  "plans": [
+    {
+      "id": "standard",
+      "name": "Wealth Builder Plan",
+      "targetAmount": 10000,
+      "horizon": "5 years",
+      "currency": "USD"
+    },
+    {
+      "id": "conservative",
+      "name": "Steady Growth Plan",
+      "targetAmount": 5000,
+      "horizon": "3 years",
+      "currency": "USD"
+    },
+    {
+      "id": "aggressive",
+      "name": "High Growth Plan",
+      "targetAmount": 50000,
+      "horizon": "10 years",
+      "currency": "USD"
+    },
+    {
+      "id": "shortTerm",
+      "name": "Quick Savings Plan",
+      "targetAmount": 2000,
+      "horizon": "1 year",
+      "currency": "USD"
+    }
+  ]
+}

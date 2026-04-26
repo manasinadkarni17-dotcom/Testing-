@@ -1,0 +1,41 @@
+{
+  "pool": {
+    "newUser": {
+      "email": "test.new@nuqiuat.com",
+      "password": "Test@1234"
+    },
+    "otpUser": {
+      "email": "test.otp@nuqiuat.com",
+      "password": "Test@1234",
+      "otp": "270782"
+    },
+    "returningUser": {
+      "email": "tester2@yopmail.com",
+      "password": "Tester2@435"
+    },
+    "powerUser": {
+      "email": "test.power@nuqiuat.com",
+      "password": "Test@1234"
+    },
+    "incompleteKycUser": {
+      "email": "test.incomplete@nuqiuat.com",
+      "password": "Test@1234"
+    },
+    "autoKycUser": {
+      "email": "test.autokcy@nuqiuat.com",
+      "password": "Test@1234"
+    },
+    "singleHoldingUser": {
+      "email": "test.single@nuqiuat.com",
+      "password": "Test@1234"
+    },
+    "googleUser": {
+      "email": "test.google@gmail.com",
+      "password": "Test@1234"
+    },
+    "appleUser": {
+      "email": "test.apple@icloud.com",
+      "password": "Test@1234"
+    }
+  }
+}

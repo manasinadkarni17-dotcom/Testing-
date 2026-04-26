@@ -1,0 +1,62 @@
+<testsuites id="" name="" tests="25" failures="0" skipped="0" errors="0" time="95.62375099999998">
+<testsuite name="auth\email-password.spec.ts" timestamp="2026-04-26T17:23:08.598Z" hostname="chromium-desktop" tests="5" failures="0" skipped="0" time="21.654" errors="0">
+<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="2.374">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="4.323">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="2.1">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="7.751">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="5.106">
+</testcase>
+</testsuite>
+<testsuite name="auth\email-password.spec.ts" timestamp="2026-04-26T17:23:08.598Z" hostname="firefox-desktop" tests="5" failures="0" skipped="0" time="35.252" errors="0">
+<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="5.751">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="7.295">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="5.372">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="9.179">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="7.655">
+</testcase>
+</testsuite>
+<testsuite name="auth\email-password.spec.ts" timestamp="2026-04-26T17:23:08.598Z" hostname="webkit-desktop" tests="5" failures="0" skipped="0" time="38.951" errors="0">
+<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="3.822">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="5.801">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="4.117">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="17.538">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="7.673">
+</testcase>
+</testsuite>
+<testsuite name="auth\email-password.spec.ts" timestamp="2026-04-26T17:23:08.598Z" hostname="android-chrome" tests="5" failures="0" skipped="0" time="24.119" errors="0">
+<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="2.401">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="4.269">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="2.807">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="8.684">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="5.958">
+</testcase>
+</testsuite>
+<testsuite name="auth\email-password.spec.ts" timestamp="2026-04-26T17:23:08.598Z" hostname="ios-safari" tests="5" failures="0" skipped="0" time="37.301" errors="0">
+<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="2.935">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="6.763">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="3.063">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="16.699">
+</testcase>
+<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="7.841">
+</testcase>
+</testsuite>
+</testsuites>
