@@ -8,21 +8,33 @@ import { UserCredentials } from '../types';
 
 export class LoginPage extends BasePage {
   // ── Locators ───────────────────────────────────────────────
-  readonly emailInput     = () => this.page.getByRole('textbox', { name: 'Email or Phone Number' });
-  readonly passwordInput  = () => this.page.locator('[data-testid="password-input"], input[name="password"], input[type="password"]').first();
-  readonly loginButton    = () => this.page.getByRole('button', { name: 'Sign In with Password' });
-  readonly otpInput       = () => this.page.locator('[data-testid="otp-input"], input[name="otp"], input[placeholder*="OTP"], input[placeholder*="code"]').first();
-  readonly otpSubmitBtn   = () => this.page.locator('[data-testid="otp-submit"], button:has-text("Verify"), button:has-text("Submit")').first();
-  readonly googleLoginBtn = () => this.page.locator('[data-testid="google-login"], button:has-text("Google"), [aria-label*="Google"]').first();
-  readonly appleLoginBtn  = () => this.page.locator('[data-testid="apple-login"], button:has-text("Apple"), [aria-label*="Apple"]').first();
-  readonly forgotPwdLink  = () => this.page.locator('[data-testid="forgot-password"], a:has-text("Forgot")').first();
-  readonly errorMessage   = () => this.page.locator('[data-testid="login-error"], .login-error, [role="alert"]').first();
-  readonly signUpLink     = () => this.page.getByRole('button', { name: 'Sign Up' });
 
-  // ── ADD THESE — so tests never need loginPage.page directly ─
-  readonly sendOtpBtn     = () => this.page.locator('[data-testid="send-otp"], button:has-text("Send OTP"), button:has-text("Get OTP")').first();
-  readonly resendOtpLink  = () => this.page.locator('[data-testid="resend-otp"], a:has-text("Resend"), button:has-text("Resend")').first();
-  // ────────────────────────────────────────────────────────────
+  // Email + Password login (returning user)
+  readonly emailInput        = () => this.page.getByRole('textbox', { name: 'Email or Phone Number' });
+  readonly passwordInput     = () => this.page.locator('[data-testid="password-input"], input[name="password"], input[type="password"]').first();
+  readonly loginButton       = () => this.page.getByRole('button', { name: 'Sign In with Password' });
+
+  // Email OTP login — matches the actual UAT flow recorded in Playwright:
+  //   1. click emailModeBtn ("Email" exact)
+  //   2. fill otpEmailInput ("Email Address")
+  //   3. click continueWithEmailBtn ("Continue with Email")
+  //   4. fill otpInput → submit
+  readonly emailModeBtn          = () => this.page.getByRole('button', { name: 'Email', exact: true });
+  readonly otpEmailInput         = () => this.page.getByRole('textbox', { name: 'Email Address' });
+  readonly continueWithEmailBtn  = () => this.page.getByRole('button', { name: 'Continue with Email' });
+  readonly otpInput              = () => this.page.locator('[data-testid="otp-input"], input[name="otp"], input[placeholder*="OTP"], input[placeholder*="code"]').first();
+  readonly otpSubmitBtn          = () => this.page.locator('[data-testid="otp-submit"], button:has-text("Verify"), button:has-text("Submit"), button:has(svg.lucide-circle-check)').first();
+  readonly resendOtpLink         = () => this.page.locator('[data-testid="resend-otp"], a:has-text("Resend"), button:has-text("Resend")').first();
+
+  // Social login
+  readonly googleLoginBtn    = () => this.page.locator('[data-testid="google-login"], button:has-text("Google"), [aria-label*="Google"]').first();
+  readonly appleLoginBtn     = () => this.page.locator('[data-testid="apple-login"], button:has-text("Apple"), [aria-label*="Apple"]').first();
+
+  // Other
+  readonly forgotPwdLink     = () => this.page.locator('[data-testid="forgot-password"], a:has-text("Forgot")').first();
+  readonly errorMessage      = () => this.page.locator('[data-testid="login-error"], .login-error, [role="alert"]').first();
+  readonly signUpLink        = () => this.page.getByRole('button', { name: 'Sign Up' });
+  readonly sendOtpBtn        = () => this.page.locator('[data-testid="send-otp"], button:has-text("Send OTP"), button:has-text("Get OTP")').first();
 
   constructor(page: Page) {
     super(page);
@@ -60,10 +72,45 @@ async switchToPasswordLogin(): Promise<void> {
     await this.waitForNavigation();
   }
 
-  // ── Helper: request OTP (handles both button variants) ─────
+  // ── OTP login flow (Email mode → Email Address input → Continue with Email) ─
+
+  async loginWithOtp(email: string, otp: string): Promise<void> {
+    // Step 1 — Select "Email" mode if the method-selector is present
+    const modeBtn = this.emailModeBtn();
+    if (await modeBtn.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await modeBtn.click();
+    }
+
+    // Step 2 — Fill email address
+    const emailEl = this.otpEmailInput();
+    if (await emailEl.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await emailEl.fill(email);
+    } else {
+      await this.emailInput().fill(email);
+    }
+
+    // Step 3 — Trigger OTP via "Continue with Email" (or legacy Send OTP)
+    const continueBtn = this.continueWithEmailBtn();
+    if (await continueBtn.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await continueBtn.click();
+    } else {
+      await this.requestOtp();
+    }
+
+    // Step 4 — Enter OTP
+    await expect(this.otpInput()).toBeVisible({ timeout: 10_000 });
+    await this.otpInput().fill(otp);
+
+    // Step 5 — Click the circle-check confirm button (falls back to text-based submit)
+    await expect(this.otpSubmitBtn()).toBeVisible({ timeout: 5_000 });
+    await this.otpSubmitBtn().click();
+    await this.waitForNavigation();
+  }
+
+  // ── Legacy helper kept for backward compatibility ─────────
   async requestOtp(): Promise<void> {
     const sendVisible = await this.sendOtpBtn()
-      .isVisible({ timeout: 2000 })
+      .isVisible({ timeout: 2_000 })
       .catch(() => false);
     if (sendVisible) {
       await this.sendOtpBtn().click();
@@ -71,14 +118,6 @@ async switchToPasswordLogin(): Promise<void> {
       await this.loginButton().click();
     }
     await expect(this.otpInput()).toBeVisible({ timeout: 10_000 });
-  }
-
-  async loginWithOtp(email: string, otp: string): Promise<void> {
-    await this.emailInput().fill(email);
-    await this.requestOtp();
-    await this.otpInput().fill(otp);
-    await this.otpSubmitBtn().click();
-    await this.waitForNavigation();
   }
 
   async loginWithGoogle(): Promise<void> {

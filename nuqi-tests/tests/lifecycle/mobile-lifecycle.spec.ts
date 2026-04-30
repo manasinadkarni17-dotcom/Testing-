@@ -89,11 +89,18 @@ test.describe('S10 · Mobile — Android Chrome Full Lifecycle', () => {
       portfolioPage,
       sellPage,
       reconciliationPage,
+      termsPage,
     }) => {
 
       await test.step('Login (Email+Password)', async () => {
         await loginPage.navigate();
         await loginPage.loginWithEmailPassword(TestUsers.newUser());
+      });
+
+      await test.step('Accept Terms & Conditions if shown', async () => {
+        // New users see the T&C page after first login — click all 5 rows,
+        // scroll + accept each, then finalize. Safe no-op if already accepted.
+        await termsPage.handleIfPresent(8_000);
         await dashboardPage.assertDashboardLoaded();
         await dashboardPage.assertMobileNavVisible();
       });

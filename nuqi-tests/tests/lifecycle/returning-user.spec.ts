@@ -7,7 +7,7 @@
 // ─────────────────────────────────────────────────────────────
 
 import { test, expect } from '../../fixtures/page-fixtures';
-import { TestUsers, TestBuyOrder } from '../../utils/test-data';
+import { TestUsers, TestBuyOrder, sharedOtp } from '../../utils/test-data';
 import { RETURNING_USER_STATE } from '../../fixtures/auth.setup';
 
 // ── S04 ──────────────────────────────────────────────────────
@@ -28,14 +28,20 @@ test.describe('S04 · Returning User — Skip KYC + Skip Risk + Full Exit', () =
       portfolioPage,
       sellPage,
       reconciliationPage,
+      termsPage,
     }) => {
 
       // ── STAGE 1: Login (OTP) ───────────────────────────────
       await test.step('Stage 1: Login via Email + OTP', async () => {
         const creds = TestUsers.otpUser();
-        const otp   = process.env.TEST_OTP ?? '123456';
+        const otp   = sharedOtp();
         await loginPage.navigate();
         await loginPage.loginWithOtp(creds.email, otp);
+      });
+
+      // ── STAGE 1b: Accept T&C if shown (e.g. after a T&C update) ──
+      await test.step('Stage 1b: Accept Terms & Conditions if present', async () => {
+        await termsPage.handleIfPresent(5_000);
         await dashboardPage.assertDashboardLoaded();
       });
 

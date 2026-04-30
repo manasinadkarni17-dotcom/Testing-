@@ -48,6 +48,36 @@ export abstract class BasePage {
     ).toBeVisible();
   }
 
+  // ── Low-level helpers used by page objects ─────────────────
+
+  /**
+   * Click a locator, optionally logging a human-readable label.
+   * Waits for loading to complete after the click.
+   */
+  async click(locator: Locator, _label?: string): Promise<void> {
+    await locator.click();
+    await waitForLoadingComplete(this.page);
+  }
+
+  /**
+   * Returns true if the locator is visible within the given timeout (ms).
+   * Never throws — safe to use in conditional guards.
+   */
+  async isVisible(locator: Locator, timeout = 3_000): Promise<boolean> {
+    return locator.isVisible({ timeout }).catch(() => false);
+  }
+
+  /**
+   * Returns the trimmed inner text of a locator, or null if not found.
+   */
+  async getTextContent(locator: Locator): Promise<string | null> {
+    try {
+      return (await locator.innerText()).trim();
+    } catch {
+      return null;
+    }
+  }
+
   // ── Common UI interactions ──────────────────────────────────
 
   async clickButton(label: string): Promise<void> {

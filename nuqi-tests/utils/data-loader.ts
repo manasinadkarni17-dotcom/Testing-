@@ -13,9 +13,14 @@ const DATA_DIR = path.join(__dirname, '..', 'test-data');
 // ── File-shape types ─────────────────────────────────────────
 
 export type UserPoolKey =
-  | 'newUser' | 'otpUser' | 'returningUser' | 'powerUser'
-  | 'incompleteKycUser' | 'autoKycUser' | 'singleHoldingUser'
-  | 'googleUser' | 'appleUser';
+  | 'signupUser'        // Flow 1: new user  — Email → OTP → Registration
+  | 'existingUser'      // Flow 2: existing  — Email → OTP → Dashboard
+  | 'returningUser'     // Flow 3: returning — Email + Password → Dashboard
+  | 'googleUser'        // Flow 4: OAuth     — Google → Dashboard/Registration
+  | 'appleUser'         // Flow 4: OAuth     — Apple  → Dashboard/Registration
+  | 'newUser'           // lifecycle tests (email+password, pre-KYC state)
+  | 'powerUser'         // power-user lifecycle tests
+  | 'incompleteKycUser' | 'autoKycUser' | 'singleHoldingUser';
 
 export interface UsersFile {
   pool: Record<UserPoolKey, UserCredentials>;
@@ -106,18 +111,14 @@ export class DataLoader {
     });
   }
 
-  /**
-   * Parse the first sheet of an Excel workbook from the test-data directory.
-   * Requires `xlsx` package: npm install --save-dev xlsx
-   */
+ 
   static async loadExcel(filename: string): Promise<Record<string, unknown>[]> {
     let xlsx: typeof import('xlsx');
     try {
       xlsx = await import('xlsx');
     } catch {
       throw new Error(
-        `xlsx package is required for Excel support.\n` +
-        `Install it with: npm install --save-dev xlsx`
+        `xlsx package is required for Excel support.\n` 
       );
     }
     const filePath = path.join(DATA_DIR, filename);

@@ -27,6 +27,20 @@ export class DataGenerator {
     };
   }
 
+  static registrationData() {
+    const dob = faker.date
+      .birthdate({ min: 18, max: 60, mode: 'age' })
+      .toISOString()
+      .split('T')[0];
+
+    return {
+      firstName:        faker.person.firstName(),
+      lastName:         faker.person.lastName(),
+      dateOfBirth:      dob,
+      phoneCountryCode: '+91',
+      phoneNumber:      DataGenerator.randomIndianPhone(),
+    };
+  }
   /** Generate a complete KYC data record with UAE defaults. */
   static kycData(overrides: Partial<KycData> = {}): KycData {
     const dob = faker.date
@@ -84,5 +98,13 @@ export class DataGenerator {
   /** Generate a unique test email that won't collide with existing accounts. */
   static uniqueEmail(prefix = 'test'): string {
     return `${prefix}+${Date.now()}@nuqiuat.com`;
+  }
+
+  /** Generate a random Indian mobile number (10 digits, no country code). */
+  static randomIndianPhone(): string {
+    const prefixes = ['70', '80', '90', '91', '92', '98', '99'];
+    const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+    const rest = Math.floor(Math.random() * 90_000_000 + 10_000_000).toString();
+    return `${prefix}${rest}`;
   }
 }

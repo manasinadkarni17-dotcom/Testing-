@@ -34,10 +34,19 @@ export enum KycVariant {
   AlreadyVerified = 'already_verified',
 }
 
+export type RegistrationData = {
+  firstName:        string;
+  lastName:         string;
+  dateOfBirth:      string;       // YYYY-MM-DD
+  phoneCountryCode: string;       // e.g. "+91"
+  phoneNumber:      string;       // local digits only, no country code
+};
+
 export interface UserCredentials {
-  email:    string;
-  password: string;
-  otp?:     string;
+  email:             string;
+  password:          string;
+  otp?:              string;
+  registrationData?: RegistrationData;
 }
 
 export interface KycData {

@@ -25,30 +25,67 @@ function fileOrders() {
   try { return DataLoader.orders(); } catch { return { buyOrders: [], sellOrders: [] }; }
 }
 
+
 // ── TestUsers  (env → JSON → default) ────────────────────────
+// Each method maps to one of the four auth flows.
+// Change users.json to update credentials — do not hardcode values in tests.
 
 export const TestUsers = {
+  // ── Flow 1: New user — Email → OTP → Signup → Registration ──
+  // Use DataGenerator.uniqueEmail() for a fresh address each CI run.
+  signupUser: (): UserCredentials => ({
+    email:            process.env.TEST_SIGNUP_EMAIL ?? fileUsers()['signupUser']?.email ?? DataGenerator.uniqueEmail('signup'),
+    password:         '',
+    registrationData: fileUsers()['signupUser']?.registrationData,
+  }),
+
+  // ── Flow 2: Existing user — Email → OTP → Dashboard ─────────
+  existingUser: (): UserCredentials => ({
+    email:    process.env.TEST_EXISTING_EMAIL  ?? fileUsers()['existingUser']?.email    ?? 'test.otp@nuqiuat.com',
+    password: '',
+    otp:      process.env.TEST_OTP_STATIC      ?? fileUsers()['existingUser']?.otp      ?? '270782',
+  }),
+
+  // ── Flow 3: Returning user — Email + Password → Dashboard ───
+  returningUser: (): UserCredentials => ({
+    email:    process.env.TEST_RETURNING_EMAIL    ?? fileUsers()['returningUser']?.email    ?? 'tester2@yopmail.com',
+    password: process.env.TEST_RETURNING_PASSWORD ?? fileUsers()['returningUser']?.password ?? 'Tester2@435',
+  }),
+
+  // ── Flow 4: OAuth — Google/Apple → Dashboard (or Registration) ─
+  googleUser: (): UserCredentials => ({
+    email:    process.env.GOOGLE_TEST_EMAIL    ?? fileUsers()['googleUser']?.email    ?? '',
+    password: process.env.GOOGLE_TEST_PASSWORD ?? fileUsers()['googleUser']?.password ?? '',
+  }),
+
+  appleUser: (): UserCredentials => ({
+    email:    process.env.APPLE_TEST_EMAIL    ?? fileUsers()['appleUser']?.email    ?? '',
+    password: process.env.APPLE_TEST_PASSWORD ?? fileUsers()['appleUser']?.password ?? '',
+  }),
+
+  // ── Support users for lifecycle / KYC tests ─────────────────
   newUser: (): UserCredentials => ({
     email:    process.env.TEST_NEW_USER_EMAIL    ?? fileUsers()['newUser']?.email    ?? 'test.new@nuqiuat.com',
     password: process.env.TEST_NEW_USER_PASSWORD ?? fileUsers()['newUser']?.password ?? 'Test@1234',
-  }),
-
-  otpUser: (): UserCredentials => ({
-    email:    process.env.TEST_OTP_USER_EMAIL    ?? fileUsers()['otpUser']?.email    ?? 'test.otp@nuqiuat.com',
-    password: process.env.TEST_OTP_USER_PASSWORD ?? fileUsers()['otpUser']?.password ?? 'Test@1234',
-    otp:      process.env.TEST_OTP_STATIC        ?? fileUsers()['otpUser']?.otp      ?? '123456',
-  }),
-
-  returningUser: (): UserCredentials => ({
-    email:    process.env.TEST_RETURNING_EMAIL    ?? fileUsers()['returningUser']?.email    ?? 'test.returning@nuqiuat.com',
-    password: process.env.TEST_RETURNING_PASSWORD ?? fileUsers()['returningUser']?.password ?? 'Test@1234',
   }),
 
   powerUser: (): UserCredentials => ({
     email:    process.env.TEST_POWER_EMAIL    ?? fileUsers()['powerUser']?.email    ?? 'test.power@nuqiuat.com',
     password: process.env.TEST_POWER_PASSWORD ?? fileUsers()['powerUser']?.password ?? 'Test@1234',
   }),
+
+  // ── Backward-compat alias — tests that predate the rename ────
+  otpUser: (): UserCredentials => TestUsers.existingUser(),
 };
+
+/**
+ * Returns the shared static OTP used by the UAT environment for ALL email
+ * flows — both existing-user OTP login and new-user signup verification.
+ * Priority: TEST_OTP env var → users.json otpUser.otp → hardcoded fallback.
+ */
+export function sharedOtp(): string {
+  return process.env.TEST_OTP ?? fileUsers()['existingUser']?.otp ?? '270782';
+}
 
 // ── Static test data  (JSON → hardcoded fallback) ─────────────
 

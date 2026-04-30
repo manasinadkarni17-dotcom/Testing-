@@ -3,18 +3,21 @@
 // ─────────────────────────────────────────────────────────────
 
 import { test as base } from '@playwright/test';
-import { LoginPage }          from '../pages/LoginPage';
-import { KycPage }            from '../pages/KycPage';
-import { RiskProfilingPage }  from '../pages/RiskProfilingPage';
-import { InvestmentPage }     from '../pages/InvestmentPage';
-import { BuyPage }            from '../pages/BuyPage';
-import { PortfolioPage }      from '../pages/PortfolioPage';
-import { SellPage }           from '../pages/SellPage';
-import { ReconciliationPage } from '../pages/ReconciliationPage';
-import { DashboardPage }      from '../pages/DashboardPage';
+import { LoginPage }                from '../pages/LoginPage';
+import { SignupPage }               from '../pages/SignupPage';
+import { KycPage }                  from '../pages/KycPage';
+import { RiskProfilingPage }        from '../pages/RiskProfilingPage';
+import { InvestmentPage }           from '../pages/InvestmentPage';
+import { BuyPage }                  from '../pages/BuyPage';
+import { PortfolioPage }            from '../pages/PortfolioPage';
+import { SellPage }                 from '../pages/SellPage';
+import { ReconciliationPage }       from '../pages/ReconciliationPage';
+import { DashboardPage }            from '../pages/DashboardPage';
+import { TermsAndConditionsPage }   from '../pages/TermsAndConditionsPage';
 
 type Pages = {
   loginPage:          LoginPage;
+  signupPage:         SignupPage;
   kycPage:            KycPage;
   riskPage:           RiskProfilingPage;
   investPage:         InvestmentPage;
@@ -23,10 +26,12 @@ type Pages = {
   sellPage:           SellPage;
   reconciliationPage: ReconciliationPage;
   dashboardPage:      DashboardPage;
+  termsPage:          TermsAndConditionsPage;
 };
 
 export const test = base.extend<Pages>({
   loginPage:          async ({ page }, use) => use(new LoginPage(page)),
+  signupPage:         async ({ page }, use) => use(new SignupPage(page)),
   kycPage:            async ({ page }, use) => use(new KycPage(page)),
   riskPage:           async ({ page }, use) => use(new RiskProfilingPage(page)),
   investPage:         async ({ page }, use) => use(new InvestmentPage(page)),
@@ -35,6 +40,7 @@ export const test = base.extend<Pages>({
   sellPage:           async ({ page }, use) => use(new SellPage(page)),
   reconciliationPage: async ({ page }, use) => use(new ReconciliationPage(page)),
   dashboardPage:      async ({ page }, use) => use(new DashboardPage(page)),
+  termsPage:          async ({ page }, use) => use(new TermsAndConditionsPage(page)),
 });
 
 export { expect } from '@playwright/test';

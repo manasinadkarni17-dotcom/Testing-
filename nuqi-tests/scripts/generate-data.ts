@@ -46,15 +46,30 @@ function write(filename: string, data: unknown): void {
 function generateUsers(): UsersFile {
   return {
     pool: {
+      // Flow 1: new user — Email → OTP → T&C → Registration
+      signupUser: {
+        email: 'tester3@yopmail.com',
+        password: '',
+        registrationData: {
+          firstName:   'TesterManasi',
+          lastName:    'ND',
+          dateOfBirth: '2006-06-06',
+          phoneNumber: '9867594359',
+        },
+      },
+      // Flow 2: existing user — Email → OTP → Dashboard
+      existingUser:     { email: 'test.otp@nuqiuat.com',        password: '', otp: '270782' },
+      // Flow 3: returning user — Email + Password → Dashboard
+      returningUser:    { email: 'tester2@yopmail.com',         password: 'Tester2@435' },
+      // Flow 4: OAuth users — Google/Apple popup → Dashboard/Registration
+      googleUser:       { email: 'tautomate224@gmail.com',      password: '' },
+      appleUser:        { email: 'test.apple@icloud.com',       password: '' },
+      // Support users for lifecycle / KYC tests
       newUser:          { email: 'test.new@nuqiuat.com',        password: 'Test@1234' },
-      otpUser:          { email: 'test.otp@nuqiuat.com',        password: 'Test@1234', otp: '123456' },
-      returningUser:    { email: 'test.returning@nuqiuat.com',  password: 'Test@1234' },
       powerUser:        { email: 'test.power@nuqiuat.com',      password: 'Test@1234' },
-      incompleteKycUser:{ email: 'test.incomplete@nuqiuat.com', password: 'Test@1234' },
-      autoKycUser:      { email: 'test.autokcy@nuqiuat.com',    password: 'Test@1234' },
-      singleHoldingUser:{ email: 'test.single@nuqiuat.com',     password: 'Test@1234' },
-      googleUser:       { email: 'test.google@gmail.com',       password: 'Test@1234' },
-      appleUser:        { email: 'test.apple@icloud.com',       password: 'Test@1234' },
+      incompleteKycUser:{ email: 'test.incomplete@nuqiuat.com', password: '' },
+      autoKycUser:      { email: 'test.autokcy@nuqiuat.com',    password: '' },
+      singleHoldingUser:{ email: 'test.single@nuqiuat.com',     password: '' },
     },
   };
 }

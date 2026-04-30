@@ -7,7 +7,7 @@
 // ─────────────────────────────────────────────────────────────
 
 import { test, expect } from '../../fixtures/page-fixtures';
-import { TestUsers } from '../../utils/test-data';
+import { TestUsers, sharedOtp } from '../../utils/test-data';
 
 test.describe('Authentication — Email + OTP', () => {
 
@@ -40,7 +40,7 @@ test.describe('Authentication — Email + OTP', () => {
     { tag: ['@auth', '@regression'] },
     async ({ loginPage, dashboardPage }) => {
       const credentials = TestUsers.otpUser();
-      const otp = process.env.TEST_OTP ?? '123456';
+      const otp = sharedOtp();
 
       // Step 1: Navigate to /login (done in beforeEach)
       // Step 2: Enter email
