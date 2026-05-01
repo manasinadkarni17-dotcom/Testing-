@@ -54,15 +54,20 @@ export default defineConfig({
     },
 
     // ── Mobile Browsers ────────────────────────────────────────────────
+    // Only files matching *mobile* are run on these projects.
+    // Web specs are excluded because the site serves an app-download landing
+    // page to mobile user-agents instead of the web login form.
     {
       name: 'android-chrome',
       use: { ...devices['Pixel 7'] },
       dependencies: ['setup'],
+      testMatch: /.*mobile.*\.spec\.ts/,
     },
     {
       name: 'ios-safari',
       use: { ...devices['iPhone 14'] },
       dependencies: ['setup'],
+      testMatch: /.*mobile.*\.spec\.ts/,
     },
   ],
 });

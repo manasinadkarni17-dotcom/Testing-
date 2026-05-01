@@ -6,8 +6,13 @@
     },
 
     "existingUser": {
-      "email": "test.otp@nuqiuat.com",
+      "email": "test.otp@nuqi.com",
       "password": "",
+      "otp": "270782"
+    },
+
+    "otpUser": {
+      "email": "test.otp@nuqi.com",
       "otp": "270782"
     },
 

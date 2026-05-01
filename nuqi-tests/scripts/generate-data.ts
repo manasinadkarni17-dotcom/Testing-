@@ -51,10 +51,11 @@ function generateUsers(): UsersFile {
         email: 'tester3@yopmail.com',
         password: '',
         registrationData: {
-          firstName:   'TesterManasi',
-          lastName:    'ND',
-          dateOfBirth: '2006-06-06',
-          phoneNumber: '9867594359',
+          firstName:        'TesterManasi',
+          lastName:         'ND',
+          dateOfBirth:      DataGenerator.randomDob(18, 60),
+          phoneCountryCode: '+91',
+          phoneNumber:      '9867594359',
         },
       },
       // Flow 2: existing user — Email → OTP → Dashboard

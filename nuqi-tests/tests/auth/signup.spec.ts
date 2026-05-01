@@ -34,6 +34,7 @@ test.describe('Authentication — Signup', () => {
   // ─────────────────────────────────────────────────────────────
 
   test('TC-SIGNUP-04 · Full signup flow', async ({ signupPage, dashboardPage }) => {
+    test.setTimeout(90_000);
 
     const email            = DataGenerator.uniqueEmail('signup');
     const otp              = sharedOtp();

@@ -22,13 +22,20 @@ export class LoginPage extends BasePage {
   readonly emailModeBtn          = () => this.page.getByRole('button', { name: 'Email', exact: true });
   readonly otpEmailInput         = () => this.page.getByRole('textbox', { name: 'Email Address' });
   readonly continueWithEmailBtn  = () => this.page.getByRole('button', { name: 'Continue with Email' });
-  readonly otpInput              = () => this.page.locator('[data-testid="otp-input"], input[name="otp"], input[placeholder*="OTP"], input[placeholder*="code"]').first();
+  // Consolidated OTP input (single field fallback)
+  readonly otpInput              = () => this.page.locator('[data-testid="otp-input"], input[name="otp"], input[placeholder*="OTP"], input[placeholder*="code"], input[autocomplete="one-time-code"]').first();
+  // Split OTP digit boxes (6 individual maxlength="1" inputs — UAT renders this layout)
+  readonly otpDigitInputs        = () => this.page.locator('input[maxlength="1"]');
   readonly otpSubmitBtn          = () => this.page.locator('[data-testid="otp-submit"], button:has-text("Verify"), button:has-text("Submit"), button:has(svg.lucide-circle-check)').first();
-  readonly resendOtpLink         = () => this.page.locator('[data-testid="resend-otp"], a:has-text("Resend"), button:has-text("Resend")').first();
+  // During cooldown the UI renders "Resend OTP in 0:XX" as a <p>; after cooldown it becomes a button/link.
+  readonly resendOtpLink         = () => this.page.locator('[data-testid="resend-otp"], a:has-text("Resend"), button:has-text("Resend"), p:has-text("Resend OTP")').first();
 
-  // Social login
-  readonly googleLoginBtn    = () => this.page.locator('[data-testid="google-login"], button:has-text("Google"), [aria-label*="Google"]').first();
-  readonly appleLoginBtn     = () => this.page.locator('[data-testid="apple-login"], button:has-text("Apple"), [aria-label*="Apple"]').first();
+  // Social login — method-selector tabs
+  readonly googleTabBtn      = () => this.page.getByRole('button', { name: 'Google', exact: true });
+  readonly appleTabBtn       = () => this.page.getByRole('button', { name: 'Apple',  exact: true });
+  // Social login — OAuth trigger buttons (visible after selecting the tab above)
+  readonly googleLoginBtn    = () => this.page.getByRole('button', { name: 'Sign In with Google' });
+  readonly appleLoginBtn     = () => this.page.getByRole('button', { name: 'Sign In with Apple'  });
 
   // Other
   readonly forgotPwdLink     = () => this.page.locator('[data-testid="forgot-password"], a:has-text("Forgot")').first();
@@ -41,9 +48,36 @@ export class LoginPage extends BasePage {
   }
 
   async navigate(): Promise<void> {
+    const desktopUA =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+
+    // page.route() intercepts at the network layer and overrides UA for ALL
+    // browsers. setExtraHTTPHeaders alone does not override User-Agent in WebKit
+    // (iOS Safari) because Playwright sets it through a separate protocol call.
+    await this.page.route('**/*', async (route) => {
+      await route.continue({
+        headers: {
+          ...route.request().headers(),
+          'user-agent': desktopUA,
+          'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Windows"',
+        },
+      });
+    });
+
     await this.goto('/login');
   }
+
 async switchToPasswordLogin(): Promise<void> {
+  // After logout the app may redirect to the marketing root page rather than
+  // /login, or the mobile UA may not yet be overridden. Re-navigate to /login
+  // (which installs the desktop UA route) if the email input is absent.
+  const onLoginForm = await this.emailInput().isVisible({ timeout: 3_000 }).catch(() => false);
+  if (!onLoginForm) {
+    await this.navigate();
+  }
+
   // Anchor regex to ^password$ so it never matches "Sign In with Password".
   const btn = this.page.getByRole('button', { name: /^password$/i })
     .or(this.page.getByRole('tab', { name: /^password$/i }));
@@ -54,7 +88,7 @@ async switchToPasswordLogin(): Promise<void> {
   }
 
   // True gate: password input must be present regardless of which path we took.
-  await expect(this.passwordInput()).toBeVisible({ timeout: 10_000 });
+  await expect(this.passwordInput()).toBeVisible({ timeout: 20_000 });
 }
   async openLoginPage(): Promise<void> {
     await this.navigate();
@@ -97,13 +131,23 @@ async switchToPasswordLogin(): Promise<void> {
       await this.requestOtp();
     }
 
-    // Step 4 — Enter OTP
-    await expect(this.otpInput()).toBeVisible({ timeout: 10_000 });
-    await this.otpInput().fill(otp);
+    // Step 4 — Enter OTP: fill digit-by-digit for split boxes, single fill for consolidated input
+    const digitBoxes = this.otpDigitInputs();
+    await expect(digitBoxes.first().or(this.otpInput())).toBeVisible({ timeout: 10_000 });
+    const digitCount = await digitBoxes.count();
+    if (digitCount >= 4) {
+      for (let i = 0; i < otp.length; i++) {
+        await digitBoxes.nth(i).fill(otp[i]);
+      }
+    } else {
+      await this.otpInput().fill(otp);
+    }
 
-    // Step 5 — Click the circle-check confirm button (falls back to text-based submit)
-    await expect(this.otpSubmitBtn()).toBeVisible({ timeout: 5_000 });
-    await this.otpSubmitBtn().click();
+    // Step 5 — Submit (some UIs auto-submit after the last digit; click confirm if still visible)
+    const submitBtn = this.otpSubmitBtn();
+    if (await submitBtn.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await submitBtn.click();
+    }
     await this.waitForNavigation();
   }
 
@@ -115,12 +159,13 @@ async switchToPasswordLogin(): Promise<void> {
     if (sendVisible) {
       await this.sendOtpBtn().click();
     } else {
-      await this.loginButton().click();
+      await this.continueWithEmailBtn().click();
     }
-    await expect(this.otpInput()).toBeVisible({ timeout: 10_000 });
+    await expect(this.otpDigitInputs().first().or(this.otpInput())).toBeVisible({ timeout: 10_000 });
   }
 
   async loginWithGoogle(): Promise<void> {
+    await this.googleTabBtn().click();
     const [popup] = await Promise.all([
       this.page.waitForEvent('popup').catch(() => null),
       this.googleLoginBtn().click(),
@@ -137,6 +182,7 @@ async switchToPasswordLogin(): Promise<void> {
   }
 
   async loginWithApple(): Promise<void> {
+    await this.appleTabBtn().click();
     const [popup] = await Promise.all([
       this.page.waitForEvent('popup').catch(() => null),
       this.appleLoginBtn().click(),

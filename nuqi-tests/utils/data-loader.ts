@@ -15,6 +15,7 @@ const DATA_DIR = path.join(__dirname, '..', 'test-data');
 export type UserPoolKey =
   | 'signupUser'        // Flow 1: new user  — Email → OTP → Registration
   | 'existingUser'      // Flow 2: existing  — Email → OTP → Dashboard
+  | 'otpUser'           // Flow 2 (isolated) — dedicated OTP login user
   | 'returningUser'     // Flow 3: returning — Email + Password → Dashboard
   | 'googleUser'        // Flow 4: OAuth     — Google → Dashboard/Registration
   | 'appleUser'         // Flow 4: OAuth     — Apple  → Dashboard/Registration

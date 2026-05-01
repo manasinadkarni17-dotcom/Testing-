@@ -36,7 +36,7 @@ export const TestUsers = {
   signupUser: (): UserCredentials => ({
     email:            process.env.TEST_SIGNUP_EMAIL ?? fileUsers()['signupUser']?.email ?? DataGenerator.uniqueEmail('signup'),
     password:         '',
-    registrationData: fileUsers()['signupUser']?.registrationData,
+    registrationData: fileUsers()['signupUser']?.registrationData ?? DataGenerator.registrationData(),
   }),
 
   // ── Flow 2: Existing user — Email → OTP → Dashboard ─────────
@@ -74,8 +74,12 @@ export const TestUsers = {
     password: process.env.TEST_POWER_PASSWORD ?? fileUsers()['powerUser']?.password ?? 'Test@1234',
   }),
 
-  // ── Backward-compat alias — tests that predate the rename ────
-  otpUser: (): UserCredentials => TestUsers.existingUser(),
+  // ── Dedicated OTP login user — isolated from existingUser ───
+  otpUser: (): UserCredentials => ({
+    email:    process.env.TEST_OTP_EMAIL  ?? fileUsers()['otpUser']?.email ?? 'test.otp@nuqi.com',
+    password: '',
+    otp:      process.env.TEST_OTP_STATIC ?? fileUsers()['otpUser']?.otp   ?? '270782',
+  }),
 };
 
 /**

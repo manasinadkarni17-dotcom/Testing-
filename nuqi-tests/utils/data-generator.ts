@@ -27,11 +27,15 @@ export class DataGenerator {
     };
   }
 
-  static registrationData() {
-    const dob = faker.date
-      .birthdate({ min: 18, max: 60, mode: 'age' })
+  static randomDob(minAge = 18, maxAge = 60): string {
+    return faker.date
+      .birthdate({ min: minAge, max: maxAge, mode: 'age' })
       .toISOString()
       .split('T')[0];
+  }
+
+  static registrationData() {
+    const dob = DataGenerator.randomDob(18, 60);
 
     return {
       firstName:        faker.person.firstName(),
