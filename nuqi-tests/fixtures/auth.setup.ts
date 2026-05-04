@@ -9,20 +9,20 @@ import { TestUsers } from '../utils/test-data';
 import fs from 'fs';
 import path from 'path';
 
-// ✅ Ensure sequential execution
+// Ensure sequential execution
 setup.describe.configure({ mode: 'serial' });
 
-// ✅ Create auth state directory
+// Create auth state directory
 const stateDir = path.join(__dirname, '../.auth');
 if (!fs.existsSync(stateDir)) {
   fs.mkdirSync(stateDir, { recursive: true });
 }
 
-// ✅ State file paths
+// State file paths
 export const RETURNING_USER_STATE = path.join(stateDir, 'returning-user.json');
 export const POWER_USER_STATE     = path.join(stateDir, 'power-user.json');
 
-// 🔁 Typed helper
+// Typed helper
 async function loginAndSaveState(
   page: Page,
   credentials: { email: string; password: string },

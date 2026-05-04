@@ -80,6 +80,16 @@ export const TestUsers = {
     password: '',
     otp:      process.env.TEST_OTP_STATIC ?? fileUsers()['otpUser']?.otp   ?? '270782',
   }),
+
+  incompleteKycUser: (): UserCredentials => ({
+    email:    process.env.TEST_INCOMPLETE_KYC_EMAIL ?? fileUsers()['incompleteKycUser']?.email    ?? 'test.incomplete@nuqiuat.com',
+    password: process.env.TEST_INCOMPLETE_KYC_PW   ?? fileUsers()['incompleteKycUser']?.password ?? 'Test@1234',
+  }),
+
+  autoKycUser: (): UserCredentials => ({
+    email:    process.env.TEST_AUTO_KYC_EMAIL ?? fileUsers()['autoKycUser']?.email    ?? 'test.autokyc@nuqiuat.com',
+    password: process.env.TEST_AUTO_KYC_PW   ?? fileUsers()['autoKycUser']?.password ?? 'Test@1234',
+  }),
 };
 
 /**
@@ -142,9 +152,9 @@ export const TestSellOrder: SellOrder = _partialSell ?? {
 
 // ── Lookup helpers ────────────────────────────────────────────
 
-/** Return a KYC dataset by id, or fall back to TestKycData. */
+/** Return a KYC dataset by id. Throws if the id is not found in kyc.json. */
 export function getKycDataset(id: string): KycData {
-  return fileKyc().find(d => d.id === id) ?? TestKycData;
+  return DataGenerator.kycDataById(id);
 }
 
 /** Return a buy order by id, or fall back to TestBuyOrder. */

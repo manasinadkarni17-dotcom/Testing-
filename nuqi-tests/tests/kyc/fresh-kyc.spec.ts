@@ -1,26 +1,13 @@
-// ─────────────────────────────────────────────────────────────
-//  TC-KYC-01 · Fresh KYC — Full flow for new user
-//  Tags: @kyc @regression
-//  Priority: P1
-//  Browsers: Chromium, Firefox
-//  Devices: Desktop
-// ─────────────────────────────────────────────────────────────
-
 import { test, expect } from '../../fixtures/page-fixtures';
-import { TestUsers, TestKycData } from '../../utils/test-data';
-import path from 'path';
-
-// Stub document images — replace with real fixture images in CI
-const DOC_FRONT  = path.join(__dirname, '../../fixtures/assets/passport-front.jpg');
-const DOC_BACK   = path.join(__dirname, '../../fixtures/assets/passport-back.jpg');
-const SELFIE_IMG = path.join(__dirname, '../../fixtures/assets/selfie.jpg');
+import { TestUsers, DataGenerator, sharedOtp } from '../../utils/test-data';
 
 test.describe('KYC — Fresh Verification (New User)', () => {
 
+  const kycData = DataGenerator.kycDataById('default');
+
   test.beforeEach(async ({ loginPage, dashboardPage }) => {
-    // Pre-condition: login as new user
     await loginPage.navigate();
-    await loginPage.loginWithEmailPassword(TestUsers.newUser());
+    await loginPage.loginWithOtp(TestUsers.incompleteKycUser().email, sharedOtp());
     await dashboardPage.assertDashboardLoaded();
   });
 
@@ -29,10 +16,7 @@ test.describe('KYC — Fresh Verification (New User)', () => {
     'TC-KYC-01-01 · KYC banner/prompt is visible for unverified user',
     { tag: ['@kyc'] },
     async ({ dashboardPage, kycPage }) => {
-      // Step 1: Login (done in beforeEach)
-      // Step 2: Assert KYC prompt is visible on dashboard
       await dashboardPage.assertKycPromptVisible();
-      // Step 3: Assert KYC is NOT already verified
       const verified = await kycPage.isAlreadyVerified();
       expect(verified).toBe(false);
     },
@@ -40,129 +24,86 @@ test.describe('KYC — Fresh Verification (New User)', () => {
 
   // ── TC-KYC-01-02 ─────────────────────────────────────────
   test(
-    'TC-KYC-01-02 · KYC stepper / progress bar appears on start',
+    'TC-KYC-01-02 · First KYC step is visible after clicking Start',
     { tag: ['@kyc'] },
     async ({ kycPage }) => {
-      // Step 1: Click Start KYC
       await kycPage.clickStartKyc();
-      // Step 2: Assert progress stepper is visible
+      // kycProgressBar falls back to the "Select Document Type" heading
       await expect(kycPage.kycProgressBar()).toBeVisible();
     },
   );
 
   // ── TC-KYC-01-03 ─────────────────────────────────────────
+  // Step 1: Select document type → outer Proceed → Facia.ai iframe loads
   test(
-    'TC-KYC-01-03 · Personal details step — fill and advance',
+    'TC-KYC-01-03 · Document type selection — select type and advance to verification',
     { tag: ['@kyc', '@regression'] },
     async ({ kycPage }) => {
-      // Step 1: Start KYC
       await kycPage.clickStartKyc();
-      // Step 2: Fill first name
-      await kycPage.firstNameInput().fill(TestKycData.firstName);
-      // Step 3: Fill last name
-      await kycPage.lastNameInput().fill(TestKycData.lastName);
-      // Step 4: Fill date of birth
-      await kycPage.dobInput().fill(TestKycData.dob);
-      // Step 5: Select nationality
-      const natEl = kycPage.nationalitySelect();
-      if (await natEl.isVisible({ timeout: 2000 }).catch(() => false)) {
-        await natEl.selectOption({ label: TestKycData.nationality });
-      }
-      // Step 6: Fill phone number
-      await kycPage.phoneInput().fill(TestKycData.phone);
-      // Step 7: Click Next
+
+      // Select Aadhar radio via its label (radio input is sr-only)
+      await kycPage.idTypeLabel('aadhaar').click();
+
+      // Proceed enables immediately after radio selection
+      await expect(kycPage.nextBtn()).toBeEnabled({ timeout: 5_000 });
       await kycPage.nextBtn().click();
-      await kycPage.waitForNavigation();
-      // Step 8: Assert advanced to next step (ID step or progress updated)
-      await expect(kycPage.idTypeSelect()).toBeVisible({ timeout: 8000 });
+
+      // Outer app shows "Verification Tips" while Facia.ai iframe loads
+      await expect(kycPage.verificationTipsHeading()).toBeVisible({ timeout: 10_000 });
     },
   );
 
   // ── TC-KYC-01-04 ─────────────────────────────────────────
+  // Unique: KycData-driven combined flow via fillIdentityDocument().
+  // Uses the kycData object (idType from test-data) to drive the full
+  // automatable path in one helper call. Asserts the consent gate is
+  // cleared — distinct from 01-04 (button state) and 01-05 (iframe load).
   test(
-    'TC-KYC-01-04 · Identity document step — select type, enter number, upload front',
-    { tag: ['@kyc', '@regression'] },
+    'TC-KYC-01-04 · KYC flow reaches Facia.ai capture screen via fillIdentityDocument()',
+    { tag: ['@kyc', '@p1'] },
     async ({ kycPage }) => {
       await kycPage.clickStartKyc();
-      await kycPage.fillPersonalDetails(TestKycData);
+      // fillIdentityDocument: selectDocumentType(kycData.idType) + acceptFaciaConsent()
+      await kycPage.fillIdentityDocument(kycData);
 
-      // Step 1: Select document type
-      await kycPage.idTypeSelect().selectOption({ label: 'Passport' });
-      // Step 2: Enter ID number
-      await kycPage.idNumberInput().fill(TestKycData.idNumber);
-      // Step 3: Upload front document
-      await kycPage.idFrontUpload().setInputFiles(DOC_FRONT);
-      // Step 4: Assert upload success indicator
-      const uploadDone = kycPage.page.locator(
-        '[data-testid="upload-success"], .upload-done, span:has-text("Uploaded")',
-      );
-      if (await uploadDone.isVisible({ timeout: 5000 }).catch(() => false)) {
-        await expect(uploadDone.first()).toBeVisible();
-      }
-      // Step 5: Click Next
-      await kycPage.nextBtn().click();
-      await kycPage.waitForNavigation();
+      // Consent gate cleared — Facia.ai is in capture/ready state
+      await expect(kycPage.faciaConsentCheckbox()).not.toBeVisible({ timeout: 8_000 });
     },
   );
 
   // ── TC-KYC-01-05 ─────────────────────────────────────────
+  // After KYC is approved the verifiedBadge on /profile confirms the
+  // KYC flag is true in the backend.  That flag is the gate that unlocks
+  // risk profiling, so this test continues from the badge check all the
+  // way to the risk profiling entry point to prove the path is open.
   test(
-    'TC-KYC-01-05 · Address details step — fill and advance',
+    'TC-KYC-01-05 · KYC verified badge on profile → risk profiling accessible',
     { tag: ['@kyc', '@regression'] },
-    async ({ kycPage }) => {
-      await kycPage.clickStartKyc();
-      await kycPage.fillPersonalDetails(TestKycData);
-      await kycPage.fillIdentityDocument(TestKycData, DOC_FRONT, DOC_BACK);
+    async ({ kycPage, riskPage, page }) => {
 
-      // Step 1: Fill address
-      await kycPage.addressInput().fill(TestKycData.address);
-      // Step 2: Fill city
-      await kycPage.cityInput().fill(TestKycData.city);
-      // Step 3: Select country
-      await kycPage.countrySelect().selectOption({ label: TestKycData.country });
-      // Step 4: Fill postal code
-      await kycPage.postalInput().fill(TestKycData.postalCode);
-      // Step 5: Click Next
-      await kycPage.nextBtn().click();
-      await kycPage.waitForNavigation();
-    },
-  );
+      // Step 1 — KYC verified badge visible on /profile (flag = true)
+      await test.step('Assert KYC verified badge on /profile', async () => {
+        await page.goto('/profile');
+        await kycPage.waitForNavigation();
+        await expect(kycPage.verifiedBadge()).toBeVisible({ timeout: 8_000 });
+      });
 
-  // ── TC-KYC-01-06 ─────────────────────────────────────────
-  test(
-    'TC-KYC-01-06 · KYC submission shows success / pending verification screen',
-    { tag: ['@kyc', '@regression', '@p1'] },
-    async ({ kycPage }) => {
-      // Full KYC flow
-      await kycPage.clickStartKyc();
-      await kycPage.fillPersonalDetails(TestKycData);
-      await kycPage.fillIdentityDocument(TestKycData, DOC_FRONT, DOC_BACK);
-      await kycPage.completeFaceVerification(SELFIE_IMG);
-      await kycPage.fillAddressDetails(TestKycData);
+      // Step 2 — Navigate to risk profiling via /profile/risk
+      // If KYC flag is true the app must NOT redirect back to /kyc.
+      await test.step('Navigate to /profile/risk — no KYC redirect', async () => {
+        await page.goto('/profile/risk');
+        await kycPage.waitForNavigation();
+        await expect(page).not.toHaveURL(/\/kyc/, { timeout: 8_000 });
+      });
 
-      // Step 1: Click Submit KYC
-      await kycPage.submitKyc();
-
-      // Step 2: Assert success / verification pending screen shown
-      const successVisible = await kycPage.kycSuccessScreen().isVisible({ timeout: 20_000 }).catch(() => false);
-      const pendingScreen  = kycPage.page.locator('.kyc-pending, h2:has-text("Under Review"), h2:has-text("Verification Pending")');
-      const pendingVisible = await pendingScreen.isVisible({ timeout: 5000 }).catch(() => false);
-
-      expect(successVisible || pendingVisible).toBe(true);
-    },
-  );
-
-  // ── TC-KYC-01-07 ─────────────────────────────────────────
-  test(
-    'TC-KYC-01-07 · KYC verified badge appears on profile after approval',
-    { tag: ['@kyc'] },
-    async ({ kycPage, page }) => {
-      // Pre-condition: KYC already approved in UAT (use returning user fixture)
-      await page.goto('/profile');
-      await kycPage.waitForNavigation();
-
-      // Assert verified badge is shown on profile
-      await expect(kycPage.verifiedBadge()).toBeVisible({ timeout: 8000 });
+      // Step 3 — Risk profiling entry point is reachable
+      // Either the "Start Assessment" button or the first question is visible,
+      // confirming the KYC gate was cleared and risk profiling is accessible.
+      await test.step('Risk profiling entry point is accessible', async () => {
+        const startVisible = await riskPage.startRiskBtn().isVisible({ timeout: 5_000 }).catch(() => false);
+        const questionVisible = await riskPage.questionText().isVisible({ timeout: 3_000 }).catch(() => false);
+        expect(startVisible || questionVisible).toBeTruthy();
+      });
     },
   );
 });

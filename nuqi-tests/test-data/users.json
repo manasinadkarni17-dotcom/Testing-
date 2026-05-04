@@ -34,24 +34,19 @@
      
     },
 
-    "newUser": {
-      "email": "test.new@nuqiuat.com",
-      "password": "Test@1234"
-    },
-
     "powerUser": {
       "email": "test.power@nuqiuat.com",
       "password": "Test@1234"
     },
 
     "incompleteKycUser": {
-      "email": "test.incomplete@nuqiuat.com",
-      "password": ""
+      "email": "test.otp@nuqi.com",
+      "password": "Test@1234"
     },
 
     "autoKycUser": {
-      "email": "test.autokcy@nuqiuat.com",
-      "password": ""
+      "email": "test.autokyc@nuqiuat.com",
+      "password": "Test@1234"
     },
 
     "singleHoldingUser": {

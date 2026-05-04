@@ -1,38 +1,159 @@
-<testsuites id="" name="" tests="15" failures="0" skipped="0" errors="0" time="62.600683">
-<testsuite name="auth\email-password.spec.ts" timestamp="2026-05-01T16:18:51.283Z" hostname="chromium-desktop" tests="5" failures="0" skipped="0" time="22.408" errors="0">
-<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="2.621">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="4.572">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="2.423">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="8.32">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="4.472">
+<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="89.913839">
+<testsuite name="risk\risk-profiling.spec.ts" timestamp="2026-05-04T11:08:45.137Z" hostname="chromium-desktop" tests="1" failures="1" skipped="0" time="52.686" errors="0">
+<testcase name="Risk Profiling — Conservative › TC-RISK-01-01 · Risk profiling prompt appears for new user" classname="risk\risk-profiling.spec.ts" time="52.686">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-chromium-desktop\test-failed-1.png]]
+
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-chromium-desktop\video.webm]]
+
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-chromium-desktop\error-context.md]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium-desktop] › risk\risk-profiling.spec.ts:145:7 › Risk Profiling — Conservative › TC-RISK-01-01 · Risk profiling prompt appears for new user @regression 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first()
+
+
+       at ..\pages\DashboardPage.ts:102
+
+      100 |
+      101 |   async assertRiskPromptVisible(): Promise<void> {
+    > 102 |     await expect(this.riskPrompt()).toBeVisible({ timeout: 5000 });
+          |                                     ^
+      103 |   }
+      104 |
+      105 |   async assertNoRiskPrompt(): Promise<void> {
+        at DashboardPage.assertRiskPromptVisible (C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\pages\DashboardPage.ts:102:37)
+        at C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\tests\risk\risk-profiling.spec.ts:149:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-chromium-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-chromium-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-chromium-desktop\error-context.md
+]]>
+</failure>
 </testcase>
 </testsuite>
-<testsuite name="auth\email-password.spec.ts" timestamp="2026-05-01T16:18:51.283Z" hostname="firefox-desktop" tests="5" failures="0" skipped="0" time="30.431" errors="0">
-<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="4.061">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="5.68">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="3.191">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="11.476">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="6.023">
+<testsuite name="risk\risk-profiling.spec.ts" timestamp="2026-05-04T11:08:45.137Z" hostname="firefox-desktop" tests="1" failures="1" skipped="0" time="55.743" errors="0">
+<testcase name="Risk Profiling — Conservative › TC-RISK-01-01 · Risk profiling prompt appears for new user" classname="risk\risk-profiling.spec.ts" time="55.743">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-firefox-desktop\test-failed-1.png]]
+
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-firefox-desktop\video.webm]]
+
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-firefox-desktop\error-context.md]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [firefox-desktop] › risk\risk-profiling.spec.ts:145:7 › Risk Profiling — Conservative › TC-RISK-01-01 · Risk profiling prompt appears for new user @regression 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first()
+
+
+       at ..\pages\DashboardPage.ts:102
+
+      100 |
+      101 |   async assertRiskPromptVisible(): Promise<void> {
+    > 102 |     await expect(this.riskPrompt()).toBeVisible({ timeout: 5000 });
+          |                                     ^
+      103 |   }
+      104 |
+      105 |   async assertNoRiskPrompt(): Promise<void> {
+        at DashboardPage.assertRiskPromptVisible (C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\pages\DashboardPage.ts:102:37)
+        at C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\tests\risk\risk-profiling.spec.ts:149:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-firefox-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-firefox-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-firefox-desktop\error-context.md
+]]>
+</failure>
 </testcase>
 </testsuite>
-<testsuite name="auth\email-password.spec.ts" timestamp="2026-05-01T16:18:51.283Z" hostname="webkit-desktop" tests="5" failures="0" skipped="0" time="45.63" errors="0">
-<testcase name="Authentication — Email + Password › TC-AUTH-01-01 · Login page renders all required elements" classname="auth\email-password.spec.ts" time="4.795">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-02 · Successful login with valid email and password" classname="auth\email-password.spec.ts" time="6.308">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-03 · Password field masks input" classname="auth\email-password.spec.ts" time="4.628">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-04 · Session persists on page reload after login" classname="auth\email-password.spec.ts" time="21.344">
-</testcase>
-<testcase name="Authentication — Email + Password › TC-AUTH-01-05 · Logout clears session and redirects to login" classname="auth\email-password.spec.ts" time="8.555">
+<testsuite name="risk\risk-profiling.spec.ts" timestamp="2026-05-04T11:08:45.137Z" hostname="webkit-desktop" tests="1" failures="1" skipped="0" time="31.018" errors="0">
+<testcase name="Risk Profiling — Conservative › TC-RISK-01-01 · Risk profiling prompt appears for new user" classname="risk\risk-profiling.spec.ts" time="31.018">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-webkit-desktop\test-failed-1.png]]
+
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-webkit-desktop\video.webm]]
+
+[[ATTACHMENT|risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-webkit-desktop\error-context.md]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [webkit-desktop] › risk\risk-profiling.spec.ts:145:7 › Risk Profiling — Conservative › TC-RISK-01-01 · Risk profiling prompt appears for new user @regression 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Terms & Conditions' })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByRole('heading', { name: 'Terms & Conditions' })
+
+
+       at ..\pages\TermsAndConditionsPage.ts:43
+
+      41 |   async waitForPage(): Promise<void> {
+      42 |     await this.page.waitForURL('**/termsandcondition', { timeout: 15_000 });
+    > 43 |     await expect(this.heading).toBeVisible({ timeout: 10_000 });
+         |                                ^
+      44 |     await expect(this.page.getByText('0 of 5 sections reviewed')).toBeVisible();
+      45 |   }
+      46 |
+        at TermsAndConditionsPage.waitForPage (C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\pages\TermsAndConditionsPage.ts:43:32)
+        at TermsAndConditionsPage.acceptAll (C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\pages\TermsAndConditionsPage.ts:85:5)
+        at SignupPage.acceptAllTerms (C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\pages\SignupPage.ts:197:5)
+        at C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\tests\risk\risk-profiling.spec.ts:56:5
+        at signupAndSkipKyc (C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\tests\risk\risk-profiling.spec.ts:43:3)
+        at C:\Users\Lenovo\Manasi\nuqi_wealth_global\nuqi-tests\tests\risk\risk-profiling.spec.ts:141:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-webkit-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\risk-risk-profiling-Risk-P-36178-prompt-appears-for-new-user-webkit-desktop\error-context.md
+]]>
+</failure>
 </testcase>
 </testsuite>
 </testsuites>

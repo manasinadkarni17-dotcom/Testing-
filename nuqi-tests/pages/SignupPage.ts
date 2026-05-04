@@ -217,7 +217,7 @@ export class SignupPage extends BasePage {
     const [result] = await Promise.all([
       Promise.race([
         page.waitForEvent('popup', { timeout: 15_000 }).then(p => p),
-        page.waitForURL(url => /google|oauth|accounts/i.test(url), { timeout: 15_000 }).then(() => page),
+        page.waitForURL(url => /google|oauth|accounts/i.test(url.toString()), { timeout: 15_000 }).then(() => page),
       ]),
       this.googleButton.click(),
     ]);
@@ -228,7 +228,7 @@ export class SignupPage extends BasePage {
     const [result] = await Promise.all([
       Promise.race([
         page.waitForEvent('popup', { timeout: 15_000 }).then(p => p),
-        page.waitForURL(url => /apple|oauth|appleid/i.test(url), { timeout: 15_000 }).then(() => page),
+        page.waitForURL(url => /apple|oauth|appleid/i.test(url.toString()), { timeout: 15_000 }).then(() => page),
       ]),
       this.appleButton.click(),
     ]);

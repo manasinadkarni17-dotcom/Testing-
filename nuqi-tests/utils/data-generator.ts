@@ -5,6 +5,7 @@
 
 import { faker } from '@faker-js/faker';
 import type { UserCredentials, KycData, InvestmentPlan, BuyOrder, SellOrder } from '../types';
+import { DataLoader } from './data-loader';
 
 const UAE_CITIES      = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'] as const;
 const INSTRUMENTS     = ['S&P 500 ETF', 'Global Diversified ETF', 'MENA Growth Fund'] as const;
@@ -66,6 +67,18 @@ export class DataGenerator {
       postalCode:  faker.location.zipCode('#####'),
       ...overrides,
     };
+  }
+
+  static kycDataById(id = 'default'): KycData {
+    const datasets = DataLoader.kyc().datasets;
+    const found = datasets.find(d => d.id === id);
+    if (!found) {
+      throw new Error(
+        `[DataGenerator] KYC dataset "${id}" not found in kyc.json. Available: ${datasets.map(d => d.id).join(', ')}`
+      );
+    }
+    const { id: _id, ...data } = found;
+    return data as KycData;
   }
 
   /** Generate an investment plan. */

@@ -12,7 +12,9 @@ export class DashboardPage extends BasePage {
   readonly userAvatar          = () => this.page.locator('[data-testid="user-avatar"], .user-avatar, [aria-label="Profile"]').first();
   readonly portfolioWidget     = () => this.page.locator('[data-testid="portfolio-widget"], .portfolio-summary, .dashboard-portfolio').first();
   readonly investNowCta        = () => this.page.locator('[data-testid="invest-cta"], button:has-text("Invest Now"), a:has-text("Invest")').first();
-  readonly kycPrompt           = () => this.page.locator('[data-testid="kyc-prompt"], .kyc-banner, [role="alert"]:has-text("KYC")').first();
+  readonly kycPrompt           = () => this.page.locator('[data-testid="kyc-prompt"], .kyc-banner, [role="alert"]:has-text("KYC")')
+                                         .or(this.page.getByRole('heading', { name: 'KYC Verification', exact: true }))
+                                         .first();
   readonly riskPrompt          = () => this.page.locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first();
   readonly marketSummary       = () => this.page.locator('[data-testid="market-summary"], .market-widget').first();
   readonly newsSection         = () => this.page.locator('[data-testid="news-section"], .news-widget, .market-news').first();

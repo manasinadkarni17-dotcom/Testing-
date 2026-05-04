@@ -12,11 +12,6 @@
 import { test, expect } from '../../fixtures/page-fixtures';
 import { TestUsers, TestKycData, TestPlan, TestBuyOrder, TestSellOrder } from '../../utils/test-data';
 import { RiskProfile } from '../../types';
-import path from 'path';
-
-const DOC_FRONT  = path.join(__dirname, '../../fixtures/assets/passport-front.jpg');
-const DOC_BACK   = path.join(__dirname, '../../fixtures/assets/passport-back.jpg');
-const SELFIE_IMG = path.join(__dirname, '../../fixtures/assets/selfie.jpg');
 
 test.describe('S01 · Full Lifecycle — New Investor', () => {
 
@@ -45,17 +40,18 @@ test.describe('S01 · Full Lifecycle — New Investor', () => {
       });
 
       // ── STAGE 2: KYC ──────────────────────────────────────
+      // Real flow: Select Document Type → outer Proceed → Facia.ai iframe
+      // (consent checkbox → iframe Proceed → face/doc capture).
+      // Camera capture is handled by Facia.ai and cannot be automated
+      // headlessly; completeFaceVerification() is a no-op placeholder.
       await test.step('Stage 2: Complete Fresh KYC', async () => {
         await dashboardPage.assertKycPromptVisible();
         await kycPage.clickStartKyc();
-        await kycPage.fillPersonalDetails(TestKycData);
-        await kycPage.fillIdentityDocument(TestKycData, DOC_FRONT, DOC_BACK);
-        await kycPage.completeFaceVerification(SELFIE_IMG);
-        await kycPage.fillAddressDetails(TestKycData);
+        await kycPage.fillIdentityDocument(TestKycData);   // doc type + Facia.ai consent
+        await kycPage.completeFaceVerification();           // no-op in headless runs
         await kycPage.submitKyc();
-        // Accept either success or pending verification
         const done    = await kycPage.kycSuccessScreen().isVisible({ timeout: 20_000 }).catch(() => false);
-        const pending = await page.locator('.kyc-pending, h2:has-text("Under Review")').isVisible({ timeout: 5000 }).catch(() => false);
+        const pending = await page.locator('.kyc-pending, h2:has-text("Under Review")').isVisible({ timeout: 5_000 }).catch(() => false);
         expect(done || pending).toBe(true);
       });
 

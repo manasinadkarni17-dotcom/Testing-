@@ -6,7 +6,7 @@
 // ─────────────────────────────────────────────────────────────
 
 import { test, expect } from '../../fixtures/page-fixtures';
-import { TestUsers, TestKycData } from '../../utils/test-data';
+import { TestUsers, DataGenerator, getKycDataset, sharedOtp } from '../../utils/test-data';
 import path from 'path';
 
 const DOC_FRONT = path.join(__dirname, '../../fixtures/assets/passport-front.jpg');
@@ -16,13 +16,11 @@ const DOC_BACK  = path.join(__dirname, '../../fixtures/assets/passport-back.jpg'
 
 test.describe('KYC — Resume Incomplete KYC', () => {
 
+  const kycData = DataGenerator.kycData();
+
   test.beforeEach(async ({ loginPage, dashboardPage }) => {
-    // Pre-condition: user has started but NOT completed KYC
-    // Use a dedicated "incomplete-kyc" UAT user
-    const email    = process.env.TEST_INCOMPLETE_KYC_EMAIL ?? TestUsers.newUser().email;
-    const password = process.env.TEST_INCOMPLETE_KYC_PW   ?? TestUsers.newUser().password;
     await loginPage.navigate();
-    await loginPage.loginWithEmailPassword({ email, password });
+    await loginPage.loginWithOtp(TestUsers.incompleteKycUser().email, sharedOtp());
     await dashboardPage.assertDashboardLoaded();
   });
 
@@ -49,7 +47,7 @@ test.describe('KYC — Resume Incomplete KYC', () => {
       await expect(kycPage.kycProgressBar()).toBeVisible();
 
       // Step 3: Assert first name field is pre-populated
-      await kycPage.assertResumedFieldsPopulated(TestKycData.firstName);
+      await kycPage.assertResumedFieldsPopulated(getKycDataset('resume').firstName);
     },
   );
 
@@ -65,7 +63,7 @@ test.describe('KYC — Resume Incomplete KYC', () => {
       // (In UAT, we simulate user stopped at address step)
       const addressVisible = await kycPage.addressInput().isVisible({ timeout: 3000 }).catch(() => false);
       if (addressVisible) {
-        await kycPage.fillAddressDetails(TestKycData);
+        await kycPage.fillAddressDetails(kycData);
       }
 
       // Step 3: Submit KYC
@@ -76,7 +74,7 @@ test.describe('KYC — Resume Incomplete KYC', () => {
 
       // Step 4: Assert success or pending
       const done = await kycPage.kycSuccessScreen().isVisible({ timeout: 20_000 }).catch(() => false);
-      const pending = await kycPage.page.locator('.kyc-pending, h2:has-text("Under Review")').isVisible({ timeout: 5000 }).catch(() => false);
+      const pending = await kycPage.$page.locator('.kyc-pending, h2:has-text("Under Review")').isVisible({ timeout: 5000 }).catch(() => false);
       expect(done || pending).toBe(true);
     },
   );
@@ -110,11 +108,8 @@ test.describe('KYC — Resume Incomplete KYC', () => {
 test.describe('KYC — Auto-KYC (API Pre-fill)', () => {
 
   test.beforeEach(async ({ loginPage, dashboardPage }) => {
-    // Pre-condition: user eligible for Auto-KYC (data pre-seeded via API)
-    const email    = process.env.TEST_AUTO_KYC_EMAIL ?? TestUsers.newUser().email;
-    const password = process.env.TEST_AUTO_KYC_PW   ?? TestUsers.newUser().password;
     await loginPage.navigate();
-    await loginPage.loginWithEmailPassword({ email, password });
+    await loginPage.loginWithOtp(TestUsers.autoKycUser().email, sharedOtp());
     await dashboardPage.assertDashboardLoaded();
   });
 
@@ -128,7 +123,7 @@ test.describe('KYC — Auto-KYC (API Pre-fill)', () => {
       await kycPage.clickStartKyc();
 
       // Step 3: Assert fields are pre-populated
-      await kycPage.assertAutoKycPreFilled(TestKycData);
+      await kycPage.assertAutoKycPreFilled(getKycDataset('default'));
 
       // Step 4: Assert fields are read-only (no manual editing)
       await expect(kycPage.firstNameInput()).toHaveAttribute('readonly');
@@ -143,12 +138,12 @@ test.describe('KYC — Auto-KYC (API Pre-fill)', () => {
       // Step 1: Start KYC
       await kycPage.clickStartKyc();
       // Step 2: Verify pre-filled data
-      await kycPage.assertAutoKycPreFilled(TestKycData);
+      await kycPage.assertAutoKycPreFilled(getKycDataset('default'));
       // Step 3: Click Confirm / Submit
       await kycPage.confirmAutoKyc();
       // Step 4: Assert success screen
       const done    = await kycPage.kycSuccessScreen().isVisible({ timeout: 20_000 }).catch(() => false);
-      const pending = await kycPage.page.locator('.kyc-pending, h2:has-text("Verification Pending")').isVisible({ timeout: 5000 }).catch(() => false);
+      const pending = await kycPage.$page.locator('.kyc-pending, h2:has-text("Verification Pending")').isVisible({ timeout: 5000 }).catch(() => false);
       expect(done || pending).toBe(true);
     },
   );

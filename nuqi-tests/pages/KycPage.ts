@@ -1,6 +1,16 @@
 // ─────────────────────────────────────────────────────────────
 //  KycPage — Fresh · Resume · Auto · Already Verified
 //  URL: https://uat.nuqiwealth.com/kyc
+//
+//  Actual KYC flow:
+//    1. KYC overview modal → "Start KYC Verification"
+//    2. Select Document Type (Aadhaar/Passport radio) → outer "Proceed"
+//    3. Facia.ai iframe loads:
+//         a. Check Vuetify consent checkbox ("I agree with Privacy Policy and Terms of Use")
+//         b. iframe "Proceed" button enables → click it → ready to capture
+//         c. Face + document capture (camera, cannot be automated headlessly)
+//    4. Risk Profiling
+//    5. AML Profiling → Submit
 // ─────────────────────────────────────────────────────────────
 
 import { Page, expect } from '@playwright/test';
@@ -8,131 +18,109 @@ import { BasePage } from './BasePage';
 import { KycData } from '../types';
 
 export class KycPage extends BasePage {
-  // ── Locators ───────────────────────────────────────────────
-  readonly kycBanner          = () => this.page.locator('[data-testid="kyc-banner"], .kyc-prompt, section:has-text("Complete your KYC")').first();
-  readonly startKycBtn        = () => this.page.locator('[data-testid="start-kyc"], button:has-text("Start KYC"), button:has-text("Complete KYC"), button:has-text("Verify Identity")').first();
-  readonly resumeKycBtn       = () => this.page.locator('[data-testid="resume-kyc"], button:has-text("Resume"), button:has-text("Continue KYC")').first();
-  readonly verifiedBadge      = () => this.page.locator('[data-testid="kyc-verified"], .verified-badge, span:has-text("Verified"), [aria-label="KYC Verified"]').first();
-  readonly kycSkipIndicator   = () => this.page.locator('[data-testid="kyc-complete"], .kyc-complete').first();
+  // ── General ────────────────────────────────────────────────
+  readonly kycBanner        = () => this.page.locator('[data-testid="kyc-banner"], .kyc-prompt, section:has-text("Complete your KYC")')
+                                      .or(this.page.getByRole('heading', { name: 'KYC Verification', exact: true }))
+                                      .first();
+  readonly startKycBtn      = () => this.page.locator('[data-testid="start-kyc"], button:has-text("Start KYC"), button:has-text("Complete KYC"), button:has-text("Verify Identity")').first();
+  readonly resumeKycBtn     = () => this.page.locator('[data-testid="resume-kyc"], button:has-text("Resume"), button:has-text("Continue KYC")').first();
+  readonly verifiedBadge    = () => this.page.locator('[data-testid="kyc-verified"], .verified-badge, span:has-text("Verified"), [aria-label="KYC Verified"]').first();
+  readonly kycSkipIndicator = () => this.page.locator('[data-testid="kyc-complete"], .kyc-complete').first();
 
-  // Personal details step
-  readonly firstNameInput     = () => this.page.locator('[data-testid="first-name"], input[name="firstName"], input[placeholder*="First"]').first();
-  readonly lastNameInput      = () => this.page.locator('[data-testid="last-name"], input[name="lastName"], input[placeholder*="Last"]').first();
-  readonly dobInput           = () => this.page.locator('[data-testid="dob"], input[name="dob"], input[type="date"], input[placeholder*="Date"]').first();
-  readonly nationalitySelect  = () => this.page.locator('[data-testid="nationality"], select[name="nationality"], [aria-label="Nationality"]').first();
-  readonly phoneInput         = () => this.page.locator('[data-testid="phone"], input[name="phone"], input[type="tel"]').first();
+  // ── Step 1: Document type selection ───────────────────────
+  readonly docTypeHeading   = () => this.page.getByRole('heading', { name: 'Select Document Type', exact: true });
+  // Radios are sr-only — interact via the parent <label>
+  readonly idTypeLabel      = (value: 'aadhaar' | 'passport') =>
+                                this.page.locator(`label:has(input[type="radio"][value="${value}"])`);
+  readonly idTypeSelect     = () => this.page.locator('[data-testid="id-type"], input[type="radio"][name="document"]').first();
 
-  // Identity document step
-  readonly idTypeSelect       = () => this.page.locator('[data-testid="id-type"], select[name="idType"], [aria-label*="Document Type"]').first();
-  readonly idNumberInput      = () => this.page.locator('[data-testid="id-number"], input[name="idNumber"], input[placeholder*="Number"]').first();
-  readonly idFrontUpload      = () => this.page.locator('[data-testid="id-front-upload"], input[type="file"]').first();
-  readonly idBackUpload       = () => this.page.locator('[data-testid="id-back-upload"], input[type="file"]').nth(1);
-  readonly selfieUpload       = () => this.page.locator('[data-testid="selfie-upload"], input[type="file"]').nth(2);
+  // ── Step 2: Outer app wrapper shown while Facia.ai iframe loads ──
+  readonly verificationTipsHeading = () => this.page.getByRole('heading', { name: 'Verification Tips' });
 
-  // Address step
-  readonly addressInput       = () => this.page.locator('[data-testid="address"], input[name="address"], textarea[name="address"]').first();
-  readonly cityInput          = () => this.page.locator('[data-testid="city"], input[name="city"]').first();
-  readonly countrySelect      = () => this.page.locator('[data-testid="country"], select[name="country"]').first();
-  readonly postalInput        = () => this.page.locator('[data-testid="postal"], input[name="postalCode"], input[name="zipCode"]').first();
+  // ── Step 2: Facia.ai iframe (face + document verification) ───
+  // All capture happens inside this cross-origin iframe — no file inputs in outer DOM
+  readonly faciaConsentCheckbox = () => this.page.frameLocator('iframe').first()
+                                            .locator('.v-input--selection-controls__ripple').first();
+  readonly faciaProceedBtn      = () => this.page.frameLocator('iframe').first()
+                                            .getByRole('button', { name: /proceed/i });
 
-  // Navigation buttons
-  readonly nextBtn            = () => this.page.locator('[data-testid="kyc-next"], button:has-text("Next"), button:has-text("Continue")').first();
-  readonly submitKycBtn       = () => this.page.locator('[data-testid="kyc-submit"], button:has-text("Submit"), button:has-text("Confirm")').first();
-  readonly kycProgressBar     = () => this.page.locator('[data-testid="kyc-progress"], .kyc-stepper, [role="progressbar"]').first();
-  readonly kycSuccessScreen   = () => this.page.locator('[data-testid="kyc-success"], h2:has-text("Verified"), h1:has-text("KYC Complete"), .kyc-success').first();
-  readonly faceIdModal        = () => this.page.locator('[data-testid="face-id-modal"], .face-verification, div:has-text("Face Verification")').first();
+  // ── Step 3 / 4: Risk & AML headings ───────────────────────
+  readonly riskProfilingHeading = () => this.page.locator('[data-testid="risk-profiling"]')
+                                          .or(this.page.getByRole('heading', { name: /risk profil/i }))
+                                          .first();
+  readonly amlProfilingHeading  = () => this.page.locator('[data-testid="aml-profiling"]')
+                                          .or(this.page.getByRole('heading', { name: /aml|compliance/i }))
+                                          .first();
+
+  // ── Navigation ─────────────────────────────────────────────
+  // Outer app button text is "Proceed" (not "Next" / "Continue")
+  readonly nextBtn          = () => this.page.locator('[data-testid="kyc-next"], button:has-text("Proceed"), button:has-text("Next"), button:has-text("Continue")').first();
+  readonly submitKycBtn     = () => this.page.locator('[data-testid="kyc-submit"], button:has-text("Submit"), button:has-text("Confirm")').first();
+
+  // No stepper/progressbar in DOM — docTypeHeading confirms we are on an active step
+  readonly kycProgressBar   = () => this.page.locator('[data-testid="kyc-progress"], .kyc-stepper, [role="progressbar"]')
+                                      .or(this.page.getByRole('heading', { name: 'Select Document Type', exact: true }))
+                                      .first();
+  readonly kycSuccessScreen = () => this.page.locator('[data-testid="kyc-success"], h2:has-text("Verified"), h1:has-text("KYC Complete"), .kyc-success').first();
+
+  // ── Personal details (auto-KYC pre-fill assertions only) ──
+  readonly firstNameInput   = () => this.page.locator('[data-testid="first-name"], input[name="firstName"], input[placeholder*="First"]').first();
+  readonly lastNameInput    = () => this.page.locator('[data-testid="last-name"], input[name="lastName"], input[placeholder*="Last"]').first();
+  readonly dobInput         = () => this.page.locator('[data-testid="dob"], input[name="dob"], input[type="date"], input[placeholder*="Date"]').first();
+  readonly nationalitySelect = () => this.page.locator('[data-testid="nationality"], select[name="nationality"], [aria-label="Nationality"]').first();
+  readonly phoneInput       = () => this.page.locator('[data-testid="phone"], input[name="phone"], input[type="tel"]').first();
 
   constructor(page: Page) {
     super(page);
   }
 
-  // ── KYC VARIANT: Check status ─────────────────────────────
+  // ── Status checks ─────────────────────────────────────────
 
-  /**
-   * TC-KYC-00
-   * Returns whether KYC is already verified (skip KYC flows).
-   */
   async isAlreadyVerified(): Promise<boolean> {
     return this.verifiedBadge().isVisible({ timeout: 3000 }).catch(() => false);
   }
 
-  /**
-   * Returns whether a Resume KYC prompt is shown (incomplete KYC).
-   */
   async hasIncompleteKyc(): Promise<boolean> {
     return this.resumeKycBtn().isVisible({ timeout: 3000 }).catch(() => false);
   }
 
   // ── KYC VARIANT A: Fresh KYC ──────────────────────────────
 
-  /**
-   * TC-KYC-01 Step 1 — Click Start KYC
-   */
   async clickStartKyc(): Promise<void> {
-    await expect(this.startKycBtn()).toBeVisible();
+    await expect(this.startKycBtn()).toBeVisible({ timeout: 10_000 });
     await this.startKycBtn().click();
-    await this.waitForNavigation();
+    await expect(this.docTypeHeading()).toBeVisible({ timeout: 10_000 });
   }
 
-  /**
-   * TC-KYC-01 Step 2 — Fill personal details
-   */
-  async fillPersonalDetails(data: KycData): Promise<void> {
-    await this.firstNameInput().fill(data.firstName);
-    await this.lastNameInput().fill(data.lastName);
-    await this.dobInput().fill(data.dob);
-    const natEl = this.nationalitySelect();
-    if (await natEl.isVisible()) await natEl.selectOption({ label: data.nationality });
-    await this.phoneInput().fill(data.phone);
+  async selectDocumentType(type: 'aadhaar' | 'passport'): Promise<void> {
+    await this.idTypeLabel(type).click();
+    await expect(this.nextBtn()).toBeEnabled({ timeout: 5_000 });
     await this.nextBtn().click();
-    await this.waitForNavigation();
+    // Confirm outer app loaded the Facia.ai verification wrapper
+    await expect(this.verificationTipsHeading()).toBeVisible({ timeout: 10_000 });
   }
 
-  /**
-   * TC-KYC-01 Step 3 — Fill identity document details
-   */
-  async fillIdentityDocument(data: KycData, docFrontPath: string, docBackPath: string): Promise<void> {
-    await this.idTypeSelect().selectOption({ label: data.idType });
-    await this.idNumberInput().fill(data.idNumber);
-    // Upload front image
-    await this.idFrontUpload().setInputFiles(docFrontPath);
-    // Upload back image (if applicable)
-    const backUpload = this.idBackUpload();
-    if (await backUpload.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await backUpload.setInputFiles(docBackPath);
-    }
-    await this.nextBtn().click();
-    await this.waitForNavigation();
+  // Accepts the Facia.ai privacy/terms consent inside the embedded iframe.
+  // After this the iframe advances to "ready to capture" state.
+  async acceptFaciaConsent(): Promise<void> {
+    await this.faciaConsentCheckbox().click();
+    await expect(this.faciaProceedBtn()).toBeEnabled({ timeout: 5_000 });
+    await this.faciaProceedBtn().click();
   }
 
-  /**
-   * TC-KYC-01 Step 4 — Handle face/selfie verification (Facia.ai)
-   */
-  async completeFaceVerification(selfiePath: string): Promise<void> {
-    // Platform uses Facia.ai partner — upload selfie image in UAT
-    const selfie = this.selfieUpload();
-    if (await selfie.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await selfie.setInputFiles(selfiePath);
-    }
-    await this.nextBtn().click();
-    await this.waitForNavigation();
+  // Combines document type selection + Facia.ai consent acceptance.
+  // Camera capture itself (face + document) cannot be automated headlessly.
+  async fillIdentityDocument(data: KycData): Promise<void> {
+    await this.selectDocumentType(data.idType as 'aadhaar' | 'passport');
+    await this.acceptFaciaConsent();
   }
 
-  /**
-   * TC-KYC-01 Step 5 — Fill address details
-   */
-  async fillAddressDetails(data: KycData): Promise<void> {
-    await this.addressInput().fill(data.address);
-    await this.cityInput().fill(data.city);
-    await this.countrySelect().selectOption({ label: data.country });
-    await this.postalInput().fill(data.postalCode);
-    await this.nextBtn().click();
-    await this.waitForNavigation();
+  // Placeholder — Facia.ai face/document capture requires a live camera or sandbox.
+  // Override in environment-specific fixtures if a Facia.ai test credential is available.
+  async completeFaceVerification(): Promise<void> {
+    // No-op in default headless runs; Facia.ai iframe handles capture interactively.
   }
 
-  /**
-   * TC-KYC-01 Step 6 — Submit KYC and confirm success
-   */
   async submitKyc(): Promise<void> {
     await this.submitKycBtn().click();
     await this.waitForNavigation();
@@ -144,34 +132,22 @@ export class KycPage extends BasePage {
 
   // ── KYC VARIANT B: Resume KYC ────────────────────────────
 
-  /**
-   * TC-KYC-02 — Resume an incomplete KYC session.
-   */
   async resumeKyc(): Promise<void> {
     await expect(this.resumeKycBtn()).toBeVisible();
     await this.resumeKycBtn().click();
     await this.waitForNavigation();
-    // Progress bar must be visible and > 0%
     await expect(this.kycProgressBar()).toBeVisible();
   }
 
-  /**
-   * TC-KYC-02 — Assert form fields are pre-populated (session state retained).
-   */
   async assertResumedFieldsPopulated(expectedName: string): Promise<void> {
     await expect(this.firstNameInput()).toHaveValue(expectedName);
   }
 
   // ── KYC VARIANT C: Auto-KYC ──────────────────────────────
 
-  /**
-   * TC-KYC-03 — Auto-KYC via API pre-fill.
-   * Fields should be pre-filled and read-only.
-   */
   async assertAutoKycPreFilled(data: KycData): Promise<void> {
     await expect(this.firstNameInput()).toHaveValue(data.firstName);
     await expect(this.lastNameInput()).toHaveValue(data.lastName);
-    // Fields are read-only in Auto-KYC
     await expect(this.firstNameInput()).toHaveAttribute('readonly');
   }
 
@@ -182,9 +158,6 @@ export class KycPage extends BasePage {
 
   // ── KYC VARIANT D: Already Verified ──────────────────────
 
-  /**
-   * TC-KYC-04 — Assert KYC is verified and no KYC prompt is shown.
-   */
   async assertKycAlreadyVerified(): Promise<void> {
     await expect(this.verifiedBadge()).toBeVisible();
     await expect(this.kycBanner()).not.toBeVisible();

@@ -1,0 +1,2540 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: risk\risk-profiling.spec.ts >> Risk Profiling — Conservative >> TC-RISK-01-01 · Risk profiling prompt appears for new user
+- Location: tests\risk\risk-profiling.spec.ts:145:7
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first()
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - img "Company logo" [ref=e5] [cursor=pointer]
+    - generic [ref=e8] [cursor=pointer]:
+      - img [ref=e10]
+      - generic [ref=e13]:
+        - generic [ref=e14]: Search
+        - generic [ref=e15]:
+          - generic [ref=e16]: Stocks
+          - generic [ref=e17]: ETFs
+          - generic [ref=e18]: CEPs
+          - generic [ref=e19]: Mutual Funds
+          - generic [ref=e20]: Exchanges
+          - generic [ref=e21]: Indices
+          - generic [ref=e22]: Stocks
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]: Portfolio
+        - generic [ref=e26]:
+          - text: USD
+          - generic [ref=e27]: "0.00"
+          - generic [ref=e28]:
+            - img [ref=e29]
+            - text: "0.00"
+          - generic [ref=e31]: (0.00%)
+      - generic [ref=e33]:
+        - generic [ref=e34]: My Funds
+        - generic [ref=e36]: USD 0.00
+      - button "Toggle theme" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51] [cursor=pointer]:
+        - img "NYSE" [ref=e52]
+        - generic [ref=e53]: NYSE:MRK
+        - generic [ref=e54]: "117.95"
+        - img [ref=e56]
+        - generic [ref=e58]: "-1.12"
+        - generic [ref=e59]: "-0.94%"
+      - generic [ref=e60] [cursor=pointer]:
+        - img "NSDQ" [ref=e61]
+        - generic [ref=e62]: NSDQ:ON
+        - generic [ref=e63]: "83.59"
+        - img [ref=e65]
+        - generic [ref=e67]: "0.58"
+        - generic [ref=e68]: 0.69%
+      - generic [ref=e69] [cursor=pointer]:
+        - img "NSDQ" [ref=e70]
+        - generic [ref=e71]: NSDQ:AMD
+        - generic [ref=e72]: "281.90"
+        - img [ref=e74]
+        - generic [ref=e76]: "3.51"
+        - generic [ref=e77]: 1.26%
+      - generic [ref=e78] [cursor=pointer]:
+        - img "NSDQ" [ref=e79]
+        - generic [ref=e80]: NSDQ:AVGO
+        - generic [ref=e81]: "402.50"
+        - img [ref=e83]
+        - generic [ref=e85]: "-4.04"
+        - generic [ref=e86]: "-0.99%"
+      - generic [ref=e87] [cursor=pointer]:
+        - img "NYSE" [ref=e88]
+        - generic [ref=e89]: NYSE:JNPR
+        - generic [ref=e90]: "0.00"
+        - img [ref=e92]
+        - generic [ref=e94]: "0.00"
+        - generic [ref=e95]: 0.00%
+      - generic [ref=e96] [cursor=pointer]:
+        - img "LSE" [ref=e97]
+        - generic [ref=e98]: LSE:PSON
+        - generic [ref=e99]: "1077.00"
+        - img [ref=e101]
+        - generic [ref=e103]: "-3.00"
+        - generic [ref=e104]: "-0.28%"
+      - generic [ref=e105] [cursor=pointer]:
+        - img "NSDQ" [ref=e106]
+        - generic [ref=e107]: NSDQ:CSCO
+        - generic [ref=e108]: "86.85"
+        - img [ref=e110]
+        - generic [ref=e112]: "0.60"
+        - generic [ref=e113]: 0.69%
+      - generic [ref=e114] [cursor=pointer]:
+        - img "NSDQ" [ref=e115]
+        - generic [ref=e116]: NSDQ:AZN
+        - generic [ref=e117]: "202.51"
+        - img [ref=e119]
+        - generic [ref=e121]: "-2.29"
+        - generic [ref=e122]: "-1.12%"
+      - generic [ref=e123] [cursor=pointer]:
+        - img "NSDQ" [ref=e124]
+        - generic [ref=e125]: NSDQ:MSFT
+        - generic [ref=e126]: "421.93"
+        - img [ref=e128]
+        - generic [ref=e130]: "-0.86"
+        - generic [ref=e131]: "-0.20%"
+      - generic [ref=e132] [cursor=pointer]:
+        - img "NSDQ" [ref=e133]
+        - generic [ref=e134]: NSDQ:NBIX
+        - generic [ref=e135]: "132.71"
+        - img [ref=e137]
+        - generic [ref=e139]: "-0.54"
+        - generic [ref=e140]: "-0.41%"
+      - generic [ref=e141] [cursor=pointer]:
+        - img "NYSE" [ref=e142]
+        - generic [ref=e143]: NYSE:WAT
+        - generic [ref=e144]: "327.96"
+        - img [ref=e146]
+        - generic [ref=e148]: "0.19"
+        - generic [ref=e149]: 0.06%
+      - generic [ref=e150] [cursor=pointer]:
+        - img "NSDQ" [ref=e151]
+        - generic [ref=e152]: NSDQ:GILD
+        - generic [ref=e153]: "136.87"
+        - img [ref=e155]
+        - generic [ref=e157]: "-0.77"
+        - generic [ref=e158]: "-0.56%"
+      - generic [ref=e159] [cursor=pointer]:
+        - img "NSDQ" [ref=e160]
+        - generic [ref=e161]: NSDQ:TENB
+        - generic [ref=e162]: "19.54"
+        - img [ref=e164]
+        - generic [ref=e166]: "0.19"
+        - generic [ref=e167]: 0.98%
+      - generic [ref=e168] [cursor=pointer]:
+        - img "NSDQ" [ref=e169]
+        - generic [ref=e170]: NSDQ:MCHP
+        - generic [ref=e171]: "79.41"
+        - img [ref=e173]
+        - generic [ref=e175]: "0.65"
+        - generic [ref=e176]: 0.83%
+      - generic [ref=e177] [cursor=pointer]:
+        - img "LSE" [ref=e178]
+        - generic [ref=e179]: LSE:AZN
+        - generic [ref=e180]: "15020.00"
+        - img [ref=e182]
+        - generic [ref=e184]: "-98.00"
+        - generic [ref=e185]: "-0.65%"
+      - generic [ref=e186] [cursor=pointer]:
+        - img "NSDQ" [ref=e187]
+        - generic [ref=e188]: NSDQ:QCOM
+        - generic [ref=e189]: "137.16"
+        - img [ref=e191]
+        - generic [ref=e193]: "0.96"
+        - generic [ref=e194]: 0.71%
+      - generic [ref=e195] [cursor=pointer]:
+        - img "NSDQ" [ref=e196]
+        - generic [ref=e197]: NSDQ:MSFT
+        - generic [ref=e198]: "421.93"
+        - img [ref=e200]
+        - generic [ref=e202]: "-0.86"
+        - generic [ref=e203]: "-0.20%"
+      - generic [ref=e204] [cursor=pointer]:
+        - img "ADSM" [ref=e205]
+        - generic [ref=e206]: ADX:MODON
+        - generic [ref=e207]: "3.18"
+        - img [ref=e209]
+        - generic [ref=e211]: "0.00"
+        - generic [ref=e212]: 0.00%
+      - generic [ref=e213] [cursor=pointer]:
+        - img "DFM" [ref=e214]
+        - generic [ref=e215]: DFM:DIB
+        - generic [ref=e216]: "7.50"
+        - img [ref=e218]
+        - generic [ref=e220]: "0.02"
+        - generic [ref=e221]: 0.27%
+      - generic [ref=e222] [cursor=pointer]:
+        - img "NSDQ" [ref=e223]
+        - generic [ref=e224]: NSDQ:ONC
+        - generic [ref=e225]: "317.44"
+        - img [ref=e227]
+        - generic [ref=e229]: "-6.43"
+        - generic [ref=e230]: "-1.99%"
+      - generic [ref=e231] [cursor=pointer]:
+        - img "NSDQ" [ref=e232]
+        - generic [ref=e233]: NSDQ:PEP
+        - generic [ref=e234]: "157.40"
+        - img [ref=e236]
+        - generic [ref=e238]: "-0.27"
+        - generic [ref=e239]: "-0.17%"
+      - generic [ref=e240] [cursor=pointer]:
+        - img "NSDQ" [ref=e241]
+        - generic [ref=e242]: NSDQ:NTRA
+        - generic [ref=e243]: "209.46"
+        - img [ref=e245]
+        - generic [ref=e247]: "1.06"
+        - generic [ref=e248]: 0.51%
+      - generic [ref=e249] [cursor=pointer]:
+        - img "NSDQ" [ref=e250]
+        - generic [ref=e251]: NSDQ:GOOGL
+        - generic [ref=e252]: "339.74"
+        - img [ref=e254]
+        - generic [ref=e256]: "-1.95"
+        - generic [ref=e257]: "-0.57%"
+      - generic [ref=e258] [cursor=pointer]:
+        - img "NYSE" [ref=e259]
+        - generic [ref=e260]: NYSE:ABT
+        - generic [ref=e261]: "96.42"
+        - img [ref=e263]
+        - generic [ref=e265]: "-0.39"
+        - generic [ref=e266]: "-0.40%"
+      - generic [ref=e267] [cursor=pointer]:
+        - img "NYSE" [ref=e268]
+        - generic [ref=e269]: NYSE:BSX
+        - generic [ref=e270]: "63.53"
+        - img [ref=e272]
+        - generic [ref=e274]: "-0.70"
+        - generic [ref=e275]: "-1.09%"
+      - generic [ref=e276] [cursor=pointer]:
+        - img "NSDQ" [ref=e277]
+        - generic [ref=e278]: NSDQ:AZN
+        - generic [ref=e279]: "202.51"
+        - img [ref=e281]
+        - generic [ref=e283]: "-2.29"
+        - generic [ref=e284]: "-1.12%"
+      - generic [ref=e285] [cursor=pointer]:
+        - img "NSDQ" [ref=e286]
+        - generic [ref=e287]: NSDQ:ON
+        - generic [ref=e288]: "83.59"
+        - img [ref=e290]
+        - generic [ref=e292]: "0.58"
+        - generic [ref=e293]: 0.69%
+      - generic [ref=e294] [cursor=pointer]:
+        - img "CHIX" [ref=e295]
+        - generic [ref=e296]: CHIX:SUP
+        - generic [ref=e297]: "278.65"
+        - img [ref=e299]
+        - generic [ref=e301]: "10.90"
+        - generic [ref=e302]: 4.07%
+      - generic [ref=e303] [cursor=pointer]:
+        - img "CHIX" [ref=e304]
+        - generic [ref=e305]: CHIX:ELP
+        - generic [ref=e306]: "215.70"
+        - img [ref=e308]
+        - generic [ref=e310]: "8.80"
+        - generic [ref=e311]: 4.25%
+      - generic [ref=e312] [cursor=pointer]:
+        - img "NYSE" [ref=e313]
+        - generic [ref=e314]: NYSE:NEM
+        - generic [ref=e315]: "114.35"
+        - img [ref=e317]
+        - generic [ref=e319]: "-2.15"
+        - generic [ref=e320]: "-1.85%"
+      - generic [ref=e321] [cursor=pointer]:
+        - img "ADSM" [ref=e322]
+        - generic [ref=e323]: ADX:ADNOCDIST
+        - generic [ref=e324]: "3.78"
+        - img [ref=e326]
+        - generic [ref=e328]: "0.03"
+        - generic [ref=e329]: 0.80%
+      - generic [ref=e330] [cursor=pointer]:
+        - img "NYSE" [ref=e331]
+        - generic [ref=e332]: NYSE:NKE
+        - generic [ref=e333]: "45.91"
+        - img [ref=e335]
+        - generic [ref=e337]: "-0.12"
+        - generic [ref=e338]: "-0.25%"
+      - generic [ref=e339] [cursor=pointer]:
+        - img "LSE" [ref=e340]
+        - generic [ref=e341]: LSE:RKT
+        - generic [ref=e342]: "5104.00"
+        - img [ref=e344]
+        - generic [ref=e346]: "-76.00"
+        - generic [ref=e347]: "-1.47%"
+      - generic [ref=e348] [cursor=pointer]:
+        - img "NYSE" [ref=e349]
+        - generic [ref=e350]: NYSE:LLY
+        - generic [ref=e351]: "921.77"
+        - img [ref=e353]
+        - generic [ref=e355]: "-5.26"
+        - generic [ref=e356]: "-0.57%"
+      - generic [ref=e357] [cursor=pointer]:
+        - img "NSDQ" [ref=e358]
+        - generic [ref=e359]: NSDQ:OKTA
+        - generic [ref=e360]: "76.04"
+        - img [ref=e362]
+        - generic [ref=e364]: "3.79"
+        - generic [ref=e365]: 5.25%
+      - generic [ref=e366] [cursor=pointer]:
+        - img "NSDQ" [ref=e367]
+        - generic [ref=e368]: NSDQ:AVGO
+        - generic [ref=e369]: "402.50"
+        - img [ref=e371]
+        - generic [ref=e373]: "-4.04"
+        - generic [ref=e374]: "-0.99%"
+      - generic [ref=e375] [cursor=pointer]:
+        - img "LSE" [ref=e376]
+        - generic [ref=e377]: LSE:RIO
+        - generic [ref=e378]: "7345.00"
+        - img [ref=e380]
+        - generic [ref=e382]: "-103.00"
+        - generic [ref=e383]: "-1.38%"
+      - generic [ref=e384] [cursor=pointer]:
+        - img "ADSM" [ref=e385]
+        - generic [ref=e386]: ADX:ALDAR
+        - generic [ref=e387]: "8.50"
+        - img [ref=e389]
+        - generic [ref=e391]: "0.04"
+        - generic [ref=e392]: 0.47%
+      - generic [ref=e393] [cursor=pointer]:
+        - img "NYSE" [ref=e394]
+        - generic [ref=e395]: NYSE:LLY
+        - generic [ref=e396]: "921.77"
+        - img [ref=e398]
+        - generic [ref=e400]: "-5.26"
+        - generic [ref=e401]: "-0.57%"
+      - generic [ref=e402] [cursor=pointer]:
+        - img "NSDQ" [ref=e403]
+        - generic [ref=e404]: NSDQ:NXPI
+        - generic [ref=e405]: "216.65"
+        - img [ref=e407]
+        - generic [ref=e409]: "0.62"
+        - generic [ref=e410]: 0.29%
+      - generic [ref=e411] [cursor=pointer]:
+        - img "NSDQ" [ref=e412]
+        - generic [ref=e413]: NSDQ:TXN
+        - generic [ref=e414]: "231.73"
+        - img [ref=e416]
+        - generic [ref=e418]: "1.91"
+        - generic [ref=e419]: 0.83%
+      - generic [ref=e420] [cursor=pointer]:
+        - img "NYSE" [ref=e421]
+        - generic [ref=e422]: NYSE:EW
+        - generic [ref=e423]: "81.62"
+        - img [ref=e425]
+        - generic [ref=e427]: "0.63"
+        - generic [ref=e428]: 0.78%
+      - generic [ref=e429] [cursor=pointer]:
+        - img "NSDQ" [ref=e430]
+        - generic [ref=e431]: NSDQ:AAPL
+        - generic [ref=e432]: "273.89"
+        - img [ref=e434]
+        - generic [ref=e436]: "3.66"
+        - generic [ref=e437]: 1.35%
+      - generic [ref=e438] [cursor=pointer]:
+        - img "CHIX" [ref=e439]
+        - generic [ref=e440]: CHIX:AIP
+        - generic [ref=e441]: "186.04"
+        - img [ref=e443]
+        - generic [ref=e445]: "-0.34"
+        - generic [ref=e446]: "-0.18%"
+      - generic [ref=e447] [cursor=pointer]:
+        - img "CHIX" [ref=e448]
+        - generic [ref=e449]: CHIX:SANP
+        - generic [ref=e450]: "82.02"
+        - img [ref=e452]
+        - generic [ref=e454]: "1.17"
+        - generic [ref=e455]: 1.45%
+      - generic [ref=e456] [cursor=pointer]:
+        - img "NSDQ" [ref=e457]
+        - generic [ref=e458]: NSDQ:DXCM
+        - generic [ref=e459]: "64.81"
+        - img [ref=e461]
+        - generic [ref=e463]: "0.83"
+        - generic [ref=e464]: 1.31%
+      - generic [ref=e465] [cursor=pointer]:
+        - img "NYSE" [ref=e466]
+        - generic [ref=e467]: NYSE:RIO
+        - generic [ref=e468]: "99.44"
+        - img [ref=e470]
+        - generic [ref=e472]: "-0.71"
+        - generic [ref=e473]: "-0.71%"
+      - generic [ref=e474] [cursor=pointer]:
+        - img "NSDQ" [ref=e475]
+        - generic [ref=e476]: NSDQ:INCY
+        - generic [ref=e477]: "97.37"
+        - img [ref=e479]
+        - generic [ref=e481]: "-0.45"
+        - generic [ref=e482]: "-0.46%"
+      - generic [ref=e483] [cursor=pointer]:
+        - img "NSDQ" [ref=e484]
+        - generic [ref=e485]: NSDQ:TSLA
+        - generic [ref=e486]: "395.19"
+        - img [ref=e488]
+        - generic [ref=e490]: "-5.43"
+        - generic [ref=e491]: "-1.36%"
+      - generic [ref=e492] [cursor=pointer]:
+        - img "NSDQ" [ref=e493]
+        - generic [ref=e494]: NSDQ:ZS
+        - generic [ref=e495]: "135.93"
+        - img [ref=e497]
+        - generic [ref=e499]: "1.25"
+        - generic [ref=e500]: 0.93%
+      - generic [ref=e501] [cursor=pointer]:
+        - img "DFM" [ref=e502]
+        - generic [ref=e503]: DFM:DEWA
+        - generic [ref=e504]: "2.76"
+        - img [ref=e506]
+        - generic [ref=e508]: "0.01"
+        - generic [ref=e509]: 0.36%
+      - generic [ref=e510] [cursor=pointer]:
+        - img "NYSE" [ref=e511]
+        - generic [ref=e512]: NYSE:STM
+        - generic [ref=e513]: "44.02"
+        - img [ref=e515]
+        - generic [ref=e517]: "-0.20"
+        - generic [ref=e518]: "-0.44%"
+      - generic [ref=e519] [cursor=pointer]:
+        - img "DFM" [ref=e520]
+        - generic [ref=e521]: DFM:DEWA
+        - generic [ref=e522]: "2.76"
+        - img [ref=e524]
+        - generic [ref=e526]: "0.01"
+        - generic [ref=e527]: 0.36%
+      - generic [ref=e528] [cursor=pointer]:
+        - img "NSDQ" [ref=e529]
+        - generic [ref=e530]: NSDQ:PANW
+        - generic [ref=e531]: "169.68"
+        - img [ref=e533]
+        - generic [ref=e535]: "1.83"
+        - generic [ref=e536]: 1.09%
+      - generic [ref=e537] [cursor=pointer]:
+        - img "NSDQ" [ref=e538]
+        - generic [ref=e539]: NSDQ:ADI
+        - generic [ref=e540]: "380.78"
+        - img [ref=e542]
+        - generic [ref=e544]: "9.33"
+        - generic [ref=e545]: 2.51%
+      - generic [ref=e546] [cursor=pointer]:
+        - img "NYSE" [ref=e547]
+        - generic [ref=e548]: NYSE:NEM
+        - generic [ref=e549]: "114.35"
+        - img [ref=e551]
+        - generic [ref=e553]: "-2.15"
+        - generic [ref=e554]: "-1.85%"
+      - generic [ref=e555] [cursor=pointer]:
+        - img "NYSE" [ref=e556]
+        - generic [ref=e557]: NYSE:NVO
+        - generic [ref=e558]: "40.47"
+        - img [ref=e560]
+        - generic [ref=e562]: "-0.05"
+        - generic [ref=e563]: "-0.12%"
+      - generic [ref=e564] [cursor=pointer]:
+        - img "CHIX" [ref=e565]
+        - generic [ref=e566]: CHIX:ORP
+        - generic [ref=e567]: "356.75"
+        - img [ref=e569]
+        - generic [ref=e571]: "6.85"
+        - generic [ref=e572]: 1.96%
+      - generic [ref=e573] [cursor=pointer]:
+        - img "NSDQ" [ref=e574]
+        - generic [ref=e575]: NSDQ:AKAM
+        - generic [ref=e576]: "97.22"
+        - img [ref=e578]
+        - generic [ref=e580]: "1.33"
+        - generic [ref=e581]: 1.39%
+      - generic [ref=e582] [cursor=pointer]:
+        - img "NYSE" [ref=e583]
+        - generic [ref=e584]: NYSE:CMI
+        - generic [ref=e585]: "627.14"
+        - img [ref=e587]
+        - generic [ref=e589]: "-0.04"
+        - generic [ref=e590]: "-0.01%"
+      - generic [ref=e591] [cursor=pointer]:
+        - img "CHIX" [ref=e592]
+        - generic [ref=e593]: CHIX:SAPD
+        - generic [ref=e594]: "156.24"
+        - img [ref=e596]
+        - generic [ref=e598]: "4.58"
+        - generic [ref=e599]: 3.02%
+      - generic [ref=e600] [cursor=pointer]:
+        - img "NYSE" [ref=e601]
+        - generic [ref=e602]: NYSE:AEM
+        - generic [ref=e603]: "213.97"
+        - img [ref=e605]
+        - generic [ref=e607]: "-6.13"
+        - generic [ref=e608]: "-2.79%"
+      - generic [ref=e609] [cursor=pointer]:
+        - img "NSDQ" [ref=e610]
+        - generic [ref=e611]: NSDQ:TSLA
+        - generic [ref=e612]: "395.19"
+        - img [ref=e614]
+        - generic [ref=e616]: "-5.43"
+        - generic [ref=e617]: "-1.36%"
+      - generic [ref=e618] [cursor=pointer]:
+        - img "NSDQ" [ref=e619]
+        - generic [ref=e620]: NSDQ:MIRM
+        - generic [ref=e621]: "97.69"
+        - img [ref=e623]
+        - generic [ref=e625]: "-0.26"
+        - generic [ref=e626]: "-0.27%"
+      - generic [ref=e627] [cursor=pointer]:
+        - img "NSDQ" [ref=e628]
+        - generic [ref=e629]: NSDQ:META
+        - generic [ref=e630]: "676.36"
+        - img [ref=e632]
+        - generic [ref=e634]: "-12.19"
+        - generic [ref=e635]: "-1.77%"
+      - generic [ref=e636] [cursor=pointer]:
+        - img "NYSE" [ref=e637]
+        - generic [ref=e638]: NYSE:GFI
+        - generic [ref=e639]: "49.26"
+        - img [ref=e641]
+        - generic [ref=e643]: "-0.70"
+        - generic [ref=e644]: "-1.40%"
+      - generic [ref=e645] [cursor=pointer]:
+        - img "NYSE" [ref=e646]
+        - generic [ref=e647]: NYSE:DD
+        - generic [ref=e648]: "47.25"
+        - img [ref=e650]
+        - generic [ref=e652]: "-0.10"
+        - generic [ref=e653]: "-0.21%"
+      - generic [ref=e654] [cursor=pointer]:
+        - img "LSE" [ref=e655]
+        - generic [ref=e656]: LSE:ULVR
+        - generic [ref=e657]: "4270.50"
+        - img [ref=e659]
+        - generic [ref=e661]: "-28.50"
+        - generic [ref=e662]: "-0.66%"
+      - generic [ref=e663] [cursor=pointer]:
+        - img "NYSE" [ref=e664]
+        - generic [ref=e665]: NYSE:SPXC
+        - generic [ref=e666]: "221.22"
+        - img [ref=e668]
+        - generic [ref=e670]: "-2.30"
+        - generic [ref=e671]: "-1.03%"
+      - generic [ref=e672] [cursor=pointer]:
+        - img "NSDQ" [ref=e673]
+        - generic [ref=e674]: NSDQ:TXN
+        - generic [ref=e675]: "231.73"
+        - img [ref=e677]
+        - generic [ref=e679]: "1.91"
+        - generic [ref=e680]: 0.83%
+      - generic [ref=e681] [cursor=pointer]:
+        - img "NSDQ" [ref=e682]
+        - generic [ref=e683]: NSDQ:MASI
+        - generic [ref=e684]: "178.30"
+        - img [ref=e686]
+        - generic [ref=e688]: "-0.09"
+        - generic [ref=e689]: "-0.05%"
+      - generic [ref=e690] [cursor=pointer]:
+        - img "NYSE" [ref=e691]
+        - generic [ref=e692]: NYSE:PG
+        - generic [ref=e693]: "145.53"
+        - img [ref=e695]
+        - generic [ref=e697]: "-1.40"
+        - generic [ref=e698]: "-0.95%"
+      - generic [ref=e699] [cursor=pointer]:
+        - img "DFM" [ref=e700]
+        - generic [ref=e701]: DFM:DU
+        - generic [ref=e702]: "10.48"
+        - img [ref=e704]
+        - generic [ref=e706]: "0.08"
+        - generic [ref=e707]: 0.77%
+      - generic [ref=e708] [cursor=pointer]:
+        - img "NSDQ" [ref=e709]
+        - generic [ref=e710]: NSDQ:AAPL
+        - generic [ref=e711]: "273.89"
+        - img [ref=e713]
+        - generic [ref=e715]: "3.66"
+        - generic [ref=e716]: 1.35%
+      - generic [ref=e717] [cursor=pointer]:
+        - img "NSDQ" [ref=e718]
+        - generic [ref=e719]: NSDQ:QCOM
+        - generic [ref=e720]: "137.16"
+        - img [ref=e722]
+        - generic [ref=e724]: "0.96"
+        - generic [ref=e725]: 0.71%
+      - generic [ref=e726] [cursor=pointer]:
+        - img "DFM" [ref=e727]
+        - generic [ref=e728]: DFM:AIRARABIA
+        - generic [ref=e729]: "5.40"
+        - img [ref=e731]
+        - generic [ref=e733]: "0.11"
+        - generic [ref=e734]: 2.08%
+      - generic [ref=e735] [cursor=pointer]:
+        - img "NYSE" [ref=e736]
+        - generic [ref=e737]: NYSE:PG
+        - generic [ref=e738]: "145.53"
+        - img [ref=e740]
+        - generic [ref=e742]: "-1.40"
+        - generic [ref=e743]: "-0.95%"
+      - generic [ref=e744] [cursor=pointer]:
+        - img "LSE" [ref=e745]
+        - generic [ref=e746]: LSE:INF
+        - generic [ref=e747]: "834.40"
+        - img [ref=e749]
+        - generic [ref=e751]: "-15.20"
+        - generic [ref=e752]: "-1.79%"
+      - generic [ref=e753] [cursor=pointer]:
+        - img "NSDQ" [ref=e754]
+        - generic [ref=e755]: NSDQ:BIIB
+        - generic [ref=e756]: "180.37"
+        - img [ref=e758]
+        - generic [ref=e760]: "3.02"
+        - generic [ref=e761]: 1.70%
+      - generic [ref=e762] [cursor=pointer]:
+        - img "NSDQ" [ref=e763]
+        - generic [ref=e764]: NSDQ:GILD
+        - generic [ref=e765]: "136.87"
+        - img [ref=e767]
+        - generic [ref=e769]: "-0.77"
+        - generic [ref=e770]: "-0.56%"
+      - generic [ref=e771] [cursor=pointer]:
+        - img "NYSE" [ref=e772]
+        - generic [ref=e773]: NYSE:TSM
+        - generic [ref=e774]: "368.49"
+        - img [ref=e776]
+        - generic [ref=e778]: "-2.02"
+        - generic [ref=e779]: "-0.54%"
+      - generic [ref=e780] [cursor=pointer]:
+        - img "NYSE" [ref=e781]
+        - generic [ref=e782]: NYSE:ANET
+        - generic [ref=e783]: "166.47"
+        - img [ref=e785]
+        - generic [ref=e787]: "2.24"
+        - generic [ref=e788]: 1.36%
+      - generic [ref=e789] [cursor=pointer]:
+        - img "NSDQ" [ref=e790]
+        - generic [ref=e791]: NSDQ:TSLA
+        - generic [ref=e792]: "395.19"
+        - img [ref=e794]
+        - generic [ref=e796]: "-5.43"
+        - generic [ref=e797]: "-1.36%"
+      - generic [ref=e798] [cursor=pointer]:
+        - img "NSDQ" [ref=e799]
+        - generic [ref=e800]: NSDQ:AMAT
+        - generic [ref=e801]: "394.52"
+        - img [ref=e803]
+        - generic [ref=e805]: "-2.42"
+        - generic [ref=e806]: "-0.61%"
+      - generic [ref=e807] [cursor=pointer]:
+        - img "NYSE" [ref=e808]
+        - generic [ref=e809]: NYSE:JCI
+        - generic [ref=e810]: "141.37"
+        - img [ref=e812]
+        - generic [ref=e814]: "0.50"
+        - generic [ref=e815]: 0.35%
+      - generic [ref=e816] [cursor=pointer]:
+        - img "NSDQ" [ref=e817]
+        - generic [ref=e818]: NSDQ:MSFT
+        - generic [ref=e819]: "421.93"
+        - img [ref=e821]
+        - generic [ref=e823]: "-0.86"
+        - generic [ref=e824]: "-0.20%"
+      - generic [ref=e825] [cursor=pointer]:
+        - img "NYSE" [ref=e826]
+        - generic [ref=e827]: NYSE:AU
+        - generic [ref=e828]: "106.89"
+        - img [ref=e830]
+        - generic [ref=e832]: "-2.26"
+        - generic [ref=e833]: "-2.07%"
+      - generic [ref=e834] [cursor=pointer]:
+        - img "NSDQ" [ref=e835]
+        - generic [ref=e836]: NSDQ:BMRN
+        - generic [ref=e837]: "55.10"
+        - img [ref=e839]
+        - generic [ref=e841]: "0.46"
+        - generic [ref=e842]: 0.84%
+      - generic [ref=e843] [cursor=pointer]:
+        - img "DFM" [ref=e844]
+        - generic [ref=e845]: DFM:EMPOWER
+        - generic [ref=e846]: "1.60"
+        - img [ref=e848]
+        - generic [ref=e850]: "0.01"
+        - generic [ref=e851]: 0.63%
+      - generic [ref=e852] [cursor=pointer]:
+        - img "NYSE" [ref=e853]
+        - generic [ref=e854]: NYSE:KO
+        - generic [ref=e855]: "75.84"
+        - img [ref=e857]
+        - generic [ref=e859]: "0.10"
+        - generic [ref=e860]: 0.13%
+      - generic [ref=e861] [cursor=pointer]:
+        - img "NSDQ" [ref=e862]
+        - generic [ref=e863]: NSDQ:MRVL
+        - generic [ref=e864]: "146.39"
+        - img [ref=e866]
+        - generic [ref=e868]: "6.70"
+        - generic [ref=e869]: 4.80%
+      - generic [ref=e870] [cursor=pointer]:
+        - img "NYSE" [ref=e871]
+        - generic [ref=e872]: NYSE:ABBV
+        - generic [ref=e873]: "204.90"
+        - img [ref=e875]
+        - generic [ref=e877]: "-3.48"
+        - generic [ref=e878]: "-1.67%"
+      - generic [ref=e879] [cursor=pointer]:
+        - img "NSDQ" [ref=e880]
+        - generic [ref=e881]: NSDQ:CSCO
+        - generic [ref=e882]: "86.85"
+        - img [ref=e884]
+        - generic [ref=e886]: "0.60"
+        - generic [ref=e887]: 0.69%
+      - generic [ref=e888] [cursor=pointer]:
+        - img "NYSE" [ref=e889]
+        - generic [ref=e890]: NYSE:RACE
+        - generic [ref=e891]: "371.16"
+        - img [ref=e893]
+        - generic [ref=e895]: "-1.69"
+        - generic [ref=e896]: "-0.45%"
+      - generic [ref=e897] [cursor=pointer]:
+        - img "NSDQ" [ref=e898]
+        - generic [ref=e899]: NSDQ:GOOGL
+        - generic [ref=e900]: "339.74"
+        - img [ref=e902]
+        - generic [ref=e904]: "-1.95"
+        - generic [ref=e905]: "-0.57%"
+      - generic [ref=e906] [cursor=pointer]:
+        - img "NSDQ" [ref=e907]
+        - generic [ref=e908]: NSDQ:FTNT
+        - generic [ref=e909]: "83.13"
+        - img [ref=e911]
+        - generic [ref=e913]: "1.29"
+        - generic [ref=e914]: 1.58%
+      - generic [ref=e915] [cursor=pointer]:
+        - img "NSDQ" [ref=e916]
+        - generic [ref=e917]: NSDQ:NVDA
+        - generic [ref=e918]: "199.70"
+        - img [ref=e920]
+        - generic [ref=e922]: "-1.98"
+        - generic [ref=e923]: "-0.98%"
+      - generic [ref=e924] [cursor=pointer]:
+        - img "NSDQ" [ref=e925]
+        - generic [ref=e926]: NSDQ:PODD
+        - generic [ref=e927]: "203.89"
+        - img [ref=e929]
+        - generic [ref=e931]: "0.16"
+        - generic [ref=e932]: 0.08%
+      - generic [ref=e933] [cursor=pointer]:
+        - img "ADSM" [ref=e934]
+        - generic [ref=e935]: ADX:BOROUGE
+        - generic [ref=e936]: "2.56"
+        - img [ref=e938]
+        - generic [ref=e940]: "0.00"
+        - generic [ref=e941]: 0.00%
+      - generic [ref=e942] [cursor=pointer]:
+        - img "NSDQ" [ref=e943]
+        - generic [ref=e944]: NSDQ:NVDA
+        - generic [ref=e945]: "199.70"
+        - img [ref=e947]
+        - generic [ref=e949]: "-1.98"
+        - generic [ref=e950]: "-0.98%"
+      - generic [ref=e951] [cursor=pointer]:
+        - img "NYSE" [ref=e952]
+        - generic [ref=e953]: NYSE:TSM
+        - generic [ref=e954]: "368.49"
+        - img [ref=e956]
+        - generic [ref=e958]: "-2.02"
+        - generic [ref=e959]: "-0.54%"
+      - generic [ref=e960] [cursor=pointer]:
+        - img "NSDQ" [ref=e961]
+        - generic [ref=e962]: NSDQ:AAPL
+        - generic [ref=e963]: "273.89"
+        - img [ref=e965]
+        - generic [ref=e967]: "3.66"
+        - generic [ref=e968]: 1.35%
+      - generic [ref=e969] [cursor=pointer]:
+        - img "NYSE" [ref=e970]
+        - generic [ref=e971]: NYSE:VRT
+        - generic [ref=e972]: "308.86"
+        - img [ref=e974]
+        - generic [ref=e976]: "1.51"
+        - generic [ref=e977]: 0.49%
+      - generic [ref=e978] [cursor=pointer]:
+        - img "NYSE" [ref=e979]
+        - generic [ref=e980]: NYSE:MRK
+        - generic [ref=e981]: "117.95"
+        - img [ref=e983]
+        - generic [ref=e985]: "-1.12"
+        - generic [ref=e986]: "-0.94%"
+      - generic [ref=e987] [cursor=pointer]:
+        - img "LSE" [ref=e988]
+        - generic [ref=e989]: LSE:SGE
+        - generic [ref=e990]: "898.80"
+        - img [ref=e992]
+        - generic [ref=e994]: "-22.20"
+        - generic [ref=e995]: "-2.41%"
+      - generic [ref=e996] [cursor=pointer]:
+        - img "NSDQ" [ref=e997]
+        - generic [ref=e998]: NSDQ:NVDA
+        - generic [ref=e999]: "199.70"
+        - img [ref=e1001]
+        - generic [ref=e1003]: "-1.98"
+        - generic [ref=e1004]: "-0.98%"
+      - generic [ref=e1005] [cursor=pointer]:
+        - img "NYSE" [ref=e1006]
+        - generic [ref=e1007]: NYSE:MDT
+        - generic [ref=e1008]: "86.86"
+        - img [ref=e1010]
+        - generic [ref=e1012]: "0.67"
+        - generic [ref=e1013]: 0.78%
+      - generic [ref=e1014] [cursor=pointer]:
+        - img "ADSM" [ref=e1015]
+        - generic [ref=e1016]: ADX:ADNOCGAS
+        - generic [ref=e1017]: "3.24"
+        - img [ref=e1019]
+        - generic [ref=e1021]: "0.00"
+        - generic [ref=e1022]: 0.00%
+      - generic [ref=e1023] [cursor=pointer]:
+        - img "ADSM" [ref=e1024]
+        - generic [ref=e1025]: ADX:ADIB
+        - generic [ref=e1026]: "23.70"
+        - img [ref=e1028]
+        - generic [ref=e1030]: "0.16"
+        - generic [ref=e1031]: 0.68%
+      - generic [ref=e1032] [cursor=pointer]:
+        - img "NYSE" [ref=e1033]
+        - generic [ref=e1034]: NYSE:CVX
+        - generic [ref=e1035]: "185.48"
+        - img [ref=e1037]
+        - generic [ref=e1039]: "1.49"
+        - generic [ref=e1040]: 0.81%
+      - generic [ref=e1041] [cursor=pointer]:
+        - img "DFM" [ref=e1042]
+        - generic [ref=e1043]: DFM:EMAAR
+        - generic [ref=e1044]: "12.84"
+        - img [ref=e1046]
+        - generic [ref=e1048]: "0.14"
+        - generic [ref=e1049]: 1.10%
+      - generic [ref=e1050] [cursor=pointer]:
+        - img "NYSE" [ref=e1051]
+        - generic [ref=e1052]: NYSE:TT
+        - generic [ref=e1053]: "477.83"
+        - img [ref=e1055]
+        - generic [ref=e1057]: "1.72"
+        - generic [ref=e1058]: 0.36%
+      - generic [ref=e1059] [cursor=pointer]:
+        - img "NYSE" [ref=e1060]
+        - generic [ref=e1061]: NYSE:UL
+        - generic [ref=e1062]: "58.23"
+        - img [ref=e1064]
+        - generic [ref=e1066]: "-0.30"
+        - generic [ref=e1067]: "-0.51%"
+      - generic [ref=e1068] [cursor=pointer]:
+        - img "NYSE" [ref=e1069]
+        - generic [ref=e1070]: NYSE:JNJ
+        - generic [ref=e1071]: "232.28"
+        - img [ref=e1073]
+        - generic [ref=e1075]: "-1.90"
+        - generic [ref=e1076]: "-0.81%"
+      - generic [ref=e1077] [cursor=pointer]:
+        - img "NYSE" [ref=e1078]
+        - generic [ref=e1079]: NYSE:MCD
+        - generic [ref=e1080]: "309.45"
+        - img [ref=e1082]
+        - generic [ref=e1084]: "-1.91"
+        - generic [ref=e1085]: "-0.61%"
+      - generic [ref=e1086] [cursor=pointer]:
+        - img "CHIX" [ref=e1087]
+        - generic [ref=e1088]: CHIX:ASMLA
+        - generic [ref=e1089]: "1231.10"
+        - img [ref=e1091]
+        - generic [ref=e1093]: "-12.90"
+        - generic [ref=e1094]: "-1.04%"
+      - generic [ref=e1095] [cursor=pointer]:
+        - img "NYSE" [ref=e1096]
+        - generic [ref=e1097]: NYSE:XOM
+        - generic [ref=e1098]: "148.09"
+        - img [ref=e1100]
+        - generic [ref=e1102]: "1.65"
+        - generic [ref=e1103]: 1.13%
+      - generic [ref=e1104] [cursor=pointer]:
+        - img "DFM" [ref=e1105]
+        - generic [ref=e1106]: DFM:DU
+        - generic [ref=e1107]: "10.48"
+        - img [ref=e1109]
+        - generic [ref=e1111]: "0.08"
+        - generic [ref=e1112]: 0.77%
+      - generic [ref=e1113] [cursor=pointer]:
+        - img "LSE" [ref=e1114]
+        - generic [ref=e1115]: LSE:ISDU
+        - generic [ref=e1116]: "90.27"
+        - img [ref=e1118]
+        - generic [ref=e1120]: "-0.29"
+        - generic [ref=e1121]: "-0.32%"
+      - generic [ref=e1122] [cursor=pointer]:
+        - img "NSDQ" [ref=e1123]
+        - generic [ref=e1124]: NSDQ:GOOGL
+        - generic [ref=e1125]: "339.74"
+        - img [ref=e1127]
+        - generic [ref=e1129]: "-1.95"
+        - generic [ref=e1130]: "-0.57%"
+      - generic [ref=e1131] [cursor=pointer]:
+        - img "NYSE" [ref=e1132]
+        - generic [ref=e1133]: NYSE:WPM
+        - generic [ref=e1134]: "150.26"
+        - img [ref=e1136]
+        - generic [ref=e1138]: "-2.12"
+        - generic [ref=e1139]: "-1.39%"
+      - generic [ref=e1140] [cursor=pointer]:
+        - img "NYSE" [ref=e1141]
+        - generic [ref=e1142]: NYSE:KO
+        - generic [ref=e1143]: "75.84"
+        - img [ref=e1145]
+        - generic [ref=e1147]: "0.10"
+        - generic [ref=e1148]: 0.13%
+      - generic [ref=e1149] [cursor=pointer]:
+        - img "NYSE" [ref=e1150]
+        - generic [ref=e1151]: NYSE:VRT
+        - generic [ref=e1152]: "308.86"
+        - img [ref=e1154]
+        - generic [ref=e1156]: "1.51"
+        - generic [ref=e1157]: 0.49%
+      - generic [ref=e1158] [cursor=pointer]:
+        - img "NYSE" [ref=e1159]
+        - generic [ref=e1160]: NYSE:AGI
+        - generic [ref=e1161]: "48.96"
+        - img [ref=e1163]
+        - generic [ref=e1165]: "-0.39"
+        - generic [ref=e1166]: "-0.79%"
+      - generic [ref=e1167] [cursor=pointer]:
+        - img "NYSE" [ref=e1168]
+        - generic [ref=e1169]: NYSE:JNJ
+        - generic [ref=e1170]: "232.28"
+        - img [ref=e1172]
+        - generic [ref=e1174]: "-1.90"
+        - generic [ref=e1175]: "-0.81%"
+      - generic [ref=e1176] [cursor=pointer]:
+        - img "NYSE" [ref=e1177]
+        - generic [ref=e1178]: NYSE:CRM
+        - generic [ref=e1179]: "188.27"
+        - img [ref=e1181]
+        - generic [ref=e1183]: "6.13"
+        - generic [ref=e1184]: 3.37%
+    - generic [ref=e1185]:
+      - generic [ref=e1186] [cursor=pointer]:
+        - img "NYSE" [ref=e1187]
+        - generic [ref=e1188]: NYSE:MRK
+        - generic [ref=e1189]: "117.95"
+        - img [ref=e1191]
+        - generic [ref=e1193]: "-1.12"
+        - generic [ref=e1194]: "-0.94%"
+      - generic [ref=e1195] [cursor=pointer]:
+        - img "NSDQ" [ref=e1196]
+        - generic [ref=e1197]: NSDQ:ON
+        - generic [ref=e1198]: "83.59"
+        - img [ref=e1200]
+        - generic [ref=e1202]: "0.58"
+        - generic [ref=e1203]: 0.69%
+      - generic [ref=e1204] [cursor=pointer]:
+        - img "NSDQ" [ref=e1205]
+        - generic [ref=e1206]: NSDQ:AMD
+        - generic [ref=e1207]: "281.90"
+        - img [ref=e1209]
+        - generic [ref=e1211]: "3.51"
+        - generic [ref=e1212]: 1.26%
+      - generic [ref=e1213] [cursor=pointer]:
+        - img "NSDQ" [ref=e1214]
+        - generic [ref=e1215]: NSDQ:AVGO
+        - generic [ref=e1216]: "402.50"
+        - img [ref=e1218]
+        - generic [ref=e1220]: "-4.04"
+        - generic [ref=e1221]: "-0.99%"
+      - generic [ref=e1222] [cursor=pointer]:
+        - img "NYSE" [ref=e1223]
+        - generic [ref=e1224]: NYSE:JNPR
+        - generic [ref=e1225]: "0.00"
+        - img [ref=e1227]
+        - generic [ref=e1229]: "0.00"
+        - generic [ref=e1230]: 0.00%
+      - generic [ref=e1231] [cursor=pointer]:
+        - img "LSE" [ref=e1232]
+        - generic [ref=e1233]: LSE:PSON
+        - generic [ref=e1234]: "1077.00"
+        - img [ref=e1236]
+        - generic [ref=e1238]: "-3.00"
+        - generic [ref=e1239]: "-0.28%"
+      - generic [ref=e1240] [cursor=pointer]:
+        - img "NSDQ" [ref=e1241]
+        - generic [ref=e1242]: NSDQ:CSCO
+        - generic [ref=e1243]: "86.85"
+        - img [ref=e1245]
+        - generic [ref=e1247]: "0.60"
+        - generic [ref=e1248]: 0.69%
+      - generic [ref=e1249] [cursor=pointer]:
+        - img "NSDQ" [ref=e1250]
+        - generic [ref=e1251]: NSDQ:AZN
+        - generic [ref=e1252]: "202.51"
+        - img [ref=e1254]
+        - generic [ref=e1256]: "-2.29"
+        - generic [ref=e1257]: "-1.12%"
+      - generic [ref=e1258] [cursor=pointer]:
+        - img "NSDQ" [ref=e1259]
+        - generic [ref=e1260]: NSDQ:MSFT
+        - generic [ref=e1261]: "421.93"
+        - img [ref=e1263]
+        - generic [ref=e1265]: "-0.86"
+        - generic [ref=e1266]: "-0.20%"
+      - generic [ref=e1267] [cursor=pointer]:
+        - img "NSDQ" [ref=e1268]
+        - generic [ref=e1269]: NSDQ:NBIX
+        - generic [ref=e1270]: "132.71"
+        - img [ref=e1272]
+        - generic [ref=e1274]: "-0.54"
+        - generic [ref=e1275]: "-0.41%"
+      - generic [ref=e1276] [cursor=pointer]:
+        - img "NYSE" [ref=e1277]
+        - generic [ref=e1278]: NYSE:WAT
+        - generic [ref=e1279]: "327.96"
+        - img [ref=e1281]
+        - generic [ref=e1283]: "0.19"
+        - generic [ref=e1284]: 0.06%
+      - generic [ref=e1285] [cursor=pointer]:
+        - img "NSDQ" [ref=e1286]
+        - generic [ref=e1287]: NSDQ:GILD
+        - generic [ref=e1288]: "136.87"
+        - img [ref=e1290]
+        - generic [ref=e1292]: "-0.77"
+        - generic [ref=e1293]: "-0.56%"
+      - generic [ref=e1294] [cursor=pointer]:
+        - img "NSDQ" [ref=e1295]
+        - generic [ref=e1296]: NSDQ:TENB
+        - generic [ref=e1297]: "19.54"
+        - img [ref=e1299]
+        - generic [ref=e1301]: "0.19"
+        - generic [ref=e1302]: 0.98%
+      - generic [ref=e1303] [cursor=pointer]:
+        - img "NSDQ" [ref=e1304]
+        - generic [ref=e1305]: NSDQ:MCHP
+        - generic [ref=e1306]: "79.41"
+        - img [ref=e1308]
+        - generic [ref=e1310]: "0.65"
+        - generic [ref=e1311]: 0.83%
+      - generic [ref=e1312] [cursor=pointer]:
+        - img "LSE" [ref=e1313]
+        - generic [ref=e1314]: LSE:AZN
+        - generic [ref=e1315]: "15020.00"
+        - img [ref=e1317]
+        - generic [ref=e1319]: "-98.00"
+        - generic [ref=e1320]: "-0.65%"
+      - generic [ref=e1321] [cursor=pointer]:
+        - img "NSDQ" [ref=e1322]
+        - generic [ref=e1323]: NSDQ:QCOM
+        - generic [ref=e1324]: "137.16"
+        - img [ref=e1326]
+        - generic [ref=e1328]: "0.96"
+        - generic [ref=e1329]: 0.71%
+      - generic [ref=e1330] [cursor=pointer]:
+        - img "NSDQ" [ref=e1331]
+        - generic [ref=e1332]: NSDQ:MSFT
+        - generic [ref=e1333]: "421.93"
+        - img [ref=e1335]
+        - generic [ref=e1337]: "-0.86"
+        - generic [ref=e1338]: "-0.20%"
+      - generic [ref=e1339] [cursor=pointer]:
+        - img "ADSM" [ref=e1340]
+        - generic [ref=e1341]: ADX:MODON
+        - generic [ref=e1342]: "3.18"
+        - img [ref=e1344]
+        - generic [ref=e1346]: "0.00"
+        - generic [ref=e1347]: 0.00%
+      - generic [ref=e1348] [cursor=pointer]:
+        - img "DFM" [ref=e1349]
+        - generic [ref=e1350]: DFM:DIB
+        - generic [ref=e1351]: "7.50"
+        - img [ref=e1353]
+        - generic [ref=e1355]: "0.02"
+        - generic [ref=e1356]: 0.27%
+      - generic [ref=e1357] [cursor=pointer]:
+        - img "NSDQ" [ref=e1358]
+        - generic [ref=e1359]: NSDQ:ONC
+        - generic [ref=e1360]: "317.44"
+        - img [ref=e1362]
+        - generic [ref=e1364]: "-6.43"
+        - generic [ref=e1365]: "-1.99%"
+      - generic [ref=e1366] [cursor=pointer]:
+        - img "NSDQ" [ref=e1367]
+        - generic [ref=e1368]: NSDQ:PEP
+        - generic [ref=e1369]: "157.40"
+        - img [ref=e1371]
+        - generic [ref=e1373]: "-0.27"
+        - generic [ref=e1374]: "-0.17%"
+      - generic [ref=e1375] [cursor=pointer]:
+        - img "NSDQ" [ref=e1376]
+        - generic [ref=e1377]: NSDQ:NTRA
+        - generic [ref=e1378]: "209.46"
+        - img [ref=e1380]
+        - generic [ref=e1382]: "1.06"
+        - generic [ref=e1383]: 0.51%
+      - generic [ref=e1384] [cursor=pointer]:
+        - img "NSDQ" [ref=e1385]
+        - generic [ref=e1386]: NSDQ:GOOGL
+        - generic [ref=e1387]: "339.74"
+        - img [ref=e1389]
+        - generic [ref=e1391]: "-1.95"
+        - generic [ref=e1392]: "-0.57%"
+      - generic [ref=e1393] [cursor=pointer]:
+        - img "NYSE" [ref=e1394]
+        - generic [ref=e1395]: NYSE:ABT
+        - generic [ref=e1396]: "96.42"
+        - img [ref=e1398]
+        - generic [ref=e1400]: "-0.39"
+        - generic [ref=e1401]: "-0.40%"
+      - generic [ref=e1402] [cursor=pointer]:
+        - img "NYSE" [ref=e1403]
+        - generic [ref=e1404]: NYSE:BSX
+        - generic [ref=e1405]: "63.53"
+        - img [ref=e1407]
+        - generic [ref=e1409]: "-0.70"
+        - generic [ref=e1410]: "-1.09%"
+      - generic [ref=e1411] [cursor=pointer]:
+        - img "NSDQ" [ref=e1412]
+        - generic [ref=e1413]: NSDQ:AZN
+        - generic [ref=e1414]: "202.51"
+        - img [ref=e1416]
+        - generic [ref=e1418]: "-2.29"
+        - generic [ref=e1419]: "-1.12%"
+      - generic [ref=e1420] [cursor=pointer]:
+        - img "NSDQ" [ref=e1421]
+        - generic [ref=e1422]: NSDQ:ON
+        - generic [ref=e1423]: "83.59"
+        - img [ref=e1425]
+        - generic [ref=e1427]: "0.58"
+        - generic [ref=e1428]: 0.69%
+      - generic [ref=e1429] [cursor=pointer]:
+        - img "CHIX" [ref=e1430]
+        - generic [ref=e1431]: CHIX:SUP
+        - generic [ref=e1432]: "278.65"
+        - img [ref=e1434]
+        - generic [ref=e1436]: "10.90"
+        - generic [ref=e1437]: 4.07%
+      - generic [ref=e1438] [cursor=pointer]:
+        - img "CHIX" [ref=e1439]
+        - generic [ref=e1440]: CHIX:ELP
+        - generic [ref=e1441]: "215.70"
+        - img [ref=e1443]
+        - generic [ref=e1445]: "8.80"
+        - generic [ref=e1446]: 4.25%
+      - generic [ref=e1447] [cursor=pointer]:
+        - img "NYSE" [ref=e1448]
+        - generic [ref=e1449]: NYSE:NEM
+        - generic [ref=e1450]: "114.35"
+        - img [ref=e1452]
+        - generic [ref=e1454]: "-2.15"
+        - generic [ref=e1455]: "-1.85%"
+      - generic [ref=e1456] [cursor=pointer]:
+        - img "ADSM" [ref=e1457]
+        - generic [ref=e1458]: ADX:ADNOCDIST
+        - generic [ref=e1459]: "3.78"
+        - img [ref=e1461]
+        - generic [ref=e1463]: "0.03"
+        - generic [ref=e1464]: 0.80%
+      - generic [ref=e1465] [cursor=pointer]:
+        - img "NYSE" [ref=e1466]
+        - generic [ref=e1467]: NYSE:NKE
+        - generic [ref=e1468]: "45.91"
+        - img [ref=e1470]
+        - generic [ref=e1472]: "-0.12"
+        - generic [ref=e1473]: "-0.25%"
+      - generic [ref=e1474] [cursor=pointer]:
+        - img "LSE" [ref=e1475]
+        - generic [ref=e1476]: LSE:RKT
+        - generic [ref=e1477]: "5104.00"
+        - img [ref=e1479]
+        - generic [ref=e1481]: "-76.00"
+        - generic [ref=e1482]: "-1.47%"
+      - generic [ref=e1483] [cursor=pointer]:
+        - img "NYSE" [ref=e1484]
+        - generic [ref=e1485]: NYSE:LLY
+        - generic [ref=e1486]: "921.77"
+        - img [ref=e1488]
+        - generic [ref=e1490]: "-5.26"
+        - generic [ref=e1491]: "-0.57%"
+      - generic [ref=e1492] [cursor=pointer]:
+        - img "NSDQ" [ref=e1493]
+        - generic [ref=e1494]: NSDQ:OKTA
+        - generic [ref=e1495]: "76.04"
+        - img [ref=e1497]
+        - generic [ref=e1499]: "3.79"
+        - generic [ref=e1500]: 5.25%
+      - generic [ref=e1501] [cursor=pointer]:
+        - img "NSDQ" [ref=e1502]
+        - generic [ref=e1503]: NSDQ:AVGO
+        - generic [ref=e1504]: "402.50"
+        - img [ref=e1506]
+        - generic [ref=e1508]: "-4.04"
+        - generic [ref=e1509]: "-0.99%"
+      - generic [ref=e1510] [cursor=pointer]:
+        - img "LSE" [ref=e1511]
+        - generic [ref=e1512]: LSE:RIO
+        - generic [ref=e1513]: "7345.00"
+        - img [ref=e1515]
+        - generic [ref=e1517]: "-103.00"
+        - generic [ref=e1518]: "-1.38%"
+      - generic [ref=e1519] [cursor=pointer]:
+        - img "ADSM" [ref=e1520]
+        - generic [ref=e1521]: ADX:ALDAR
+        - generic [ref=e1522]: "8.50"
+        - img [ref=e1524]
+        - generic [ref=e1526]: "0.04"
+        - generic [ref=e1527]: 0.47%
+      - generic [ref=e1528] [cursor=pointer]:
+        - img "NYSE" [ref=e1529]
+        - generic [ref=e1530]: NYSE:LLY
+        - generic [ref=e1531]: "921.77"
+        - img [ref=e1533]
+        - generic [ref=e1535]: "-5.26"
+        - generic [ref=e1536]: "-0.57%"
+      - generic [ref=e1537] [cursor=pointer]:
+        - img "NSDQ" [ref=e1538]
+        - generic [ref=e1539]: NSDQ:NXPI
+        - generic [ref=e1540]: "216.65"
+        - img [ref=e1542]
+        - generic [ref=e1544]: "0.62"
+        - generic [ref=e1545]: 0.29%
+      - generic [ref=e1546] [cursor=pointer]:
+        - img "NSDQ" [ref=e1547]
+        - generic [ref=e1548]: NSDQ:TXN
+        - generic [ref=e1549]: "231.73"
+        - img [ref=e1551]
+        - generic [ref=e1553]: "1.91"
+        - generic [ref=e1554]: 0.83%
+      - generic [ref=e1555] [cursor=pointer]:
+        - img "NYSE" [ref=e1556]
+        - generic [ref=e1557]: NYSE:EW
+        - generic [ref=e1558]: "81.62"
+        - img [ref=e1560]
+        - generic [ref=e1562]: "0.63"
+        - generic [ref=e1563]: 0.78%
+      - generic [ref=e1564] [cursor=pointer]:
+        - img "NSDQ" [ref=e1565]
+        - generic [ref=e1566]: NSDQ:AAPL
+        - generic [ref=e1567]: "273.89"
+        - img [ref=e1569]
+        - generic [ref=e1571]: "3.66"
+        - generic [ref=e1572]: 1.35%
+      - generic [ref=e1573] [cursor=pointer]:
+        - img "CHIX" [ref=e1574]
+        - generic [ref=e1575]: CHIX:AIP
+        - generic [ref=e1576]: "186.04"
+        - img [ref=e1578]
+        - generic [ref=e1580]: "-0.34"
+        - generic [ref=e1581]: "-0.18%"
+      - generic [ref=e1582] [cursor=pointer]:
+        - img "CHIX" [ref=e1583]
+        - generic [ref=e1584]: CHIX:SANP
+        - generic [ref=e1585]: "82.02"
+        - img [ref=e1587]
+        - generic [ref=e1589]: "1.17"
+        - generic [ref=e1590]: 1.45%
+      - generic [ref=e1591] [cursor=pointer]:
+        - img "NSDQ" [ref=e1592]
+        - generic [ref=e1593]: NSDQ:DXCM
+        - generic [ref=e1594]: "64.81"
+        - img [ref=e1596]
+        - generic [ref=e1598]: "0.83"
+        - generic [ref=e1599]: 1.31%
+      - generic [ref=e1600] [cursor=pointer]:
+        - img "NYSE" [ref=e1601]
+        - generic [ref=e1602]: NYSE:RIO
+        - generic [ref=e1603]: "99.44"
+        - img [ref=e1605]
+        - generic [ref=e1607]: "-0.71"
+        - generic [ref=e1608]: "-0.71%"
+      - generic [ref=e1609] [cursor=pointer]:
+        - img "NSDQ" [ref=e1610]
+        - generic [ref=e1611]: NSDQ:INCY
+        - generic [ref=e1612]: "97.37"
+        - img [ref=e1614]
+        - generic [ref=e1616]: "-0.45"
+        - generic [ref=e1617]: "-0.46%"
+      - generic [ref=e1618] [cursor=pointer]:
+        - img "NSDQ" [ref=e1619]
+        - generic [ref=e1620]: NSDQ:TSLA
+        - generic [ref=e1621]: "395.19"
+        - img [ref=e1623]
+        - generic [ref=e1625]: "-5.43"
+        - generic [ref=e1626]: "-1.36%"
+      - generic [ref=e1627] [cursor=pointer]:
+        - img "NSDQ" [ref=e1628]
+        - generic [ref=e1629]: NSDQ:ZS
+        - generic [ref=e1630]: "135.93"
+        - img [ref=e1632]
+        - generic [ref=e1634]: "1.25"
+        - generic [ref=e1635]: 0.93%
+      - generic [ref=e1636] [cursor=pointer]:
+        - img "DFM" [ref=e1637]
+        - generic [ref=e1638]: DFM:DEWA
+        - generic [ref=e1639]: "2.76"
+        - img [ref=e1641]
+        - generic [ref=e1643]: "0.01"
+        - generic [ref=e1644]: 0.36%
+      - generic [ref=e1645] [cursor=pointer]:
+        - img "NYSE" [ref=e1646]
+        - generic [ref=e1647]: NYSE:STM
+        - generic [ref=e1648]: "44.02"
+        - img [ref=e1650]
+        - generic [ref=e1652]: "-0.20"
+        - generic [ref=e1653]: "-0.44%"
+      - generic [ref=e1654] [cursor=pointer]:
+        - img "DFM" [ref=e1655]
+        - generic [ref=e1656]: DFM:DEWA
+        - generic [ref=e1657]: "2.76"
+        - img [ref=e1659]
+        - generic [ref=e1661]: "0.01"
+        - generic [ref=e1662]: 0.36%
+      - generic [ref=e1663] [cursor=pointer]:
+        - img "NSDQ" [ref=e1664]
+        - generic [ref=e1665]: NSDQ:PANW
+        - generic [ref=e1666]: "169.68"
+        - img [ref=e1668]
+        - generic [ref=e1670]: "1.83"
+        - generic [ref=e1671]: 1.09%
+      - generic [ref=e1672] [cursor=pointer]:
+        - img "NSDQ" [ref=e1673]
+        - generic [ref=e1674]: NSDQ:ADI
+        - generic [ref=e1675]: "380.78"
+        - img [ref=e1677]
+        - generic [ref=e1679]: "9.33"
+        - generic [ref=e1680]: 2.51%
+      - generic [ref=e1681] [cursor=pointer]:
+        - img "NYSE" [ref=e1682]
+        - generic [ref=e1683]: NYSE:NEM
+        - generic [ref=e1684]: "114.35"
+        - img [ref=e1686]
+        - generic [ref=e1688]: "-2.15"
+        - generic [ref=e1689]: "-1.85%"
+      - generic [ref=e1690] [cursor=pointer]:
+        - img "NYSE" [ref=e1691]
+        - generic [ref=e1692]: NYSE:NVO
+        - generic [ref=e1693]: "40.47"
+        - img [ref=e1695]
+        - generic [ref=e1697]: "-0.05"
+        - generic [ref=e1698]: "-0.12%"
+      - generic [ref=e1699] [cursor=pointer]:
+        - img "CHIX" [ref=e1700]
+        - generic [ref=e1701]: CHIX:ORP
+        - generic [ref=e1702]: "356.75"
+        - img [ref=e1704]
+        - generic [ref=e1706]: "6.85"
+        - generic [ref=e1707]: 1.96%
+      - generic [ref=e1708] [cursor=pointer]:
+        - img "NSDQ" [ref=e1709]
+        - generic [ref=e1710]: NSDQ:AKAM
+        - generic [ref=e1711]: "97.22"
+        - img [ref=e1713]
+        - generic [ref=e1715]: "1.33"
+        - generic [ref=e1716]: 1.39%
+      - generic [ref=e1717] [cursor=pointer]:
+        - img "NYSE" [ref=e1718]
+        - generic [ref=e1719]: NYSE:CMI
+        - generic [ref=e1720]: "627.14"
+        - img [ref=e1722]
+        - generic [ref=e1724]: "-0.04"
+        - generic [ref=e1725]: "-0.01%"
+      - generic [ref=e1726] [cursor=pointer]:
+        - img "CHIX" [ref=e1727]
+        - generic [ref=e1728]: CHIX:SAPD
+        - generic [ref=e1729]: "156.24"
+        - img [ref=e1731]
+        - generic [ref=e1733]: "4.58"
+        - generic [ref=e1734]: 3.02%
+      - generic [ref=e1735] [cursor=pointer]:
+        - img "NYSE" [ref=e1736]
+        - generic [ref=e1737]: NYSE:AEM
+        - generic [ref=e1738]: "213.97"
+        - img [ref=e1740]
+        - generic [ref=e1742]: "-6.13"
+        - generic [ref=e1743]: "-2.79%"
+      - generic [ref=e1744] [cursor=pointer]:
+        - img "NSDQ" [ref=e1745]
+        - generic [ref=e1746]: NSDQ:TSLA
+        - generic [ref=e1747]: "395.19"
+        - img [ref=e1749]
+        - generic [ref=e1751]: "-5.43"
+        - generic [ref=e1752]: "-1.36%"
+      - generic [ref=e1753] [cursor=pointer]:
+        - img "NSDQ" [ref=e1754]
+        - generic [ref=e1755]: NSDQ:MIRM
+        - generic [ref=e1756]: "97.69"
+        - img [ref=e1758]
+        - generic [ref=e1760]: "-0.26"
+        - generic [ref=e1761]: "-0.27%"
+      - generic [ref=e1762] [cursor=pointer]:
+        - img "NSDQ" [ref=e1763]
+        - generic [ref=e1764]: NSDQ:META
+        - generic [ref=e1765]: "676.36"
+        - img [ref=e1767]
+        - generic [ref=e1769]: "-12.19"
+        - generic [ref=e1770]: "-1.77%"
+      - generic [ref=e1771] [cursor=pointer]:
+        - img "NYSE" [ref=e1772]
+        - generic [ref=e1773]: NYSE:GFI
+        - generic [ref=e1774]: "49.26"
+        - img [ref=e1776]
+        - generic [ref=e1778]: "-0.70"
+        - generic [ref=e1779]: "-1.40%"
+      - generic [ref=e1780] [cursor=pointer]:
+        - img "NYSE" [ref=e1781]
+        - generic [ref=e1782]: NYSE:DD
+        - generic [ref=e1783]: "47.25"
+        - img [ref=e1785]
+        - generic [ref=e1787]: "-0.10"
+        - generic [ref=e1788]: "-0.21%"
+      - generic [ref=e1789] [cursor=pointer]:
+        - img "LSE" [ref=e1790]
+        - generic [ref=e1791]: LSE:ULVR
+        - generic [ref=e1792]: "4270.50"
+        - img [ref=e1794]
+        - generic [ref=e1796]: "-28.50"
+        - generic [ref=e1797]: "-0.66%"
+      - generic [ref=e1798] [cursor=pointer]:
+        - img "NYSE" [ref=e1799]
+        - generic [ref=e1800]: NYSE:SPXC
+        - generic [ref=e1801]: "221.22"
+        - img [ref=e1803]
+        - generic [ref=e1805]: "-2.30"
+        - generic [ref=e1806]: "-1.03%"
+      - generic [ref=e1807] [cursor=pointer]:
+        - img "NSDQ" [ref=e1808]
+        - generic [ref=e1809]: NSDQ:TXN
+        - generic [ref=e1810]: "231.73"
+        - img [ref=e1812]
+        - generic [ref=e1814]: "1.91"
+        - generic [ref=e1815]: 0.83%
+      - generic [ref=e1816] [cursor=pointer]:
+        - img "NSDQ" [ref=e1817]
+        - generic [ref=e1818]: NSDQ:MASI
+        - generic [ref=e1819]: "178.30"
+        - img [ref=e1821]
+        - generic [ref=e1823]: "-0.09"
+        - generic [ref=e1824]: "-0.05%"
+      - generic [ref=e1825] [cursor=pointer]:
+        - img "NYSE" [ref=e1826]
+        - generic [ref=e1827]: NYSE:PG
+        - generic [ref=e1828]: "145.53"
+        - img [ref=e1830]
+        - generic [ref=e1832]: "-1.40"
+        - generic [ref=e1833]: "-0.95%"
+      - generic [ref=e1834] [cursor=pointer]:
+        - img "DFM" [ref=e1835]
+        - generic [ref=e1836]: DFM:DU
+        - generic [ref=e1837]: "10.48"
+        - img [ref=e1839]
+        - generic [ref=e1841]: "0.08"
+        - generic [ref=e1842]: 0.77%
+      - generic [ref=e1843] [cursor=pointer]:
+        - img "NSDQ" [ref=e1844]
+        - generic [ref=e1845]: NSDQ:AAPL
+        - generic [ref=e1846]: "273.89"
+        - img [ref=e1848]
+        - generic [ref=e1850]: "3.66"
+        - generic [ref=e1851]: 1.35%
+      - generic [ref=e1852] [cursor=pointer]:
+        - img "NSDQ" [ref=e1853]
+        - generic [ref=e1854]: NSDQ:QCOM
+        - generic [ref=e1855]: "137.16"
+        - img [ref=e1857]
+        - generic [ref=e1859]: "0.96"
+        - generic [ref=e1860]: 0.71%
+      - generic [ref=e1861] [cursor=pointer]:
+        - img "DFM" [ref=e1862]
+        - generic [ref=e1863]: DFM:AIRARABIA
+        - generic [ref=e1864]: "5.40"
+        - img [ref=e1866]
+        - generic [ref=e1868]: "0.11"
+        - generic [ref=e1869]: 2.08%
+      - generic [ref=e1870] [cursor=pointer]:
+        - img "NYSE" [ref=e1871]
+        - generic [ref=e1872]: NYSE:PG
+        - generic [ref=e1873]: "145.53"
+        - img [ref=e1875]
+        - generic [ref=e1877]: "-1.40"
+        - generic [ref=e1878]: "-0.95%"
+      - generic [ref=e1879] [cursor=pointer]:
+        - img "LSE" [ref=e1880]
+        - generic [ref=e1881]: LSE:INF
+        - generic [ref=e1882]: "834.40"
+        - img [ref=e1884]
+        - generic [ref=e1886]: "-15.20"
+        - generic [ref=e1887]: "-1.79%"
+      - generic [ref=e1888] [cursor=pointer]:
+        - img "NSDQ" [ref=e1889]
+        - generic [ref=e1890]: NSDQ:BIIB
+        - generic [ref=e1891]: "180.37"
+        - img [ref=e1893]
+        - generic [ref=e1895]: "3.02"
+        - generic [ref=e1896]: 1.70%
+      - generic [ref=e1897] [cursor=pointer]:
+        - img "NSDQ" [ref=e1898]
+        - generic [ref=e1899]: NSDQ:GILD
+        - generic [ref=e1900]: "136.87"
+        - img [ref=e1902]
+        - generic [ref=e1904]: "-0.77"
+        - generic [ref=e1905]: "-0.56%"
+      - generic [ref=e1906] [cursor=pointer]:
+        - img "NYSE" [ref=e1907]
+        - generic [ref=e1908]: NYSE:TSM
+        - generic [ref=e1909]: "368.49"
+        - img [ref=e1911]
+        - generic [ref=e1913]: "-2.02"
+        - generic [ref=e1914]: "-0.54%"
+      - generic [ref=e1915] [cursor=pointer]:
+        - img "NYSE" [ref=e1916]
+        - generic [ref=e1917]: NYSE:ANET
+        - generic [ref=e1918]: "166.47"
+        - img [ref=e1920]
+        - generic [ref=e1922]: "2.24"
+        - generic [ref=e1923]: 1.36%
+      - generic [ref=e1924] [cursor=pointer]:
+        - img "NSDQ" [ref=e1925]
+        - generic [ref=e1926]: NSDQ:TSLA
+        - generic [ref=e1927]: "395.19"
+        - img [ref=e1929]
+        - generic [ref=e1931]: "-5.43"
+        - generic [ref=e1932]: "-1.36%"
+      - generic [ref=e1933] [cursor=pointer]:
+        - img "NSDQ" [ref=e1934]
+        - generic [ref=e1935]: NSDQ:AMAT
+        - generic [ref=e1936]: "394.52"
+        - img [ref=e1938]
+        - generic [ref=e1940]: "-2.42"
+        - generic [ref=e1941]: "-0.61%"
+      - generic [ref=e1942] [cursor=pointer]:
+        - img "NYSE" [ref=e1943]
+        - generic [ref=e1944]: NYSE:JCI
+        - generic [ref=e1945]: "141.37"
+        - img [ref=e1947]
+        - generic [ref=e1949]: "0.50"
+        - generic [ref=e1950]: 0.35%
+      - generic [ref=e1951] [cursor=pointer]:
+        - img "NSDQ" [ref=e1952]
+        - generic [ref=e1953]: NSDQ:MSFT
+        - generic [ref=e1954]: "421.93"
+        - img [ref=e1956]
+        - generic [ref=e1958]: "-0.86"
+        - generic [ref=e1959]: "-0.20%"
+      - generic [ref=e1960] [cursor=pointer]:
+        - img "NYSE" [ref=e1961]
+        - generic [ref=e1962]: NYSE:AU
+        - generic [ref=e1963]: "106.89"
+        - img [ref=e1965]
+        - generic [ref=e1967]: "-2.26"
+        - generic [ref=e1968]: "-2.07%"
+      - generic [ref=e1969] [cursor=pointer]:
+        - img "NSDQ" [ref=e1970]
+        - generic [ref=e1971]: NSDQ:BMRN
+        - generic [ref=e1972]: "55.10"
+        - img [ref=e1974]
+        - generic [ref=e1976]: "0.46"
+        - generic [ref=e1977]: 0.84%
+      - generic [ref=e1978] [cursor=pointer]:
+        - img "DFM" [ref=e1979]
+        - generic [ref=e1980]: DFM:EMPOWER
+        - generic [ref=e1981]: "1.60"
+        - img [ref=e1983]
+        - generic [ref=e1985]: "0.01"
+        - generic [ref=e1986]: 0.63%
+      - generic [ref=e1987] [cursor=pointer]:
+        - img "NYSE" [ref=e1988]
+        - generic [ref=e1989]: NYSE:KO
+        - generic [ref=e1990]: "75.84"
+        - img [ref=e1992]
+        - generic [ref=e1994]: "0.10"
+        - generic [ref=e1995]: 0.13%
+      - generic [ref=e1996] [cursor=pointer]:
+        - img "NSDQ" [ref=e1997]
+        - generic [ref=e1998]: NSDQ:MRVL
+        - generic [ref=e1999]: "146.39"
+        - img [ref=e2001]
+        - generic [ref=e2003]: "6.70"
+        - generic [ref=e2004]: 4.80%
+      - generic [ref=e2005] [cursor=pointer]:
+        - img "NYSE" [ref=e2006]
+        - generic [ref=e2007]: NYSE:ABBV
+        - generic [ref=e2008]: "204.90"
+        - img [ref=e2010]
+        - generic [ref=e2012]: "-3.48"
+        - generic [ref=e2013]: "-1.67%"
+      - generic [ref=e2014] [cursor=pointer]:
+        - img "NSDQ" [ref=e2015]
+        - generic [ref=e2016]: NSDQ:CSCO
+        - generic [ref=e2017]: "86.85"
+        - img [ref=e2019]
+        - generic [ref=e2021]: "0.60"
+        - generic [ref=e2022]: 0.69%
+      - generic [ref=e2023] [cursor=pointer]:
+        - img "NYSE" [ref=e2024]
+        - generic [ref=e2025]: NYSE:RACE
+        - generic [ref=e2026]: "371.16"
+        - img [ref=e2028]
+        - generic [ref=e2030]: "-1.69"
+        - generic [ref=e2031]: "-0.45%"
+      - generic [ref=e2032] [cursor=pointer]:
+        - img "NSDQ" [ref=e2033]
+        - generic [ref=e2034]: NSDQ:GOOGL
+        - generic [ref=e2035]: "339.74"
+        - img [ref=e2037]
+        - generic [ref=e2039]: "-1.95"
+        - generic [ref=e2040]: "-0.57%"
+      - generic [ref=e2041] [cursor=pointer]:
+        - img "NSDQ" [ref=e2042]
+        - generic [ref=e2043]: NSDQ:FTNT
+        - generic [ref=e2044]: "83.13"
+        - img [ref=e2046]
+        - generic [ref=e2048]: "1.29"
+        - generic [ref=e2049]: 1.58%
+      - generic [ref=e2050] [cursor=pointer]:
+        - img "NSDQ" [ref=e2051]
+        - generic [ref=e2052]: NSDQ:NVDA
+        - generic [ref=e2053]: "199.70"
+        - img [ref=e2055]
+        - generic [ref=e2057]: "-1.98"
+        - generic [ref=e2058]: "-0.98%"
+      - generic [ref=e2059] [cursor=pointer]:
+        - img "NSDQ" [ref=e2060]
+        - generic [ref=e2061]: NSDQ:PODD
+        - generic [ref=e2062]: "203.89"
+        - img [ref=e2064]
+        - generic [ref=e2066]: "0.16"
+        - generic [ref=e2067]: 0.08%
+      - generic [ref=e2068] [cursor=pointer]:
+        - img "ADSM" [ref=e2069]
+        - generic [ref=e2070]: ADX:BOROUGE
+        - generic [ref=e2071]: "2.56"
+        - img [ref=e2073]
+        - generic [ref=e2075]: "0.00"
+        - generic [ref=e2076]: 0.00%
+      - generic [ref=e2077] [cursor=pointer]:
+        - img "NSDQ" [ref=e2078]
+        - generic [ref=e2079]: NSDQ:NVDA
+        - generic [ref=e2080]: "199.70"
+        - img [ref=e2082]
+        - generic [ref=e2084]: "-1.98"
+        - generic [ref=e2085]: "-0.98%"
+      - generic [ref=e2086] [cursor=pointer]:
+        - img "NYSE" [ref=e2087]
+        - generic [ref=e2088]: NYSE:TSM
+        - generic [ref=e2089]: "368.49"
+        - img [ref=e2091]
+        - generic [ref=e2093]: "-2.02"
+        - generic [ref=e2094]: "-0.54%"
+      - generic [ref=e2095] [cursor=pointer]:
+        - img "NSDQ" [ref=e2096]
+        - generic [ref=e2097]: NSDQ:AAPL
+        - generic [ref=e2098]: "273.89"
+        - img [ref=e2100]
+        - generic [ref=e2102]: "3.66"
+        - generic [ref=e2103]: 1.35%
+      - generic [ref=e2104] [cursor=pointer]:
+        - img "NYSE" [ref=e2105]
+        - generic [ref=e2106]: NYSE:VRT
+        - generic [ref=e2107]: "308.86"
+        - img [ref=e2109]
+        - generic [ref=e2111]: "1.51"
+        - generic [ref=e2112]: 0.49%
+      - generic [ref=e2113] [cursor=pointer]:
+        - img "NYSE" [ref=e2114]
+        - generic [ref=e2115]: NYSE:MRK
+        - generic [ref=e2116]: "117.95"
+        - img [ref=e2118]
+        - generic [ref=e2120]: "-1.12"
+        - generic [ref=e2121]: "-0.94%"
+      - generic [ref=e2122] [cursor=pointer]:
+        - img "LSE" [ref=e2123]
+        - generic [ref=e2124]: LSE:SGE
+        - generic [ref=e2125]: "898.80"
+        - img [ref=e2127]
+        - generic [ref=e2129]: "-22.20"
+        - generic [ref=e2130]: "-2.41%"
+      - generic [ref=e2131] [cursor=pointer]:
+        - img "NSDQ" [ref=e2132]
+        - generic [ref=e2133]: NSDQ:NVDA
+        - generic [ref=e2134]: "199.70"
+        - img [ref=e2136]
+        - generic [ref=e2138]: "-1.98"
+        - generic [ref=e2139]: "-0.98%"
+      - generic [ref=e2140] [cursor=pointer]:
+        - img "NYSE" [ref=e2141]
+        - generic [ref=e2142]: NYSE:MDT
+        - generic [ref=e2143]: "86.86"
+        - img [ref=e2145]
+        - generic [ref=e2147]: "0.67"
+        - generic [ref=e2148]: 0.78%
+      - generic [ref=e2149] [cursor=pointer]:
+        - img "ADSM" [ref=e2150]
+        - generic [ref=e2151]: ADX:ADNOCGAS
+        - generic [ref=e2152]: "3.24"
+        - img [ref=e2154]
+        - generic [ref=e2156]: "0.00"
+        - generic [ref=e2157]: 0.00%
+      - generic [ref=e2158] [cursor=pointer]:
+        - img "ADSM" [ref=e2159]
+        - generic [ref=e2160]: ADX:ADIB
+        - generic [ref=e2161]: "23.70"
+        - img [ref=e2163]
+        - generic [ref=e2165]: "0.16"
+        - generic [ref=e2166]: 0.68%
+      - generic [ref=e2167] [cursor=pointer]:
+        - img "NYSE" [ref=e2168]
+        - generic [ref=e2169]: NYSE:CVX
+        - generic [ref=e2170]: "185.48"
+        - img [ref=e2172]
+        - generic [ref=e2174]: "1.49"
+        - generic [ref=e2175]: 0.81%
+      - generic [ref=e2176] [cursor=pointer]:
+        - img "DFM" [ref=e2177]
+        - generic [ref=e2178]: DFM:EMAAR
+        - generic [ref=e2179]: "12.84"
+        - img [ref=e2181]
+        - generic [ref=e2183]: "0.14"
+        - generic [ref=e2184]: 1.10%
+      - generic [ref=e2185] [cursor=pointer]:
+        - img "NYSE" [ref=e2186]
+        - generic [ref=e2187]: NYSE:TT
+        - generic [ref=e2188]: "477.83"
+        - img [ref=e2190]
+        - generic [ref=e2192]: "1.72"
+        - generic [ref=e2193]: 0.36%
+      - generic [ref=e2194] [cursor=pointer]:
+        - img "NYSE" [ref=e2195]
+        - generic [ref=e2196]: NYSE:UL
+        - generic [ref=e2197]: "58.23"
+        - img [ref=e2199]
+        - generic [ref=e2201]: "-0.30"
+        - generic [ref=e2202]: "-0.51%"
+      - generic [ref=e2203] [cursor=pointer]:
+        - img "NYSE" [ref=e2204]
+        - generic [ref=e2205]: NYSE:JNJ
+        - generic [ref=e2206]: "232.28"
+        - img [ref=e2208]
+        - generic [ref=e2210]: "-1.90"
+        - generic [ref=e2211]: "-0.81%"
+      - generic [ref=e2212] [cursor=pointer]:
+        - img "NYSE" [ref=e2213]
+        - generic [ref=e2214]: NYSE:MCD
+        - generic [ref=e2215]: "309.45"
+        - img [ref=e2217]
+        - generic [ref=e2219]: "-1.91"
+        - generic [ref=e2220]: "-0.61%"
+      - generic [ref=e2221] [cursor=pointer]:
+        - img "CHIX" [ref=e2222]
+        - generic [ref=e2223]: CHIX:ASMLA
+        - generic [ref=e2224]: "1231.10"
+        - img [ref=e2226]
+        - generic [ref=e2228]: "-12.90"
+        - generic [ref=e2229]: "-1.04%"
+      - generic [ref=e2230] [cursor=pointer]:
+        - img "NYSE" [ref=e2231]
+        - generic [ref=e2232]: NYSE:XOM
+        - generic [ref=e2233]: "148.09"
+        - img [ref=e2235]
+        - generic [ref=e2237]: "1.65"
+        - generic [ref=e2238]: 1.13%
+      - generic [ref=e2239] [cursor=pointer]:
+        - img "DFM" [ref=e2240]
+        - generic [ref=e2241]: DFM:DU
+        - generic [ref=e2242]: "10.48"
+        - img [ref=e2244]
+        - generic [ref=e2246]: "0.08"
+        - generic [ref=e2247]: 0.77%
+      - generic [ref=e2248] [cursor=pointer]:
+        - img "LSE" [ref=e2249]
+        - generic [ref=e2250]: LSE:ISDU
+        - generic [ref=e2251]: "90.27"
+        - img [ref=e2253]
+        - generic [ref=e2255]: "-0.29"
+        - generic [ref=e2256]: "-0.32%"
+      - generic [ref=e2257] [cursor=pointer]:
+        - img "NSDQ" [ref=e2258]
+        - generic [ref=e2259]: NSDQ:GOOGL
+        - generic [ref=e2260]: "339.74"
+        - img [ref=e2262]
+        - generic [ref=e2264]: "-1.95"
+        - generic [ref=e2265]: "-0.57%"
+      - generic [ref=e2266] [cursor=pointer]:
+        - img "NYSE" [ref=e2267]
+        - generic [ref=e2268]: NYSE:WPM
+        - generic [ref=e2269]: "150.26"
+        - img [ref=e2271]
+        - generic [ref=e2273]: "-2.12"
+        - generic [ref=e2274]: "-1.39%"
+      - generic [ref=e2275] [cursor=pointer]:
+        - img "NYSE" [ref=e2276]
+        - generic [ref=e2277]: NYSE:KO
+        - generic [ref=e2278]: "75.84"
+        - img [ref=e2280]
+        - generic [ref=e2282]: "0.10"
+        - generic [ref=e2283]: 0.13%
+      - generic [ref=e2284] [cursor=pointer]:
+        - img "NYSE" [ref=e2285]
+        - generic [ref=e2286]: NYSE:VRT
+        - generic [ref=e2287]: "308.86"
+        - img [ref=e2289]
+        - generic [ref=e2291]: "1.51"
+        - generic [ref=e2292]: 0.49%
+      - generic [ref=e2293] [cursor=pointer]:
+        - img "NYSE" [ref=e2294]
+        - generic [ref=e2295]: NYSE:AGI
+        - generic [ref=e2296]: "48.96"
+        - img [ref=e2298]
+        - generic [ref=e2300]: "-0.39"
+        - generic [ref=e2301]: "-0.79%"
+      - generic [ref=e2302] [cursor=pointer]:
+        - img "NYSE" [ref=e2303]
+        - generic [ref=e2304]: NYSE:JNJ
+        - generic [ref=e2305]: "232.28"
+        - img [ref=e2307]
+        - generic [ref=e2309]: "-1.90"
+        - generic [ref=e2310]: "-0.81%"
+      - generic [ref=e2311] [cursor=pointer]:
+        - img "NYSE" [ref=e2312]
+        - generic [ref=e2313]: NYSE:CRM
+        - generic [ref=e2314]: "188.27"
+        - img [ref=e2316]
+        - generic [ref=e2318]: "6.13"
+        - generic [ref=e2319]: 3.37%
+  - generic [ref=e2320]:
+    - generic [ref=e2321]: Ethosphere
+    - generic [ref=e2323]:
+      - generic [ref=e2324]:
+        - link "US households fuel 69% of GDP—confidence dives" [ref=e2325] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - 'link "Gap widens: US spenders vs. Euro savers" [ref=e2326] [cursor=pointer]':
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Top 10% now drive 50% of all US shopping" [ref=e2327] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Rising rates pinch cards, cars, and mortgages" [ref=e2328] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Michigan sentiment at 45‑yr low—recession risk" [ref=e2329] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Retail, autos, leisure stocks under pressure" [ref=e2330] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Safe-haven bid lifts Treasuries and gold" [ref=e2331] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Commodity slide hits oil, copper, silver" [ref=e2332] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Dollar’s ‘safe’ crown slips on trade tensions" [ref=e2333] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+        - link "Investors urged to rethink US‑centric portfolios" [ref=e2334] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+      - generic [ref=e2335]:
+        - link [ref=e2336] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: US households fuel 69% of GDP—confidence dives
+        - link [ref=e2337] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: "Gap widens: US spenders vs. Euro savers"
+        - link [ref=e2338] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Top 10% now drive 50% of all US shopping
+        - link [ref=e2339] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Rising rates pinch cards, cars, and mortgages
+        - link [ref=e2340] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Michigan sentiment at 45‑yr low—recession risk
+        - link [ref=e2341] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Retail, autos, leisure stocks under pressure
+        - link [ref=e2342] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Safe-haven bid lifts Treasuries and gold
+        - link [ref=e2343] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Commodity slide hits oil, copper, silver
+        - link [ref=e2344] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Dollar’s ‘safe’ crown slips on trade tensions
+        - link [ref=e2345] [cursor=pointer]:
+          - /url: https://uae.nuqiwealth.com/ethosphere
+          - text: Investors urged to rethink US‑centric portfolios
+  - complementary [ref=e2346]:
+    - navigation [ref=e2348]:
+      - list [ref=e2349]:
+        - listitem [ref=e2350]:
+          - button "Home" [ref=e2352] [cursor=pointer]:
+            - img [ref=e2354]
+            - generic: Home
+        - listitem [ref=e2357]:
+          - button "Portfolio" [ref=e2359] [cursor=pointer]:
+            - img [ref=e2361]
+            - generic: Portfolio
+        - listitem [ref=e2367]:
+          - button "Iris" [ref=e2369] [cursor=pointer]:
+            - img [ref=e2371]
+            - generic: Iris
+        - listitem [ref=e2385]:
+          - button "Equity" [ref=e2387] [cursor=pointer]:
+            - img [ref=e2389]
+            - generic: Equity
+        - listitem [ref=e2392]:
+          - button "Featured Stocks" [ref=e2394] [cursor=pointer]:
+            - img [ref=e2396]
+            - generic: Featured Stocks
+        - listitem [ref=e2399]:
+          - button "Curated Equity Portfolios" [ref=e2401] [cursor=pointer]:
+            - img [ref=e2403]
+            - generic: Curated Equity Portfolios
+        - listitem [ref=e2408]:
+          - button "Exchange-Traded Funds" [ref=e2410] [cursor=pointer]:
+            - img [ref=e2412]
+            - generic: Exchange-Traded Funds
+        - listitem [ref=e2416]:
+          - button "Watchlists" [ref=e2418] [cursor=pointer]:
+            - img [ref=e2420]
+            - generic: Watchlists
+        - listitem [ref=e2423]:
+          - button "Orders" [ref=e2425] [cursor=pointer]:
+            - img [ref=e2427]
+            - generic: Orders
+        - listitem [ref=e2431]:
+          - button "Market Hours" [ref=e2433] [cursor=pointer]:
+            - img [ref=e2435]
+            - generic: Market Hours
+        - listitem [ref=e2438]:
+          - button "Plans" [ref=e2440] [cursor=pointer]:
+            - img [ref=e2442]
+            - generic: Plans
+        - listitem [ref=e2445]:
+          - button "Ethosphere" [ref=e2447] [cursor=pointer]:
+            - img [ref=e2449]
+            - generic: Ethosphere
+        - listitem [ref=e2452]:
+          - button "Podcast" [ref=e2454] [cursor=pointer]:
+            - img [ref=e2456]
+            - generic: Podcast
+        - listitem [ref=e2460]:
+          - button "Settings" [ref=e2462] [cursor=pointer]:
+            - img [ref=e2464]
+            - generic: Settings
+        - listitem [ref=e2467]:
+          - button "View Profile" [ref=e2469] [cursor=pointer]:
+            - img [ref=e2471]
+            - generic: View Profile
+        - listitem [ref=e2474]:
+          - button "Logout" [ref=e2476] [cursor=pointer]:
+            - img [ref=e2478]
+            - generic: Logout
+  - main [ref=e2482]:
+    - generic [ref=e2483]:
+      - generic [ref=e2484]:
+        - button "Home" [ref=e2487] [cursor=pointer]
+        - generic [ref=e2488]:
+          - button "Add Page" [ref=e2489] [cursor=pointer]:
+            - img [ref=e2490]
+            - text: Add Page
+          - button "Customise" [ref=e2493] [cursor=pointer]:
+            - img [ref=e2494]
+            - text: Customise
+      - generic [ref=e2504]:
+        - generic [ref=e2507]:
+          - generic [ref=e2508]:
+            - heading "Curated Portfolios" [level=3] [ref=e2509]
+            - button "Explore All" [ref=e2510] [cursor=pointer]
+          - generic [ref=e2511]:
+            - generic [ref=e2512]:
+              - generic [ref=e2513]:
+                - generic [ref=e2515]: US Entrenched enterprises
+                - generic [ref=e2516]:
+                  - generic [ref=e2517]: "USD Price:"
+                  - text: 3,527.50
+                - generic [ref=e2518]: "3Y CAGR: 14.8%"
+              - button "View" [ref=e2520] [cursor=pointer]
+            - generic [ref=e2521]:
+              - generic [ref=e2522]:
+                - generic [ref=e2524]: British Bellwethers
+                - generic [ref=e2525]:
+                  - generic [ref=e2526]: "GBX Price:"
+                  - text: 38,820.20
+                - generic [ref=e2527]: "3Y CAGR: 3.3%"
+              - button "View" [ref=e2529] [cursor=pointer]
+            - generic [ref=e2530]:
+              - generic [ref=e2531]:
+                - generic [ref=e2533]: Global Divi Kings
+                - generic [ref=e2534]:
+                  - generic [ref=e2535]: "USD Price:"
+                  - text: "961.53"
+                - generic [ref=e2536]: "3Y CAGR: 9.4%"
+              - button "View" [ref=e2538] [cursor=pointer]
+            - generic [ref=e2539]:
+              - generic [ref=e2540]:
+                - generic [ref=e2542]: Golden age of Healthcare
+                - generic [ref=e2543]:
+                  - generic [ref=e2544]: "USD Price:"
+                  - text: 4,435.21
+                - generic [ref=e2545]: "3Y CAGR: 16.5%"
+              - button "View" [ref=e2547] [cursor=pointer]
+        - generic [ref=e2550]:
+          - generic [ref=e2551]:
+            - img "IRIS" [ref=e2553]
+            - generic [ref=e2554]:
+              - img [ref=e2555]
+              - paragraph [ref=e2560]: Your intelligent AI assistant for real-time stock market insights and analysis
+              - img [ref=e2561]
+          - generic [ref=e2566]:
+            - generic [ref=e2567]:
+              - generic: Top
+              - textbox [ref=e2568]
+              - button [disabled] [ref=e2569]:
+                - img [ref=e2570]
+            - generic [ref=e2573]:
+              - button "Compare the fundamentals of Apple and Microsoft?" [ref=e2574] [cursor=pointer]:
+                - generic [ref=e2576]: Compare the fundamentals of Apple and Microsoft?
+                - img [ref=e2577]
+              - button "What are the top 5 tech companies by market capitalization?" [ref=e2580] [cursor=pointer]:
+                - generic [ref=e2582]: What are the top 5 tech companies by market capitalization?
+                - img [ref=e2583]
+              - button "What is the recent news sentiment for Tesla?" [ref=e2586] [cursor=pointer]:
+                - generic [ref=e2588]: What is the recent news sentiment for Tesla?
+                - img [ref=e2589]
+              - button "Is NVIDIA a good buy right now?" [ref=e2592] [cursor=pointer]:
+                - generic [ref=e2594]: Is NVIDIA a good buy right now?
+                - img [ref=e2595]
+        - generic [ref=e2600]:
+          - heading "Insights & News" [level=3] [ref=e2601]
+          - generic [ref=e2602]:
+            - generic [ref=e2603]:
+              - img [ref=e2605]
+              - generic [ref=e2609]:
+                - paragraph [ref=e2610]:
+                  - text: NATO's Rutte says Europeans have 'gotten message' from Trump - Reuters
+                  - button "Read More..." [ref=e2611] [cursor=pointer]
+                - generic [ref=e2612]: Reuters
+            - generic [ref=e2613]:
+              - img [ref=e2615]
+              - generic [ref=e2619]:
+                - paragraph [ref=e2620]:
+                  - text: Gold eases as inflation jitters, Iran war cloud US rate outlook - Reuters
+                  - button "Read More..." [ref=e2621] [cursor=pointer]
+                - generic [ref=e2622]: Reuters
+            - generic [ref=e2623]:
+              - img [ref=e2625]
+              - generic [ref=e2629]:
+                - paragraph [ref=e2630]:
+                  - text: Indian rupee, bonds set to sway to oil prices as US-Iran stalemate drags - Reuters
+                  - button "Read More..." [ref=e2631] [cursor=pointer]
+                - generic [ref=e2632]: Reuters
+            - generic [ref=e2633]:
+              - img [ref=e2635]
+              - generic [ref=e2639]:
+                - paragraph [ref=e2640]:
+                  - text: Iran warns US Navy to stay clear of Hormuz after Trump says US to help stranded ships - Reuters
+                  - button "Read More..." [ref=e2641] [cursor=pointer]
+                - generic [ref=e2642]: Reuters
+            - generic [ref=e2643]:
+              - img [ref=e2645]
+              - generic [ref=e2649]:
+                - paragraph [ref=e2650]:
+                  - text: Tanker hit by unknown projectiles off UAE's Fujairah, UKMTO says - Reuters
+                  - button "Read More..." [ref=e2651] [cursor=pointer]
+                - generic [ref=e2652]: Reuters
+            - generic [ref=e2653]:
+              - img [ref=e2655]
+              - generic [ref=e2659]:
+                - paragraph [ref=e2660]:
+                  - text: Oil rises as US-Iran deal remains elusive - Reuters
+                  - button "Read More..." [ref=e2661] [cursor=pointer]
+                - generic [ref=e2662]: Reuters
+            - generic [ref=e2663]:
+              - img [ref=e2665]
+              - generic [ref=e2669]:
+                - paragraph [ref=e2670]:
+                  - text: Trump says US will help free ships stranded in Strait of Hormuz - Reuters
+                  - button "Read More..." [ref=e2671] [cursor=pointer]
+                - generic [ref=e2672]: Reuters
+            - generic [ref=e2673]:
+              - img [ref=e2675]
+              - generic [ref=e2679]:
+                - paragraph [ref=e2680]:
+                  - text: Bulk carrier reports being attacked by multiple small craft off Iran, UKMTO says - Reuters
+                  - button "Read More..." [ref=e2681] [cursor=pointer]
+                - generic [ref=e2682]: Reuters
+            - generic [ref=e2683]:
+              - img [ref=e2685]
+              - generic [ref=e2689]:
+                - paragraph [ref=e2690]:
+                  - text: Big Tech earnings show how big, smart spending can be rewarded by the market
+                  - button "Read More..." [ref=e2691] [cursor=pointer]
+                - generic [ref=e2692]: CNBC
+            - generic [ref=e2693]:
+              - img [ref=e2695]
+              - generic [ref=e2699]:
+                - paragraph [ref=e2700]:
+                  - text: German chancellor downplays row with Trump after troop drawdown announced - Reuters
+                  - button "Read More..." [ref=e2701] [cursor=pointer]
+                - generic [ref=e2702]: Reuters
+        - generic [ref=e2705]:
+          - generic [ref=e2706]:
+            - heading "Market Status" [level=3] [ref=e2707]
+            - generic [ref=e2708]:
+              - generic [ref=e2709]:
+                - img "ADSM" [ref=e2710]
+                - generic [ref=e2711]:
+                  - generic [ref=e2713]: ADSM
+                  - generic [ref=e2715]: Closed
+              - generic [ref=e2716]:
+                - img "DFM" [ref=e2717]
+                - generic [ref=e2718]:
+                  - generic [ref=e2720]: DFM
+                  - generic [ref=e2722]: Closed
+              - generic [ref=e2723]:
+                - img "AMEX" [ref=e2724]
+                - generic [ref=e2725]:
+                  - generic [ref=e2727]: AMEX
+                  - generic [ref=e2729]: Opens in 2h 20m
+              - generic [ref=e2730]:
+                - img "NYSE" [ref=e2731]
+                - generic [ref=e2732]:
+                  - generic [ref=e2734]: NYSE
+                  - generic [ref=e2736]: Opens in 2h 20m
+              - generic [ref=e2737]:
+                - img "NSDQ" [ref=e2738]
+                - generic [ref=e2739]:
+                  - generic [ref=e2741]: NSDQ
+                  - generic [ref=e2743]: Opens in 2h 20m
+              - generic [ref=e2744]:
+                - img "LSE" [ref=e2745]
+                - generic [ref=e2746]:
+                  - generic [ref=e2748]: LSE
+                  - generic [ref=e2750]: Closed
+              - generic [ref=e2751]:
+                - img "CHIX" [ref=e2752]
+                - generic [ref=e2753]:
+                  - generic [ref=e2755]: CHIX
+                  - generic [ref=e2757]: Closed
+              - generic [ref=e2758]:
+                - img "HKEX" [ref=e2759]
+                - generic [ref=e2760]:
+                  - generic [ref=e2762]: HKEX
+                  - generic [ref=e2764]: Opens in 15h 20m
+              - generic [ref=e2765]:
+                - img "XTKS" [ref=e2766]
+                - generic [ref=e2767]:
+                  - generic [ref=e2769]: XTKS
+                  - generic [ref=e2771]: Closed
+          - generic [ref=e2772]:
+            - heading "Market Holidays" [level=3] [ref=e2773]
+            - generic [ref=e2774]:
+              - generic [ref=e2775]:
+                - img [ref=e2776]
+                - generic [ref=e2781]:
+                  - paragraph [ref=e2782]: Memorial Day
+                  - paragraph [ref=e2783]: 2026-05-25 • NSDQ
+              - generic [ref=e2784]:
+                - img [ref=e2785]
+                - generic [ref=e2790]:
+                  - paragraph [ref=e2791]: Memorial Day
+                  - paragraph [ref=e2792]: 2026-05-25 • NYSE
+              - generic [ref=e2793]:
+                - img [ref=e2794]
+                - generic [ref=e2799]:
+                  - paragraph [ref=e2800]: Memorial Day
+                  - paragraph [ref=e2801]: 2026-05-25 • AMEX
+              - generic [ref=e2802]:
+                - img [ref=e2803]
+                - generic [ref=e2808]:
+                  - paragraph [ref=e2809]: Arafat Day
+                  - paragraph [ref=e2810]: 2026-05-26 • ADSM
+              - generic [ref=e2811]:
+                - img [ref=e2812]
+                - generic [ref=e2817]:
+                  - paragraph [ref=e2818]: Arafat Day
+                  - paragraph [ref=e2819]: 2026-05-26 • DFM
+              - generic [ref=e2820]:
+                - img [ref=e2821]
+                - generic [ref=e2826]:
+                  - paragraph [ref=e2827]: Bank Holiday
+                  - paragraph [ref=e2828]: 2026-05-04 • LSE
+              - generic [ref=e2829]:
+                - img [ref=e2830]
+                - generic [ref=e2835]:
+                  - paragraph [ref=e2836]: Greenery Day
+                  - paragraph [ref=e2837]: 2026-05-04 • XTKS
+        - generic [ref=e2840]:
+          - generic [ref=e2841]:
+            - generic [ref=e2842]:
+              - img [ref=e2844]
+              - heading "Available Funds" [level=3] [ref=e2847]
+            - button "View All" [ref=e2848] [cursor=pointer]
+          - generic [ref=e2850]:
+            - generic [ref=e2851]: Total Balance
+            - generic [ref=e2852]: USD 0.00
+        - generic [ref=e2855]:
+          - generic [ref=e2856]:
+            - img [ref=e2858]
+            - heading "Quick Wallet Actions" [level=3] [ref=e2860]
+          - generic [ref=e2861]:
+            - button "Add Funds Deposit money" [ref=e2862] [cursor=pointer]:
+              - generic [ref=e2863]:
+                - img [ref=e2865]
+                - generic [ref=e2868]:
+                  - generic [ref=e2869]: Add Funds
+                  - generic [ref=e2870]: Deposit money
+            - button "Transfer Between currencies" [ref=e2871] [cursor=pointer]:
+              - generic [ref=e2872]:
+                - img [ref=e2874]
+                - generic [ref=e2879]:
+                  - generic [ref=e2880]: Transfer
+                  - generic [ref=e2881]: Between currencies
+            - button "Withdraw To bank account" [ref=e2882] [cursor=pointer]:
+              - generic [ref=e2883]:
+                - img [ref=e2885]
+                - generic [ref=e2888]:
+                  - generic [ref=e2889]: Withdraw
+                  - generic [ref=e2890]: To bank account
+            - button "History View transactions" [ref=e2891] [cursor=pointer]:
+              - generic [ref=e2892]:
+                - img [ref=e2894]
+                - generic [ref=e2898]:
+                  - generic [ref=e2899]: History
+                  - generic [ref=e2900]: View transactions
+          - paragraph [ref=e2902]: "Quick Access: Manage your funds, transfers, and withdrawals seamlessly."
+        - generic [ref=e2905]:
+          - generic [ref=e2906]:
+            - heading "Sectors Health Rating" [level=3] [ref=e2907]
+            - generic [ref=e2908]:
+              - button "North America" [ref=e2909] [cursor=pointer]
+              - button "Europe" [ref=e2910] [cursor=pointer]
+              - button "Asia & Oceania" [ref=e2911] [cursor=pointer]
+              - button "Africa" [ref=e2912] [cursor=pointer]
+          - generic [ref=e2913]:
+            - generic [ref=e2915]:
+              - img [ref=e2916]
+              - generic [ref=e2920]:
+                - generic [ref=e2921]: "92"
+                - generic [ref=e2922]: Communication Services
+            - generic [ref=e2924]:
+              - img [ref=e2925]
+              - generic [ref=e2929]:
+                - generic [ref=e2930]: "72"
+                - generic [ref=e2931]: Consumer Discretionary
+            - generic [ref=e2933]:
+              - img [ref=e2934]
+              - generic [ref=e2938]:
+                - generic [ref=e2939]: "89"
+                - generic [ref=e2940]: Consumer Staples
+            - generic [ref=e2942]:
+              - img [ref=e2943]
+              - generic [ref=e2947]:
+                - generic [ref=e2948]: "81"
+                - generic [ref=e2949]: Energy
+            - generic [ref=e2951]:
+              - img [ref=e2952]
+              - generic [ref=e2956]:
+                - generic [ref=e2957]: "68"
+                - generic [ref=e2958]: Financials
+            - generic [ref=e2960]:
+              - img [ref=e2961]
+              - generic [ref=e2965]:
+                - generic [ref=e2966]: "92"
+                - generic [ref=e2967]: Health Care
+            - generic [ref=e2969]:
+              - img [ref=e2970]
+              - generic [ref=e2974]:
+                - generic [ref=e2975]: "69"
+                - generic [ref=e2976]: Industrials
+            - generic [ref=e2978]:
+              - img [ref=e2979]
+              - generic [ref=e2983]:
+                - generic [ref=e2984]: "87"
+                - generic [ref=e2985]: Information Technology
+            - generic [ref=e2987]:
+              - img [ref=e2988]
+              - generic [ref=e2992]:
+                - generic [ref=e2993]: "89"
+                - generic [ref=e2994]: Materials
+            - generic [ref=e2996]:
+              - img [ref=e2997]
+              - generic [ref=e3001]:
+                - generic [ref=e3002]: "90"
+                - generic [ref=e3003]: N/A
+            - generic [ref=e3005]:
+              - img [ref=e3006]
+              - generic [ref=e3010]:
+                - generic [ref=e3011]: "76"
+                - generic [ref=e3012]: Real Estate
+            - generic [ref=e3014]:
+              - img [ref=e3015]
+              - generic [ref=e3019]:
+                - generic [ref=e3020]: "69"
+                - generic [ref=e3021]: Utilities
+        - generic [ref=e3024]:
+          - generic [ref=e3025]:
+            - heading "My Holdings (0)" [level=3] [ref=e3027]
+            - button "View All Positions" [ref=e3028] [cursor=pointer]
+          - generic [ref=e3030]: No holdings to display. Buy some stocks to see them here.
+        - generic [ref=e3033]:
+          - heading "My Watchlist (0)" [level=3] [ref=e3035]
+          - generic [ref=e3036]:
+            - button "All" [ref=e3037] [cursor=pointer]
+            - button "Add new watchlist" [ref=e3038] [cursor=pointer]:
+              - img [ref=e3039]
+          - generic [ref=e3043]: No stocks in this watchlist
+        - generic [ref=e3047]:
+          - generic [ref=e3048]:
+            - generic [ref=e3049]:
+              - img [ref=e3051]
+              - heading "Recent Transfers" [level=3] [ref=e3056]
+            - button "View All" [ref=e3057] [cursor=pointer]:
+              - img [ref=e3058]
+              - text: View All
+          - generic [ref=e3063]:
+            - img [ref=e3065]
+            - generic [ref=e3070]: No recent transfers
+            - paragraph [ref=e3071]: Your currency transfer history will appear here
+  - button "Complete verification" [ref=e3073] [cursor=pointer]:
+    - img [ref=e3074]
+  - contentinfo [ref=e3078]:
+    - generic [ref=e3079]:
+      - img "Nuqi Logo" [ref=e3081]
+      - generic [ref=e3082]:
+        - list [ref=e3084]:
+          - listitem [ref=e3085]:
+            - link "Advisory" [ref=e3086] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/#advisory
+          - listitem [ref=e3087]:
+            - link "Prive" [ref=e3088] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/#nuqiprive
+          - listitem [ref=e3089]:
+            - link "IRIS" [ref=e3090] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/iris
+          - listitem [ref=e3091]:
+            - link "Pricing" [ref=e3092] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/pricing
+          - listitem [ref=e3093]:
+            - link "Legal" [ref=e3094] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/privacy
+          - listitem [ref=e3095]:
+            - link "About" [ref=e3096] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/about
+          - listitem [ref=e3097]:
+            - link "Partnership" [ref=e3098] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/partnership
+          - listitem [ref=e3099]:
+            - link "News" [ref=e3100] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/press
+        - list [ref=e3102]:
+          - listitem [ref=e3103]: ETFs
+          - listitem [ref=e3104]: Bonds
+          - listitem [ref=e3105]: Stocks
+          - listitem [ref=e3106]: Mutual Funds (Coming Soon)
+        - list [ref=e3108]:
+          - listitem [ref=e3109] [cursor=pointer]:
+            - img "US" [ref=e3110]
+            - generic [ref=e3111]: US
+          - listitem [ref=e3112] [cursor=pointer]:
+            - img "UAE" [ref=e3113]
+            - generic [ref=e3114]: UAE
+          - listitem [ref=e3115] [cursor=pointer]:
+            - img "EUR" [ref=e3116]
+            - generic [ref=e3117]: EUR
+          - listitem [ref=e3118] [cursor=pointer]:
+            - img "UK" [ref=e3119]
+            - generic [ref=e3120]: UK
+    - separator [ref=e3121]
+    - generic [ref=e3122]:
+      - generic [ref=e3123]:
+        - paragraph [ref=e3124]:
+          - text: © 2025 Nuqi Digital Wealth Limited. All rights reserved.
+          - generic [ref=e3125]:
+            - text: Please visit our
+            - link "Disclaimer Notice page" [ref=e3126] [cursor=pointer]:
+              - /url: https://uae.nuqiwealth.com/disclaimer
+            - text: for further information.
+        - paragraph [ref=e3127]: V.2.1.3
+      - generic [ref=e3129]:
+        - link "Contact by Mail" [ref=e3130] [cursor=pointer]:
+          - /url: mailto:support@nuqiwealth.in
+          - img [ref=e3131]
+        - link "Follow on Instagram" [ref=e3134] [cursor=pointer]:
+          - /url: https://www.instagram.com/nuqi_wealth/
+          - img [ref=e3135]
+        - link "Follow on Facebook" [ref=e3139] [cursor=pointer]:
+          - /url: https://www.facebook.com/Nuqiadvisory
+          - img [ref=e3140]
+        - link "Follow on Linkedin" [ref=e3142] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/nuqi-wealth
+          - img [ref=e3143]
+```
+
+# Test source
+
+```ts
+  2   | //  DashboardPage — Main dashboard after login
+  3   | //  URL: https://uat.nuqiwealth.com/dashboard  (or /home)
+  4   | // ─────────────────────────────────────────────────────────────
+  5   | 
+  6   | import { Page, expect } from '@playwright/test';
+  7   | import { BasePage } from './BasePage';
+  8   | 
+  9   | export class DashboardPage extends BasePage {
+  10  |   // ── Locators ───────────────────────────────────────────────
+  11  |   readonly welcomeMessage      = () => this.page.locator('[data-testid="welcome-message"], h1:has-text("Welcome"), .greeting').first();
+  12  |   readonly userAvatar          = () => this.page.locator('[data-testid="user-avatar"], .user-avatar, [aria-label="Profile"]').first();
+  13  |   readonly portfolioWidget     = () => this.page.locator('[data-testid="portfolio-widget"], .portfolio-summary, .dashboard-portfolio').first();
+  14  |   readonly investNowCta        = () => this.page.locator('[data-testid="invest-cta"], button:has-text("Invest Now"), a:has-text("Invest")').first();
+  15  |   readonly kycPrompt           = () => this.page.locator('[data-testid="kyc-prompt"], .kyc-banner, [role="alert"]:has-text("KYC")')
+  16  |                                          .or(this.page.getByRole('heading', { name: 'KYC Verification', exact: true }))
+  17  |                                          .first();
+  18  |   readonly riskPrompt          = () => this.page.locator('[data-testid="risk-prompt"], .risk-banner, [role="alert"]:has-text("Risk")').first();
+  19  |   readonly marketSummary       = () => this.page.locator('[data-testid="market-summary"], .market-widget').first();
+  20  |   readonly newsSection         = () => this.page.locator('[data-testid="news-section"], .news-widget, .market-news').first();
+  21  | 
+  22  |   readonly logoutBtn = () =>
+  23  |     this.page.getByRole('button',   { name: /log.?out|sign.?out/i })
+  24  |       .or(this.page.getByRole('link',     { name: /log.?out|sign.?out/i }))
+  25  |       .or(this.page.getByRole('menuitem', { name: /log.?out|sign.?out/i }))
+  26  |       .or(this.page.locator('[data-testid*="logout"], [data-testid*="sign-out"]'))
+  27  |       .or(this.page.locator('li, [role="listitem"]').filter({ hasText: /^log.?out$|^sign.?out$/i }))
+  28  |       .or(this.page.locator('a, span, div').filter({ hasText: /^log.?out$|^sign.?out$/i }))
+  29  |       .first();
+  30  |   readonly logoutConfirmBtn    = () => this.page.locator('div.fixed div button:nth-child(2), [role="dialog"] button:nth-child(2)').first();
+  31  | 
+  32  |   // ── Nav ───────────────────────────────────────────────────
+  33  |   readonly navHome             = () => this.page.locator('[data-testid="nav-home"], a[href*="dashboard"], nav a:has-text("Home")').first();
+  34  |   readonly navPortfolio        = () => this.page.locator('[data-testid="nav-portfolio"], a[href*="portfolio"]').first();
+  35  |   readonly navInvest           = () => this.page.locator('[data-testid="nav-invest"], a[href*="invest"]').first();
+  36  |   readonly navTransactions     = () => this.page.locator('[data-testid="nav-transactions"], a[href*="transaction"]').first();
+  37  |   readonly navProfile          = () => this.page.locator('[data-testid="nav-profile"], a[href*="profile"]').first();
+  38  | 
+  39  |   // Mobile nav (hamburger) — icon-only SVG button in the root header
+  40  |   readonly mobileMenuBtn       = () => this.page.locator('#root > div > header > button, button[aria-label="Menu"], button[aria-label="Toggle menu"], [data-testid="mobile-menu"]').first();
+  41  |   readonly mobileMenuDrawer    = () => this.page.locator('[data-testid="mobile-drawer"], .mobile-nav, [role="dialog"]').first();
+  42  | 
+  43  |   constructor(page: Page) {
+  44  |     super(page);
+  45  |   }
+  46  | 
+  47  |   // ── TC-DASH-01: Dashboard loaded ─────────────────────────
+  48  | 
+  49  |   async assertDashboardLoaded(): Promise<void> {
+  50  |     await this.page.waitForLoadState('networkidle');
+  51  |     await expect(this.page).toHaveURL(/\/(dashboard|home|onboarding|kyc|invest|$)/, { timeout: 15000 });
+  52  |   }
+  53  | 
+  54  |   async assertReturningUserLanded(): Promise<void> {
+  55  |     await this.page.waitForLoadState('networkidle');
+  56  |     await expect(this.page).toHaveURL('https://uat.nuqiwealth.com/', { timeout: 15000 });
+  57  |   }
+  58  | 
+  59  |   async assertLoggedOut(): Promise<void> {
+  60  |     await this.page.waitForLoadState('networkidle');
+  61  |     // App redirects to root after logout, not /login
+  62  |     await expect(this.page).toHaveURL(/^https:\/\/uat\.nuqiwealth\.com\/(login)?$/, { timeout: 10000 });
+  63  |   }
+  64  | 
+  65  |   async logout(): Promise<void> {
+  66  |     const toggleBtn = this.mobileMenuBtn();
+  67  |     if (await toggleBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+  68  |       await toggleBtn.click();
+  69  |       // Give the drawer's CSS transition time to complete before we act on its contents
+  70  |       await this.page.waitForTimeout(400);
+  71  |     }
+  72  | 
+  73  |     // locator.evaluate(el => el.click()) resolves the element via the normal
+  74  |     // Playwright locator (with retry) then calls the DOM .click() API directly,
+  75  |     // bypassing all visibility / position pre-checks. This is necessary because
+  76  |     // the logout <li> lives inside a CSS-transformed drawer (translateX(-100%))
+  77  |     // that may already be closed by the time Playwright's normal click runs.
+  78  |     await this.logoutBtn().evaluate((el) => (el as HTMLElement).click());
+  79  | 
+  80  |     if (await this.logoutConfirmBtn().isVisible({ timeout: 3000 }).catch(() => false)) {
+  81  |       await this.logoutConfirmBtn().click();
+  82  |     }
+  83  |   }
+  84  | 
+  85  |   async assertWelcomeVisible(): Promise<void> {
+  86  |     await expect(this.welcomeMessage()).toBeVisible({ timeout: 8000 });
+  87  |   }
+  88  | 
+  89  |   // ── TC-DASH-02: KYC prompt visible for unverified users ──
+  90  | 
+  91  |   async assertKycPromptVisible(): Promise<void> {
+  92  |     await expect(this.kycPrompt()).toBeVisible({ timeout: 5000 });
+  93  |   }
+  94  | 
+  95  |   async assertNoKycPrompt(): Promise<void> {
+  96  |     await expect(this.kycPrompt()).not.toBeVisible({ timeout: 3000 });
+  97  |   }
+  98  | 
+  99  |   // ── TC-DASH-03: Risk prompt visible ──────────────────────
+  100 | 
+  101 |   async assertRiskPromptVisible(): Promise<void> {
+> 102 |     await expect(this.riskPrompt()).toBeVisible({ timeout: 5000 });
+      |                                     ^ Error: expect(locator).toBeVisible() failed
+  103 |   }
+  104 | 
+  105 |   async assertNoRiskPrompt(): Promise<void> {
+  106 |     await expect(this.riskPrompt()).not.toBeVisible({ timeout: 3000 });
+  107 |   }
+  108 | 
+  109 |   // ── Navigation helpers ────────────────────────────────────
+  110 | 
+  111 |   async goToPortfolio(): Promise<void> {
+  112 |     await this.navPortfolio().click();
+  113 |     await this.waitForNavigation();
+  114 |   }
+  115 | 
+  116 |   async goToInvest(): Promise<void> {
+  117 |     await this.navInvest().click();
+  118 |     await this.waitForNavigation();
+  119 |   }
+  120 | 
+  121 |   async goToTransactions(): Promise<void> {
+  122 |     await this.navTransactions().click();
+  123 |     await this.waitForNavigation();
+  124 |   }
+  125 | 
+  126 |   // ── Mobile menu helpers ───────────────────────────────────
+  127 | 
+  128 |   async openMobileMenu(): Promise<void> {
+  129 |     const btn = this.mobileMenuBtn();
+  130 |     if (await btn.isVisible({ timeout: 2000 }).catch(() => false)) {
+  131 |       await btn.click();
+  132 |       await expect(this.mobileMenuDrawer()).toBeVisible();
+  133 |     }
+  134 |   }
+  135 | 
+  136 |   async assertMobileNavVisible(): Promise<void> {
+  137 |     // On mobile, bottom nav or hamburger must be visible
+  138 |     const bottomNav = this.page.locator('.bottom-nav, [data-testid="bottom-nav"]');
+  139 |     const hamburger = this.mobileMenuBtn();
+  140 |     const either = (await bottomNav.isVisible().catch(() => false)) ||
+  141 |                    (await hamburger.isVisible().catch(() => false));
+  142 |     expect(either).toBeTruthy();
+  143 |   }
+  144 | }
+  145 | 
+```
