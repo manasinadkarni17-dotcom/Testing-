@@ -100,12 +100,14 @@ export class SignupPage extends BasePage {
   // ─────────────────────────────────────────────────────────────
 
   async submitEmailForSignup(email: string) {
-    await this.emailAddressInput.fill(email);
+    await this.emailAddressInput.click();
+    await this.emailAddressInput.pressSequentially(email);
+    await expect(this.emailAddressInput).toHaveValue(email);
     await this.continueWithEmailButton.click();
 
     await this.otpSingleInput
       .or(this.otpDigitInputs.first())
-      .waitFor({ state: 'visible' });
+      .waitFor({ state: 'visible', timeout: 30_000 });
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -212,18 +214,24 @@ export class SignupPage extends BasePage {
   // ─────────────────────────────────────────────────────────────
 
   async continueWithGoogle(page: Page) {
-    const [popup] = await Promise.all([
-      page.waitForEvent('popup'),
+    const [result] = await Promise.all([
+      Promise.race([
+        page.waitForEvent('popup', { timeout: 15_000 }).then(p => p),
+        page.waitForURL(url => /google|oauth|accounts/i.test(url), { timeout: 15_000 }).then(() => page),
+      ]),
       this.googleButton.click(),
     ]);
-    return popup;
+    return result;
   }
 
   async continueWithApple(page: Page) {
-    const [popup] = await Promise.all([
-      page.waitForEvent('popup'),
+    const [result] = await Promise.all([
+      Promise.race([
+        page.waitForEvent('popup', { timeout: 15_000 }).then(p => p),
+        page.waitForURL(url => /apple|oauth|appleid/i.test(url), { timeout: 15_000 }).then(() => page),
+      ]),
       this.appleButton.click(),
     ]);
-    return popup;
+    return result;
   }
 }
